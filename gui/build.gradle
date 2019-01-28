@@ -2,7 +2,8 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.3.11'
 }
 
-group 'Python IDE'
+//group 'Python IDE'
+apply plugin: "application"
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -11,6 +12,11 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile group: 'no.tornado', name: 'tornadofx', version: '1.7.18'
+
+    testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+    testCompile group: 'org.testfx', name: 'testfx-core', version: '4.0.15-alpha'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.3.2'
 }
 
 compileKotlin {
