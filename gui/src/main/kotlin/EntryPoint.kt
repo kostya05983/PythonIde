@@ -1,5 +1,6 @@
 import tornadofx.App
 import tornadofx.launch
+import views.MenuView
 
 
 class MyApp():App(MenuView::class)
