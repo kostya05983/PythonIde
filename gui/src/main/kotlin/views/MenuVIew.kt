@@ -7,10 +7,10 @@ import java.io.File
 class MenuView(private val directory: File) : View() {
     private val editor = Editor()
     private val outPuter = Outputer()
-    private val projectStructure = ProjectStructure(directory)
+//    private val projectStructure = ProjectStructure(directory)
 
     override val root: Parent = hbox {
-        add(projectStructure)
+        //        add(projectStructure)
         vbox {
             menubar {
                 menu("File") {
