@@ -1,4 +1,4 @@
-import models.ProjectChooserModel
+import models.ListOfProjectModel
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -16,7 +16,7 @@ class ProjectChoserModelTest {
             test1,/home/kostya05983/Projects/
         """.trimIndent().toByteArray())
         fileOutputStream.close()
-        val result = ProjectChooserModel().getRecentProjects()
+        val result = ListOfProjectModel().getRecentProjects()
         assertEquals("test", result[0].name)
         assertEquals(File("/home/kostya05983"), result[0].path)
         assertEquals("test1", result[1].name)

@@ -1,18 +1,44 @@
 package views
 
+import ColorHolder
 import javafx.scene.Parent
+import javafx.scene.layout.Priority
 import tornadofx.*
 import java.io.File
 
 class MenuView(private val directory: File) : View() {
     private val editor = Editor()
-    private val outPuter = Outputer()
-//    private val projectStructure = ProjectStructure(directory)
+    private val outPuter = OutPuter()
 
     override val root: Parent = hbox {
-        //        add(projectStructure)
+        style {
+            backgroundColor += ColorHolder.primaryColor
+        }
         vbox {
+            style {
+                hgrow = Priority.ALWAYS
+                backgroundColor += ColorHolder.secondColor
+            }
             menubar {
+                stylesheet {
+                    Stylesheet.content {
+                        backgroundColor += ColorHolder.secondColor
+                    }
+
+                    Stylesheet.menu {
+                        backgroundColor += ColorHolder.secondColor
+                        baseColor = ColorHolder.secondColor
+                    }
+                    Stylesheet.menuItem {
+                        backgroundColor += ColorHolder.secondColor
+                        baseColor = ColorHolder.secondColor
+                    }
+                }
+                style {
+                    baseColor = ColorHolder.secondColor
+                    backgroundColor += ColorHolder.secondColor
+                    textFill = ColorHolder.fontColor
+                }
                 menu("File") {
                     item("New")
                     item("Open Recent")
@@ -24,25 +50,25 @@ class MenuView(private val directory: File) : View() {
                 }
                 menu("Editor") {
                     item("Undo") {
-                        action { editor.undo() }
+                        action { editor.root.undo() }
                     }
                     item("Redo") {
-                        action { editor.redo() }
+                        action { editor.root.redo() }
                     }
                     item("Cut") {
-                        action { editor.cut() }
+                        action { editor.root.cut() }
                     }
                     item("Copy") {
-                        action { editor.copy() }
+                        action { editor.root.copy() }
                     }
                     item("Paste") {
-                        action { editor.paste() }
+                        action { editor.root.paste() }
                     }
                     item("Delete") {
-                        action { editor.deleteSelectedText() }
+                        action { editor.root.deleteSelectedText() }
                     }
                     item("Select all") {
-                        action { editor.selectAll() }
+                        action { editor.root.selectAll() }
                     }
                 }
                 menu("View") {
@@ -88,6 +114,11 @@ class MenuView(private val directory: File) : View() {
                 }
             }
             add(editor)
+            region {
+                style {
+                    minHeight = Dimension(20.0, Dimension.LinearUnits.px)
+                }
+            }
             add(outPuter)
         }
     }

@@ -4,8 +4,8 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 
-class ProjectChooserModel {
-    val file = File("/home/kostya05983/.pythonIde/recentProjects.pyth")
+class ListOfProjectModel {
+    private val file = File("/home/kostya05983/.pythonIde/recentProjects.pyth")
 
     /**
      * creates file if not find this

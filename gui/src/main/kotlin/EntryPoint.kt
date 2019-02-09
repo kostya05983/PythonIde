@@ -1,6 +1,7 @@
 import tornadofx.App
 import tornadofx.UIComponent
 import tornadofx.launch
+import views.MenuView
 import views.projectChoser.ProjectChooser
 import kotlin.reflect.KClass
 

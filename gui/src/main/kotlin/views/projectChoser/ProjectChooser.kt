@@ -1,15 +1,10 @@
 package views.projectChoser
 
+import ColorHolder
 import javafx.geometry.Pos
 import javafx.scene.Parent
-import javafx.scene.control.ListView
-import javafx.scene.control.SelectionMode
 import javafx.scene.layout.Priority
-import javafx.scene.paint.Color
-import models.Project
-import models.ProjectChooserModel
 import tornadofx.*
-import views.MenuView
 
 /**
  * element color #3e3e44
@@ -18,58 +13,19 @@ import views.MenuView
  */
 
 class ProjectChooser : View() {
-    private val model = ProjectChooserModel()
 
-    override val root: Parent = vbox {
-        style {
-            backgroundColor += c("#3e3e44")
-            alignment = Pos.CENTER
-        }
-        button {
-            text = "Open project"
-            style {
-                backgroundColor += Color.TRANSPARENT
-                textFill = Color.WHITE
-            }
-            action {
-                val file = chooseDirectory { }
-                if (file != null)
-                    MenuView(file).openWindow()
-            }
-        }
-        button {
-            text = "Import from vcs"
-            style {
-                backgroundColor += Color.TRANSPARENT
-                textFill = Color.WHITE
-            }
-        }
-        val projects = model.getRecentProjects()
-        listview<Project> {
-            val listCellHeight = 50.0
-            cellFormat {
+    override val root: Parent =
+            hbox {
                 style {
-                    backgroundColor += c("#3e3e44")
-                    textFill = Color.WHITE
-                    alignment = Pos.CENTER
-                    maxHeight = Dimension(listCellHeight, Dimension.LinearUnits.px)
-                    minHeight = Dimension(listCellHeight, Dimension.LinearUnits.px)
+                    backgroundColor += ColorHolder.secondColor
+                    vgrow = Priority.ALWAYS
+                    minWidth = Dimension(600.0, Dimension.LinearUnits.px)
+                    minHeight = Dimension(400.0, Dimension.LinearUnits.px)
                 }
-
-                text = it.name
-            }
-            style {
-                backgroundColor += c("#3e3e44")
-                maxHeight = Dimension(listCellHeight * projects.size, Dimension.LinearUnits.px)
+                //LEFT PART
+                add(ListOfProjects())
+                //RIGHT PART
+                add(SelectionMenu())
             }
 
-
-            for (project in projects)
-                items.add(project)
-            selectionModel.selectionMode = SelectionMode.SINGLE
-            onUserSelect {
-                MenuView(it.path).openWindow()
-            }
-        }
-    }
 }

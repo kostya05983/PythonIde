@@ -1,35 +1,30 @@
 package views
 
 import ColorHolder
-import javafx.scene.control.TextArea
+import javafx.scene.Parent
 import javafx.scene.layout.Priority
-import javafx.scene.paint.Color
 import tornadofx.*
+import tornadofx.Stylesheet.Companion.content
 
-class Editor : View() {
-    override val root: TextArea = textarea {
+class OutPuter : View() {
+    override val root: Parent = textarea {
         stylesheet {
-            Stylesheet.content {
+            content {
                 backgroundColor += ColorHolder.primaryColor
-                borderWidth += box(Dimension(0.0, Dimension.LinearUnits.px))
             }
             Stylesheet.focused {
                 backgroundColor += ColorHolder.primaryColor
             }
         }
-
         style {
+//            startMargin = Dimension(20.0, Dimension.LinearUnits.px)
             backgroundInsets += box(Dimension(0.0, Dimension.LinearUnits.px))
             baseColor = ColorHolder.primaryColor
             focusColor = ColorHolder.primaryColor
-            textFill = ColorHolder.fontColor
-            hgrow = Priority.ALWAYS
             vgrow = Priority.ALWAYS
-
         }
+        isEditable = false
     }
-}
 
-fun TextArea.deleteSelectedText() {
-    text.replace(selectedText, "")
+
 }
