@@ -5,7 +5,8 @@ import java.io.File
 import java.io.FileReader
 
 class ListOfProjectModel {
-    private val file = File("/home/kostya05983/.pythonIde/recentProjects.pyth")
+    private val file = File("C:\\Users\\kosty\\pythonIde\\recentProjects.pyth")
+//            File("/home/kostya05983/.pythonIde/recentProjects.pyth")
 
     /**
      * creates file if not find this
