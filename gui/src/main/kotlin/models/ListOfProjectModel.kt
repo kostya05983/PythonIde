@@ -5,8 +5,15 @@ import java.io.File
 import java.io.FileReader
 
 class ListOfProjectModel {
-    private val file = File("C:\\Users\\kosty\\pythonIde\\recentProjects.pyth")
-//            File("/home/kostya05983/.pythonIde/recentProjects.pyth")
+    companion object {
+        private const val WINDOWS_NAME = "Windows 10"
+        private const val LINUX_NAME = ""
+    }
+
+    //TODO avoid absolutely pathes
+    private val file = if (System.getProperty("os.name").equals(WINDOWS_NAME))
+        File("C:\\Users\\kosty\\pythonIde\\recentProjects.pyth")
+    else File("/home/kostya05983/.pythonIde/recentProjects.pyth")
 
     /**
      * creates file if not find this
