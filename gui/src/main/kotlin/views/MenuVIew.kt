@@ -4,6 +4,7 @@ import ColorHolder
 import javafx.scene.Parent
 import javafx.scene.layout.Priority
 import tornadofx.*
+import views.projectStructure.ProjectStructure
 import java.io.File
 
 class MenuView(private val directory: File) : View() {
@@ -14,6 +15,8 @@ class MenuView(private val directory: File) : View() {
         style {
             backgroundColor += ColorHolder.primaryColor
         }
+        val projectStructure = ProjectStructure(directory)
+        add(projectStructure)
         vbox {
             style {
                 hgrow = Priority.ALWAYS

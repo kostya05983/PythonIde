@@ -1,22 +1,27 @@
 package models
 
-import views.projectStructure.SubDirectory
+import javafx.scene.control.TreeItem
 import java.io.File
 
 class TreeProjectModel(private val file: File) {
 
-    fun getStructure(): List<SubDirectory> {
-        val listSubdirectories = mutableListOf<SubDirectory>()
-        loadDirectory(listSubdirectories, file)
-        return listSubdirectories
+    fun getStructure(): TreeItem<String> {
+        val head = TreeItem<String>(file.name)
+        loadDirectory(head, file)
+        return head
     }
 
-    private fun loadDirectory(listOut: MutableList<SubDirectory>, file: File) {
+    /**
+     * fun loads project structure in tree
+     * @param parent - previous element
+     * @param file - root file of project
+     */
+    private fun loadDirectory(parent: TreeItem<String>, file: File) {
         if (file.isDirectory) {
-            val parentName = file.name
             for (child in file.listFiles()) {
-                listOut.add(SubDirectory(parentName, child.name))
-                loadDirectory(listOut, child)
+                val element = TreeItem<String>(child.name)
+                parent.children.add(element)
+                loadDirectory(element, child)
             }
         }
     }
