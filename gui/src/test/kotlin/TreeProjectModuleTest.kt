@@ -26,7 +26,7 @@ class TreeProjectModuleTest {
         val subDirectoryName = createSubdirectory(fileTest)
         val treeProjectModel = TreeProjectModel(fileTest)
         val structures = treeProjectModel.getStructure()
-        assertEquals(SubDirectory(fileTest.name, subDirectoryName), structures[0])
+        assertEquals(SubDirectory(fileTest.name, subDirectoryName), structures)
     }
 
     private fun createSubdirectory(file: File): String {

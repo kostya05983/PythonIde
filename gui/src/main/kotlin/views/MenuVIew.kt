@@ -8,12 +8,12 @@ import views.projectStructure.ProjectStructure
 import java.io.File
 
 class MenuView(private val directory: File) : View() {
-    private val editor = Editor()
-    private val outPuter = OutPuter()
+    private val outPuter: OutPuter by inject()
+    private val editorTabPane: EditorTabPane by inject()
 
     override val root: Parent = hbox {
         style {
-            backgroundColor += ColorHolder.primaryColor
+            backgroundColor += ColorHolder.secondColor
         }
         val projectStructure = ProjectStructure(directory)
         add(projectStructure)
@@ -43,35 +43,57 @@ class MenuView(private val directory: File) : View() {
                     textFill = ColorHolder.fontColor
                 }
                 menu("File") {
-                    item("New")
+                    item("New") {
+                        action {
+                            fire(CreateEditorEvent("/home/kostya05983/Downloads/info.txt"))
+                        }
+                    }
                     item("Open Recent")
                     item("Close project")
                     item("Project Structure")
-                    item("Save")
+                    item("Save") {
+                        action {
+                            fire(WriteEvent())
+                        }
+                    }
                     item("Save all")
                     item("Exit")
                 }
                 menu("Editor") {
                     item("Undo") {
-                        action { editor.root.undo() }
+                        action {
+                            editorTabPane.currentEditor?.root?.undo()
+                        }
                     }
                     item("Redo") {
-                        action { editor.root.redo() }
+                        action {
+                            editorTabPane.currentEditor?.root?.redo()
+                        }
                     }
                     item("Cut") {
-                        action { editor.root.cut() }
+                        action {
+                            editorTabPane.currentEditor?.root?.undo()
+                        }
                     }
                     item("Copy") {
-                        action { editor.root.copy() }
+                        action {
+                            editorTabPane.currentEditor?.root?.copy()
+                        }
                     }
                     item("Paste") {
-                        action { editor.root.paste() }
+                        action {
+                            editorTabPane.currentEditor?.root?.paste()
+                        }
                     }
                     item("Delete") {
-                        action { editor.root.deleteSelectedText() }
+                        action {
+                            editorTabPane.currentEditor?.root?.deleteSelectedText()
+                        }
                     }
                     item("Select all") {
-                        action { editor.root.selectAll() }
+                        action {
+                            editorTabPane.currentEditor?.root?.selectAll()
+                        }
                     }
                 }
                 menu("View") {
@@ -116,7 +138,9 @@ class MenuView(private val directory: File) : View() {
                     item("About")
                 }
             }
-            add(editor)
+
+            add(editorTabPane)
+
             region {
                 style {
                     minHeight = Dimension(20.0, Dimension.LinearUnits.px)

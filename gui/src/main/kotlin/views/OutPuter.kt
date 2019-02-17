@@ -21,7 +21,7 @@ class OutPuter : View() {
             backgroundInsets += box(Dimension(0.0, Dimension.LinearUnits.px))
             baseColor = ColorHolder.primaryColor
             focusColor = ColorHolder.primaryColor
-            vgrow = Priority.ALWAYS
+//            vgrow = Priority.ALWAYS
         }
         isEditable = false
     }
