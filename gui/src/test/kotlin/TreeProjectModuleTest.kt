@@ -1,4 +1,4 @@
-import models.TreeProjectModel
+import models.ProjectStructureModel
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import views.projectStructure.SubDirectory
@@ -24,7 +24,7 @@ class TreeProjectModuleTest {
         fileTest = File("testFile")
         fileTest.mkdir()
         val subDirectoryName = createSubdirectory(fileTest)
-        val treeProjectModel = TreeProjectModel(fileTest)
+        val treeProjectModel = ProjectStructureModel(fileTest)
         val structures = treeProjectModel.getStructure()
         assertEquals(SubDirectory(fileTest.name, subDirectoryName), structures)
     }

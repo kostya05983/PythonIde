@@ -3,10 +3,9 @@ package views.projectChoser
 import javafx.geometry.Pos
 import javafx.scene.Parent
 import javafx.scene.layout.Priority
-import javafx.scene.paint.Color
 import styles.projectChoser.SelectionMenuStyles
 import tornadofx.*
-import views.MenuView
+import views.MainView
 
 class SelectionMenu : View() {
     init {
@@ -23,7 +22,7 @@ class SelectionMenu : View() {
             action {
                 val file = chooseDirectory { }
                 if (file != null)
-                    MenuView(file).openWindow()
+                    MainView(file).openWindow()
             }
         }
         button {

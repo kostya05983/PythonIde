@@ -14,9 +14,6 @@ class ListOfProjectsStyle : Stylesheet() {
             Stylesheet.listCell {
                 textFill = Color.WHITE
                 alignment = Pos.CENTER_LEFT
-                hover {
-                    backgroundColor += ColorHolder.selectionColor
-                }
             }
 
             backgroundColor += Color.TRANSPARENT

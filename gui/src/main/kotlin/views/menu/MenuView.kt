@@ -1,0 +1,112 @@
+package views.menu
+
+import javafx.scene.Parent
+import styles.menu.MenuViewStyles
+import tornadofx.*
+import views.EditorTabPane
+import views.WriteEvent
+import views.deleteSelectedText
+
+class MenuView : View() {
+    private val editorTabPane: EditorTabPane by inject()
+
+    init {
+        importStylesheet(MenuViewStyles::class)
+    }
+
+    override val root: Parent = menubar {
+        menu("File") {
+            item("New")
+            item("Open Recent")
+            item("Close project")
+            item("Project Structure")
+            item("Save") {
+                action {
+                    fire(WriteEvent())
+                }
+            }
+            item("Save all")
+            item("Exit")
+        }
+        menu("Editor") {
+            item("Undo", "Shortcut+Z") {
+
+                action {
+                    editorTabPane.currentEditor?.root?.undo()
+                }
+            }
+            item("Redo", "Shortcut+Shift+Z") {
+                action {
+                    editorTabPane.currentEditor?.root?.redo()
+                }
+            }
+            item("Cut", "Shortcut+X") {
+                action {
+                    editorTabPane.currentEditor?.root?.undo()
+                }
+            }
+            item("Copy", "Shortcut+C") {
+                action {
+                    editorTabPane.currentEditor?.root?.copy()
+                }
+            }
+            item("Paste", "Shortcut+V") {
+                action {
+                    editorTabPane.currentEditor?.root?.paste()
+                }
+            }
+            item("Delete", "Shortcut+Y") {
+                action {
+                    editorTabPane.currentEditor?.root?.deleteSelectedText()
+                }
+            }
+            item("Select all", "Shortcut+A") {
+                action {
+                    editorTabPane.currentEditor?.root?.selectAll()
+                }
+            }
+        }
+        menu("View") {
+            item("Tool")
+            item("Project Bar")
+            //e.t.c
+        }
+        menu("Code") {
+            item("Reformat Code")
+            //e.t.c
+        }
+        menu("Analyze") {
+            item("Code cleanup")
+            item("Inspections")
+        }
+        menu("Refactor") {
+            item("Rename")
+            //e.t.c
+        }
+        menu("Build") {
+            item("Build Project")
+            item("Rebuild Project")
+            item("Build Module Apk")
+        }
+        menu("Run") {
+            item("Run")
+            item("Debug")
+            //e.t.c
+        }
+        menu("Tools") {
+            //e.t.c
+        }
+        menu("Vcs") {
+            //git,  .e.t.c
+        }
+        menu("Window") {
+            item("Restore Default Layout")
+        }
+        menu("Help") {
+            item("Find Action")
+            item("Help")
+            item("About")
+        }
+    }
+
+}

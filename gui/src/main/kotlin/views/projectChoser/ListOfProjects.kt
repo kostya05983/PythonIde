@@ -12,19 +12,9 @@ import models.ListOfProjectModel
 import models.Project
 import styles.projectChoser.ListOfProjectsStyle
 import tornadofx.*
-import tornadofx.Stylesheet.Companion.cellSelection
-import tornadofx.Stylesheet.Companion.decrementArrow
-import tornadofx.Stylesheet.Companion.decrementButton
-import tornadofx.Stylesheet.Companion.focused
 import tornadofx.Stylesheet.Companion.hover
-import tornadofx.Stylesheet.Companion.incrementArrow
-import tornadofx.Stylesheet.Companion.incrementButton
-import tornadofx.Stylesheet.Companion.listCell
 import tornadofx.Stylesheet.Companion.rowSelection
-import tornadofx.Stylesheet.Companion.selected
-import tornadofx.Stylesheet.Companion.thumb
-import tornadofx.Stylesheet.Companion.vertical
-import views.MenuView
+import views.MainView
 
 class ListOfProjects : View() {
     override val root: Parent = VBox()
@@ -63,7 +53,7 @@ class ListOfProjects : View() {
             items.add(project)
         selectionModel.selectionMode = SelectionMode.SINGLE
         onUserSelect(1) {
-            find(ProjectChooser::class).replaceWith(MenuView(it.path), sizeToScene = true)
+            find(ProjectChooser::class).replaceWith(MainView(it.path), sizeToScene = true)
         }
         style {
             backgroundColor += Color.TRANSPARENT

@@ -2,6 +2,7 @@ package views
 
 import ColorHolder
 import javafx.scene.control.TextArea
+import javafx.scene.input.KeyCombination
 import javafx.scene.layout.Priority
 import tornadofx.*
 import java.io.BufferedReader
@@ -10,9 +11,8 @@ import java.io.FileReader
 import java.io.FileWriter
 import java.util.stream.Collectors
 
-class Editor() : Fragment() {
+class Editor: Fragment() {
     val path: String by param()
-
 
     override val root: TextArea = textarea {
         stylesheet {
@@ -37,11 +37,17 @@ class Editor() : Fragment() {
         text = loadText()
 
         loadSubscriptions()
+        loadShortCut()
     }
 
     private fun loadSubscriptions() {
         subscribe<WriteEvent> {
-            println("")
+            writeTextToFile(root.text)
+        }
+    }
+
+    private fun loadShortCut() {
+        shortcut(KeyCombination.valueOf("Ctrl+S")) {
             writeTextToFile(root.text)
         }
     }

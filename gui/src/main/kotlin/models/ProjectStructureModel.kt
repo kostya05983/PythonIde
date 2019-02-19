@@ -3,7 +3,7 @@ package models
 import javafx.scene.control.TreeItem
 import java.io.File
 
-class TreeProjectModel(private val file: File) {
+class ProjectStructureModel(private val file: File) {
 
     fun getStructure(): TreeItem<ItemData> {
         val head = TreeItem<ItemData>(ItemData(file.name, file.absolutePath))
@@ -24,6 +24,12 @@ class TreeProjectModel(private val file: File) {
                 loadDirectory(element, child)
             }
         }
+    }
+
+    fun crteateNewFile(path: String, fileName: String) {
+        //for windows
+        val file = File("$path\\$fileName")
+        file.createNewFile()
     }
 }
 

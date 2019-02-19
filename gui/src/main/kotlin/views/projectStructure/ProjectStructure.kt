@@ -2,23 +2,25 @@ package views.projectStructure
 
 import javafx.scene.Parent
 import javafx.scene.input.MouseButton
+import javafx.stage.StageStyle
 import models.ItemData
-import models.TreeProjectModel
+import models.ProjectStructureModel
 import styles.projectStructure.ProjectStructureStyles
-import tornadofx.View
-import tornadofx.cellFormat
-import tornadofx.importStylesheet
-import tornadofx.treeview
+import tornadofx.*
 import views.CreateEditorEvent
 import views.EditorTabPane
 import java.io.File
 
-class ProjectStructure(file: File) : View() {
-    private val model = TreeProjectModel(file)
+class ProjectStructure() : Fragment() {
+    val file: File by param()
+
+    private val model = ProjectStructureModel(file)
+    var selected: String? = null
 
     init {
         importStylesheet(ProjectStructureStyles::class)
         find(EditorTabPane::class)
+        loadSubscriptions()
     }
 
     override val root: Parent = treeview<ItemData> {
@@ -31,15 +33,38 @@ class ProjectStructure(file: File) : View() {
 
         setOnMouseClicked {
             if (it.button == MouseButton.PRIMARY) {
-                if (it.clickCount == 2) {
+                if (it.clickCount == 2 && !isDirectory(this.selectionModel.selectedItem.value.absolutelyPath)) {
                     fire(CreateEditorEvent(this.selectionModel.selectedItem.value.absolutelyPath))
                     System.out.println("Double clicked")
                 }
             }
+            if (it.button == MouseButton.SECONDARY) {
+                find<CreatePopup>().openModal(stageStyle = StageStyle.UTILITY)
+                selected = this.selectionModel.selectedItem.value.absolutelyPath
+            }
+        }
+    }
+
+    private fun isDirectory(path: String): Boolean {
+        val file = File(path)
+        return file.isDirectory
+    }
+
+    private fun loadSubscriptions() {
+        subscribe<NewFileEvent> {
+            model.crteateNewFile(selected!!, it.name)
+            //reload
+            val projectStructure = find<ProjectStructure>(mapOf(ProjectStructure::file to file))
+            replaceWith(projectStructure)
         }
     }
 
 }
+
+class NewFileEvent(val name: String) : FXEvent()
+
+//TODO это очень примитивный релод
+class ReloadEvent() : FXEvent()
 
 
 data class SubDirectory(val parent: String, var child: String?)
