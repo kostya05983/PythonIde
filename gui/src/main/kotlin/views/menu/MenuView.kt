@@ -3,9 +3,9 @@ package views.menu
 import javafx.scene.Parent
 import styles.menu.MenuViewStyles
 import tornadofx.*
-import views.EditorTabPane
-import views.WriteEvent
-import views.deleteSelectedText
+import views.*
+import views.projectChoser.ProjectChooser
+import views.projectStructure.OpenEvent
 
 class MenuView : View() {
     private val editorTabPane: EditorTabPane by inject()
@@ -17,8 +17,19 @@ class MenuView : View() {
     override val root: Parent = menubar {
         menu("File") {
             item("New")
+            item("Open") {
+                action {
+                    val file = chooseDirectory { }
+                    if (file != null)
+                        fire(OpenEvent(file))
+                }
+            }
             item("Open Recent")
-            item("Close project")
+            item("Close project") {
+                action {
+                    fire(MyEvent())
+                }
+            }
             item("Project Structure")
             item("Save") {
                 action {
@@ -26,7 +37,11 @@ class MenuView : View() {
                 }
             }
             item("Save all")
-            item("Exit")
+            item("Exit") {
+                action {
+                    close()
+                }
+            }
         }
         menu("Editor") {
             item("Undo", "Shortcut+Z") {

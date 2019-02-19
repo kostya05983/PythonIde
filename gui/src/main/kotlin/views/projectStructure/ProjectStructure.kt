@@ -57,6 +57,11 @@ class ProjectStructure() : Fragment() {
             val projectStructure = find<ProjectStructure>(mapOf(ProjectStructure::file to file))
             replaceWith(projectStructure)
         }
+
+        subscribe<OpenEvent> {
+            val projectStructure = find<ProjectStructure>(mapOf(ProjectStructure::file to it.file))
+            replaceWith(projectStructure)
+        }
     }
 
 }
@@ -65,6 +70,8 @@ class NewFileEvent(val name: String) : FXEvent()
 
 //TODO это очень примитивный релод
 class ReloadEvent() : FXEvent()
+
+class OpenEvent(val file: File) : FXEvent()
 
 
 data class SubDirectory(val parent: String, var child: String?)

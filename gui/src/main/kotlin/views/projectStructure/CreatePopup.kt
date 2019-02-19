@@ -12,12 +12,24 @@ class CreatePopup : View() {
         minHeight = 50.0
         minWidth = 80.0
 
-        item {
-            text = "New"
+        //TODO change text color
+        style {
+            baseColor = ColorHolder.secondColor
+            backgroundColor += ColorHolder.secondColor
+            textFill = ColorHolder.fontColor
+        }
+
+        item("New") {
             setOnMouseClicked {
                 if (it.button == MouseButton.PRIMARY) {
                     find<EnterFileNamePopUp>().openModal(stageStyle = StageStyle.UTILITY)
                 }
+            }
+
+            style {
+                baseColor = ColorHolder.secondColor
+                backgroundColor += ColorHolder.secondColor
+                textFill = ColorHolder.fontColor
             }
         }
     }

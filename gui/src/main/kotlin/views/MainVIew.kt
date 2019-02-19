@@ -5,6 +5,7 @@ import javafx.scene.Parent
 import javafx.scene.layout.Priority
 import tornadofx.*
 import views.menu.MenuView
+import views.projectChoser.ProjectChooser
 import views.projectStructure.ProjectStructure
 import java.io.File
 
@@ -36,5 +37,13 @@ class MainView(private val directory: File) : View() {
             }
             add<OutPuter>()
         }
+
+        subscribe<MyEvent> {
+            replaceWith(ProjectChooser::class)
+        }
     }
+
+
 }
+
+class MyEvent: FXEvent()
