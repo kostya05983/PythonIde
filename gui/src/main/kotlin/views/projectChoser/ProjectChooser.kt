@@ -16,9 +16,9 @@ class ProjectChooser : View() {
 
     override val root: Parent =
             hbox {
+                vgrow = Priority.ALWAYS
                 style {
                     backgroundColor += ColorHolder.secondColor
-                    vgrow = Priority.ALWAYS
                     minWidth = Dimension(600.0, Dimension.LinearUnits.px)
                     minHeight = Dimension(400.0, Dimension.LinearUnits.px)
                 }

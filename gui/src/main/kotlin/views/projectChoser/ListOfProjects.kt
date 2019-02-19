@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox
 import javafx.scene.paint.Color
 import models.ListOfProjectModel
 import models.Project
+import styles.projectChoser.ListOfProjectsStyle
 import tornadofx.*
 import tornadofx.Stylesheet.Companion.cellSelection
 import tornadofx.Stylesheet.Companion.decrementArrow
@@ -30,41 +31,11 @@ class ListOfProjects : View() {
     private val model = ListOfProjectModel()
 
     init {
+        importStylesheet(ListOfProjectsStyle::class)
         with(root) {
-            style {
-                vgrow = Priority.ALWAYS
-                backgroundColor += ColorHolder.primaryColor
-            }
             scrollpane {
-                style {
-                    backgroundColor += ColorHolder.primaryColor
-                    baseColor = Color.TRANSPARENT
-                    vgrow = Priority.ALWAYS
-                    vBarPolicy = ScrollPane.ScrollBarPolicy.ALWAYS
-                    hbarPolicy = ScrollPane.ScrollBarPolicy.NEVER
-                }
-                stylesheet {
-                    vertical {
-                        backgroundColor += ColorHolder.primaryColor
-                        thumb {
-                            backgroundColor += ColorHolder.secondColor
-                        }
-
-                        incrementButton {
-                            incrementArrow {
-                                baseColor = ColorHolder.fontColor
-                            }
-                        }
-                        decrementButton {
-                            decrementArrow {
-                                baseColor = ColorHolder.fontColor
-                            }
-                        }
-                        fitToHeight = true
-                        vBarPolicy = ScrollPane.ScrollBarPolicy.ALWAYS
-                        vgrow = Priority.ALWAYS
-                    }
-                }
+                hbarPolicy = ScrollPane.ScrollBarPolicy.NEVER
+                vgrow = Priority.ALWAYS
                 add(projectListView())
             }
         }
@@ -100,9 +71,10 @@ class ListOfProjects : View() {
             fitToHeight = true
 
             vBarPolicy = ScrollPane.ScrollBarPolicy.ALWAYS
-            vgrow = Priority.ALWAYS
 
         }
+        vgrow = Priority.ALWAYS
+
         stylesheet {
             rowSelection {
                 backgroundColor += ColorHolder.selectionColor

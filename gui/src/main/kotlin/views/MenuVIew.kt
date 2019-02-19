@@ -7,6 +7,11 @@ import tornadofx.*
 import views.projectStructure.ProjectStructure
 import java.io.File
 
+
+//TODO divide styles in diffetenrt locations, folder styles and ceate a c;ass style for each view
+//TODO it helps more docomposition and edit view more easily, because we have view as structure of out view
+//TODO and style as appearance of our view
+//TODO add loggings to vew
 class MenuView(private val directory: File) : View() {
     private val outPuter: OutPuter by inject()
     private val editorTabPane: EditorTabPane by inject()
@@ -43,11 +48,7 @@ class MenuView(private val directory: File) : View() {
                     textFill = ColorHolder.fontColor
                 }
                 menu("File") {
-                    item("New") {
-                        action {
-                            fire(CreateEditorEvent("/home/kostya05983/Downloads/info.txt"))
-                        }
-                    }
+                    item("New")
                     item("Open Recent")
                     item("Close project")
                     item("Project Structure")
@@ -149,6 +150,4 @@ class MenuView(private val directory: File) : View() {
             add(outPuter)
         }
     }
-
-
 }

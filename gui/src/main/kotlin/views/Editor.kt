@@ -10,7 +10,10 @@ import java.io.FileReader
 import java.io.FileWriter
 import java.util.stream.Collectors
 
-class Editor(var path: String) : View() {
+class Editor() : Fragment() {
+    val path: String by param()
+
+
     override val root: TextArea = textarea {
         stylesheet {
             Stylesheet.content {
@@ -38,6 +41,7 @@ class Editor(var path: String) : View() {
 
     private fun loadSubscriptions() {
         subscribe<WriteEvent> {
+            println("")
             writeTextToFile(root.text)
         }
     }
