@@ -1,0 +1,4 @@
+package styles
+
+class EditorTabStyles {
+}
