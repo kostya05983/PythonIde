@@ -14,11 +14,6 @@ class EnterFileNamePopUp : View() {
         importStylesheet(EnterFileNamePopUpStyles::class)
 
         with(root) {
-            style {
-                backgroundColor += ColorHolder.secondColor
-                textFill = ColorHolder.fontColor
-
-            }
             fieldset {
                 field("FileName") {
                     style {
@@ -29,9 +24,6 @@ class EnterFileNamePopUp : View() {
                 }
             }
             button("Ok") {
-                style {
-                    backgroundColor += ColorHolder.selectionColor
-                }
                 setOnMouseClicked {
                     if (it.clickCount == 1) {
                         fire(NewFileEvent(name.value))

@@ -1,9 +1,12 @@
 package views
 
-import ColorHolder
+import controllers.Lab2AutomatAnalyzer
 import javafx.scene.control.TextArea
+import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCombination
+import javafx.scene.input.KeyEvent
 import javafx.scene.layout.Priority
+import styles.EditorStyles
 import tornadofx.*
 import java.io.BufferedReader
 import java.io.BufferedWriter
@@ -11,33 +14,29 @@ import java.io.FileReader
 import java.io.FileWriter
 import java.util.stream.Collectors
 
-class Editor: Fragment() {
+class Editor : Fragment() {
     val path: String by param()
 
-    override val root: TextArea = textarea {
-        stylesheet {
-            Stylesheet.content {
-                backgroundColor += ColorHolder.primaryColor
-                borderWidth += box(Dimension(0.0, Dimension.LinearUnits.px))
-            }
-            Stylesheet.focused {
-                backgroundColor += ColorHolder.primaryColor
-            }
-        }
+    val syntaxAnylyzer: Lab2AutomatAnalyzer by inject()
 
-        style {
-            backgroundInsets += box(Dimension(0.0, Dimension.LinearUnits.px))
-            baseColor = ColorHolder.primaryColor
-            focusColor = ColorHolder.primaryColor
-            textFill = ColorHolder.fontColor
-            hgrow = Priority.ALWAYS
-            vgrow = Priority.ALWAYS
-        }
+    init {
+        importStylesheet(EditorStyles::class)
+    }
+
+    override val root: TextArea = textarea {
+        hgrow = Priority.ALWAYS
+        vgrow = Priority.ALWAYS
 
         text = loadText()
 
         loadSubscriptions()
         loadShortCut()
+
+        addEventHandler(KeyEvent.KEY_PRESSED) {
+            if (it.code == KeyCode.ENTER) {
+                syntaxAnylyzer.analyze(text)
+            }
+        }
     }
 
     private fun loadSubscriptions() {

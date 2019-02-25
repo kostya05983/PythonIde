@@ -4,7 +4,7 @@ class LongRoadState(override val parser: Parser, override val output: OutputStra
     override fun output(char: Char) {
         when (char) {
             '\\' -> {
-                output.print("state: LongRoad, char: \\")
+                output.print("state: LongRoad, char: \\ ->")
                 parser.changeState(EndState(parser, output))
             }
             else -> {

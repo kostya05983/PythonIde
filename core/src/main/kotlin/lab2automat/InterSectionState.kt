@@ -4,11 +4,11 @@ class InterSectionState(override val parser: Parser, override val output: Output
     override fun output(char: Char) {
         when (char) {
             'a' -> {
-                output.print("state: Intersection, char: a ->")
+                output.print("state: Intersection, char: a -> ")
                 parser.changeState(OrNotState(parser, output))
             }
             'c' -> {
-                output.print("state: Intersection, char: c ->")
+                output.print("state: Intersection, char: c -> ")
                 parser.changeState(LongRoadState(parser, output))
             }
             else -> {

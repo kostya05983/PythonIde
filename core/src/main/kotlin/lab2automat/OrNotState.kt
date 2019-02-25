@@ -5,11 +5,11 @@ class OrNotState(override val parser: Parser, override val output: OutputStrateg
     override fun output(char: Char) {
         when (char) {
             '\\' -> {
-                output.print("state: OrNotState, char: \\")
+                output.print("state: OrNotState, char: \\ ->")
                 parser.changeState(EndState(parser, output))
             }
             'b' -> {
-                output.print("state:OrNotState, char: b")
+                output.print("state: OrNotState, char: b ->")
                 parser.changeState(InterSectionRightState(parser, output))
             }
             else -> {

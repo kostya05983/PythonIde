@@ -1,11 +1,15 @@
 package lab2automat
 
-class Parser {
-    var currentState: State = StartState(this)
+class Parser(val outputStrategy: OutputStrategy) {
+    var currentState: State = StartState(this, outputStrategy)
 
     fun parse(s: String) {
-        for (char in s) {
+        val sequence = s + "\\"
+        for (char in sequence) {
             currentState.output(char)
+        }
+        if (currentState::class.java == EndState::class.java) {
+            currentState.output(' ')
         }
     }
 

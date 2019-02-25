@@ -3,9 +3,11 @@ package lab2automat
 class StartState(override val parser: Parser, override val output: OutputStrategy) : State {
     override fun output(char: Char) {
         if (char == 'a') {
-            print("s:Start,char:a ->")
+            output.print("s: Start, char: a -> ")
+            parser.changeState(InterSectionState(parser, output))
         } else {
-            println("Wrong character")
+            output.print("Wrong character")
+            parser.changeState(StartState(parser, output))
         }
     }
 }

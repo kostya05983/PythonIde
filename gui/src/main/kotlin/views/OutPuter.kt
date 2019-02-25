@@ -3,28 +3,26 @@ package views
 import ColorHolder
 import javafx.scene.Parent
 import javafx.scene.layout.Priority
+import models.OutputConsoleToView
+import styles.OutputerStyles
 import tornadofx.*
 import tornadofx.Stylesheet.Companion.content
 
+//MOVE to MVVM
 class OutPuter : View() {
-    override val root: Parent = textarea {
-        stylesheet {
-            content {
-                backgroundColor += ColorHolder.primaryColor
-            }
-            Stylesheet.focused {
-                backgroundColor += ColorHolder.primaryColor
-            }
-        }
-        style {
-//            startMargin = Dimension(20.0, Dimension.LinearUnits.px)
-            backgroundInsets += box(Dimension(0.0, Dimension.LinearUnits.px))
-            baseColor = ColorHolder.primaryColor
-            focusColor = ColorHolder.primaryColor
-//            vgrow = Priority.ALWAYS
-        }
-        isEditable = false
+    private val outputerConsoleToView: OutputConsoleToView by inject()
+
+    init {
+        importStylesheet(OutputerStyles::class)
     }
 
+    override val root: Parent = textarea {
+        isEditable = false
 
+        subscribe<OutputEvent> {
+            text = text + it.line;
+        }
+    }
 }
+
+class OutputEvent(val line: String) : FXEvent()

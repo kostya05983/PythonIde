@@ -2,6 +2,7 @@ package views
 
 import javafx.scene.control.TabPane
 import javafx.scene.layout.Priority
+import styles.EditorTabStyles
 import systemdeterminer.InfoSystem
 import systemdeterminer.Systems
 import tornadofx.*
@@ -9,13 +10,15 @@ import tornadofx.*
 class EditorTabPane : View() {
     var currentEditor: Editor? = null
 
+    init {
+        importStylesheet(EditorTabStyles::class)
+    }
+
     /**
      * init our tabpane with editor and fileName
      */
     override val root: TabPane = tabpane {
-        style {
-            vgrow = Priority.ALWAYS
-        }
+        vgrow = Priority.ALWAYS
 
         subscribe<CreateEditorEvent> { event ->
             currentEditor = find(mapOf(Editor::path to event.path))
@@ -25,16 +28,6 @@ class EditorTabPane : View() {
                         add(currentEditor!!)
                     }
             )
-        }
-        loadSubscriptions()
-    }
-
-    /**
-     * fun loads subscriptions for weriting in file
-     */
-    private fun loadSubscriptions() {
-        subscribe<WriteEvent> {
-            println("Kek")
         }
     }
 
