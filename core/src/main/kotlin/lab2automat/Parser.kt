@@ -11,6 +11,7 @@ class Parser(val outputStrategy: OutputStrategy) {
         if (currentState::class.java == EndState::class.java) {
             currentState.output(' ')
         }
+        outputStrategy.print("\n")
     }
 
     fun changeState(new: State) {
