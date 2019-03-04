@@ -1,6 +1,8 @@
 package models
 
 import javafx.scene.control.TreeItem
+import systemdeterminer.InfoSystem
+import systemdeterminer.Systems
 import java.io.File
 
 class ProjectStructureModel(private val file: File) {
@@ -26,10 +28,22 @@ class ProjectStructureModel(private val file: File) {
         }
     }
 
-    fun crteateNewFile(path: String, fileName: String) {
+    fun createNewFile(path: String, fileName: String) {
         //for windows
-        val file = File("$path\\$fileName")
-        file.createNewFile()
+        val infoSystems = InfoSystem()
+        when (infoSystems.getType()) {
+            Systems.Windows -> {
+                val file = File("$path\\$fileName")
+                file.createNewFile()
+            }
+            Systems.MacOs -> TODO()
+            Systems.Linux -> {
+                val file = File("$path/$fileName")
+                file.createNewFile()
+            }
+            Systems.Other -> TODO()
+        }
+
     }
 }
 

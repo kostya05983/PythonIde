@@ -52,7 +52,7 @@ class ProjectStructure() : Fragment() {
 
     private fun loadSubscriptions() {
         subscribe<NewFileEvent> {
-            model.crteateNewFile(selected!!, it.name)
+            model.createNewFile(selected!!, it.name)
             //reload
             val projectStructure = find<ProjectStructure>(mapOf(ProjectStructure::file to file))
             replaceWith(projectStructure)

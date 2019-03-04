@@ -7,6 +7,8 @@ import tornadofx.Controller
 class Lab2AutomatAnalyzer : SyntaxAnylyzer, Controller() {
     override fun analyze(s: String) {
         val parser = Parser(OutputConsoleToView())
-        parser.parse(s)
+        s.split("\n").forEach {
+            parser.parse(it)
+        }
     }
 }
