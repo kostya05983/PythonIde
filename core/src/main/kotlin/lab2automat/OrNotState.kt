@@ -5,15 +5,15 @@ class OrNotState(override val parser: Parser, override val output: OutputStrateg
     override fun output(char: Char) {
         when (char) {
             '\\' -> {
-                output.print("state: OrNotState, char: \\ ->")
+                output.println("state: OrNotState, char: \\ ->")
                 parser.changeState(EndState(parser, output))
             }
             'b' -> {
-                output.print("state: OrNotState, char: b ->")
+                output.println("state: OrNotState, char: b ->")
                 parser.changeState(InterSectionRightState(parser, output))
             }
             else -> {
-                output.print("Wrong character")
+                output.println("Wrong character")
                 parser.changeState(StartState(parser, output))
             }
         }

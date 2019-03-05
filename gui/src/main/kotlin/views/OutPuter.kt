@@ -22,7 +22,19 @@ class OutPuter : View() {
         subscribe<OutputEvent> {
             text = text + it.line;
         }
+
+        subscribe<ClearOutputEvent> {
+            text = ""
+        }
+
+        subscribe<OutputEventLn> {
+            text = text + it.line+"\n"
+        }
     }
 }
 
 class OutputEvent(val line: String) : FXEvent()
+
+class OutputEventLn(val line: String) : FXEvent()
+
+class ClearOutputEvent() : FXEvent()

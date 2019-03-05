@@ -7,13 +7,13 @@ class EditorTabStyles : Stylesheet() {
 
     init {
         Stylesheet.tab {
-            textFill = ColorHolder.fontColor
             backgroundColor += ColorHolder.secondColor
-            baseColor = ColorHolder.fontColor
-
+        }
+        Stylesheet.tabLabel {
+            textFill = ColorHolder.fontColor
         }
         Stylesheet.text {
-            textFill  = ColorHolder.fontColor
+            textFill = ColorHolder.fontColor
         }
     }
 

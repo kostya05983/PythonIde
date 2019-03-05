@@ -5,14 +5,14 @@ class InterSectionRightState(override val parser: Parser, override val output: O
         when (char) {
             'a' -> {
                 parser.changeState(RepeatState(parser, output))
-                output.print("state: InterSectionRight, char: a -> ")
+                output.println("state: InterSectionRight, char: a -> ")
             }
             'c' -> {
                 parser.changeState(LongRoadState(parser, output))
-                output.print("state: IntersectionRight, char: c -> ")
+                output.println("state: IntersectionRight, char: c -> ")
             }
             else -> {
-                output.print("Wrong character")
+                output.println("Wrong character")
                 parser.changeState(StartState(parser, output))
             }
         }
