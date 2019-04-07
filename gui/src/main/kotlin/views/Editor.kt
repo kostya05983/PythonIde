@@ -1,6 +1,7 @@
 package views
 
 import controllers.Lab2AutomatAnalyzer
+import controllers.Lab3RegexAnalyzer
 import javafx.scene.control.TextArea
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCombination
@@ -19,6 +20,8 @@ class Editor : Fragment() {
 
     val syntaxAnylyzer: Lab2AutomatAnalyzer by inject()
 
+    val regexAnalyzer: Lab3RegexAnalyzer by inject()
+
     init {
         importStylesheet(EditorStyles::class)
     }
@@ -34,7 +37,8 @@ class Editor : Fragment() {
 
         addEventHandler(KeyEvent.KEY_PRESSED) {
             if (it.code == KeyCode.ENTER) {
-                syntaxAnylyzer.analyze(text)
+//                syntaxAnylyzer.analyze(text)
+                regexAnalyzer.analyze(text)
             }
         }
     }
