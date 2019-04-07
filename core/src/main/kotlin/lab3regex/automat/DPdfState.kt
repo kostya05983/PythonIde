@@ -3,12 +3,12 @@ package lab3regex.automat
 import lab2automat.OutputStrategy
 import lab3regex.RegexParser
 
-class MState(override val parser: RegexParser, override val output: OutputStrategy) : State {
+class DPdfState(override val parser: RegexParser, override val output: OutputStrategy) : State {
     override fun output(char: Char, buffer: StringBuilder) {
         when (char) {
-            'l' -> {
+            'f' -> {
                 buffer.append(char)
-                parser.changeState(LState(parser, output))
+                parser.changeState(FState(parser, output))
             }
             else -> {
                 buffer.clear()
