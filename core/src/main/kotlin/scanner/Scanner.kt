@@ -1,5 +1,7 @@
 package scanner
 
+import java.security.AlgorithmParameterGenerator
+
 /**
  * @author kostya05983
  *
@@ -17,7 +19,7 @@ package scanner
  * (12) not_test -> ‘not’ not_test | comparison
  * (13) comparison -> expr T | expr
  * (14) T -> comp_op expr | comp_op expr T
- * (15) comp_op -> '<' | '>' | '==' | '>=' | '<=' | '<>' | '!='
+ * (15) comp_op -> '<' | '>' | '==' | '>=' | '<=' | '!='
  * (16) expr -> xor_expr | xor_expr G
  * (17) G -> ‘|’ xor_expr G | ‘|’ xor_expr
  * (18) xor_expr -> and_expr | and_expr I
@@ -40,13 +42,27 @@ package scanner
 class Scanner {
 
     /**
+     * Examples of language:
      * if k==2:
      *  k=4
+     * if k==4:
+     *  k=5
+     * else:
+     *  k=6
+     *
+     * if k==8:
+     *  k=6
+     * elif k==9:
+     *  k=10
+     * else:
+     *  k=18
+     *
      */
     fun scan(s: String): Array<Tokens> {
         val lines = s.split(Tokens.NEWLINE.literal)
-        for(line in lines) {
-            when(line) {
+
+        for (line in lines) {
+            when (line) {
                 Tokens.IF.literal -> {
 
                 }
@@ -141,6 +157,73 @@ class Scanner {
         }
 
         return arrayOf()
+    }
+
+    /**
+     * Delete spaces in string
+     * @param s - string where we need to delete spaces
+     * @return - string without spaces
+     */
+    private fun deleteAllSpaces(s: String): String {
+        val sb = StringBuilder()
+        for (ch in s) {
+            if (ch != ' ')
+                sb.append(ch)
+        }
+        return sb.toString()
+    }
+
+    /**
+     * First we delete spaces
+     * next we parse arithmetic expression
+     * k==2:
+     */
+    private fun scanAriphemetic(s: String) {
+        val strWithoutSpaces = deleteAllSpaces(s)
+        for (i in 0 until strWithoutSpaces.length) {
+            when {
+                strWithoutSpaces[i] == Alphabet.DIVIDER.ch -> {
+                    if (i+1!=strWithoutSpaces.length&& strWithoutSpaces[i+1] == Alphabet.DIVIDER.ch) {
+
+                    } else {
+                        //TODO alerting
+                    }
+                }
+                strWithoutSpaces[i] == Alphabet.REMAINDER.ch -> {
+
+                }
+                strWithoutSpaces[i] == Alphabet.A.ch -> {
+
+                }
+                strWithoutSpaces[i] == Alphabet.MINUS.ch -> {
+
+                }
+                strWithoutSpaces[i] == Alphabet.PLUS.ch -> {
+
+                }
+                strWithoutSpaces[i] == Alphabet.EQUAL.ch -> {
+
+                }
+                strWithoutSpaces[i] == Alphabet.NOT_EQUAL.ch -> {
+
+                }
+                strWithoutSpaces[i]== Alphabet.N.ch -> {
+
+                }
+                strWithoutSpaces[i] == Alphabet.INVERSE.ch -> {
+
+                }
+                strWithoutSpaces[i] == Alphabet.LEFT_SHIFT.ch -> {
+
+                }
+                strWithoutSpaces[i] == Alphabet.RIGHT_SHIFT.ch -> {
+
+                }
+                strWithoutSpaces[i] == Alphabet.O.ch -> {
+
+                }
+            }
+        }
     }
 
 
