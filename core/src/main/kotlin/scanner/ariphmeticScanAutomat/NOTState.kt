@@ -6,23 +6,24 @@ import scanner.Alphabet
 import scanner.Tokens
 
 /**
- * from this state we decide is it !=
- * or this identifier
+ * if we meet space this is not
+ * else this is identifier
  * @author kostya05983
  */
-class NotEqualState(override val scanner: ArithmeticScanner,
-                    override val tokensArray: LinkedList<Token>,
-                    override val memory: Stack<Char>) : State {
+class NOTState(override val scanner: ArithmeticScanner,
+               override val tokensArray: LinkedList<Token>,
+               override val memory: Stack<Char>) : State {
+
     override fun parse(char: Char) {
         when (char) {
-            Alphabet.EQUAL.ch -> {
+            Alphabet.SPACE.ch -> {
                 memory.clear()
-                tokensArray.add(Token(Tokens.NOT_EQUAL_C, Tokens.NOT_EQUAL_C.literal))
+                tokensArray.add(Token(Tokens.NOT, Tokens.NOT.literal))
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             else -> {
                 memory.push(char)
-                TODO("error")
+                scanner.changeState(MainState(scanner, tokensArray, memory))
             }
         }
     }

@@ -3,6 +3,7 @@ package scanner.ariphmeticScanAutomat
 import java.util.*
 import scanner.Alphabet
 import scanner.Token
+import scanner.Tokens
 
 
 /**
@@ -17,10 +18,13 @@ class ANDState(override val scanner: ArithmeticScanner,
     override fun parse(char: Char) {
         when (char) {
             Alphabet.SPACE.ch -> {
-                TODO("add token, clear and go to new tokens")
+                tokensArray.add(Token(Tokens.AND, Tokens.AND.literal))
+                memory.clear()
+                scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             else -> {
-                TODO("IT is IDENTIFIER")
+                memory.push(char)
+                scanner.changeState(MainState(scanner, tokensArray, memory))
             }
         }
     }

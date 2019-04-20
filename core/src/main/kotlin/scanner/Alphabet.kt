@@ -21,6 +21,8 @@ enum class Alphabet(val ch: Char) {
     N('n'),
     LEFT_BRACKET('('),
     RIGHT_BRACKET(')'),
+    AND('&'),
+    OR('|'),
 
     /**
      * Next there are delimiters or end symbols,
@@ -29,5 +31,6 @@ enum class Alphabet(val ch: Char) {
      */
     D('d'),
     SPACE(' '),
-    R('r')
+    R('r'),
+    T('t')
 }

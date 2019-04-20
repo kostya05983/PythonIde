@@ -52,6 +52,9 @@ class MainState(override val scanner: ArithmeticScanner,
             Alphabet.RIGHT_BRACKET.ch -> {
                 tokensArray.add(Token(Tokens.RIGHT_BRACKET, Tokens.RIGHT_BRACKET.literal))
             }
+            Alphabet.AND.ch -> {
+                scanner.changeState(SymbolAndState(scanner, tokensArray, memory))
+            }
         }
     }
 }

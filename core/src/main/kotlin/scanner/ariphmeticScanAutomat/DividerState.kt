@@ -21,9 +21,7 @@ class DividerState(override val scanner: ArithmeticScanner,
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             else -> {
-                memory.clear()
-                tokensArray.add(Token(Tokens.DIVIDE, Tokens.DIVIDE.literal))
-                scanner.changeState(MainState(scanner, tokensArray, memory))
+                TODO("This is error")
             }
         }
     }

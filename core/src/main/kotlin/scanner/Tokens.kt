@@ -45,6 +45,7 @@ enum class Tokens(var literal: String) {
     INDENT("\t"),
     OR("or"),
     AND("and"),
+    AND_DOUBLE("&&"),
     NOT("not"),
     LESS("<"),
     MORE(">"),
@@ -54,6 +55,7 @@ enum class Tokens(var literal: String) {
     NOT_EQUAL("<>"),
     NOT_EQUAL_C("!="),
     SLASH("|"),
+    SLASH_DOUBLE("||"),
     CAP("^"),
     BINARY_AND("&"),
     SHIFT_LEFT("<<"),
@@ -69,5 +71,6 @@ enum class Tokens(var literal: String) {
     FALSE("False"),
     SPACE(" "),
     LEFT_BRACKET("("),
-    RIGHT_BRACKET(")")
+    RIGHT_BRACKET(")"),
+    IDENTIFIER("")
 }
