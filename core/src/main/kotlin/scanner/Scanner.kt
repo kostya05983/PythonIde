@@ -180,6 +180,7 @@ class Scanner {
      */
     private fun scanAriphemetic(s: String) {
         val strWithoutSpaces = deleteAllSpaces(s)
+        //todo divide by space, and than we will determine
         for (i in 0 until strWithoutSpaces.length) {
             when {
                 strWithoutSpaces[i] == Alphabet.DIVIDER.ch -> {

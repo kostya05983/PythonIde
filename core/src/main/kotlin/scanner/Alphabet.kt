@@ -20,5 +20,13 @@ enum class Alphabet(val ch: Char) {
     A('a'),
     N('n'),
     LEFT_BRACKET('('),
-    RIGHT_BRACKET(')')
+    RIGHT_BRACKET(')'),
+
+    /**
+     * Next there are delimiters or end symbols,
+     * which can't be start symbol of double liters or
+     * three time liters
+     */
+    D('d'),
+    SPACE(' ')
 }

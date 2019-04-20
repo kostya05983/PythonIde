@@ -67,5 +67,7 @@ enum class Tokens(var literal: String) {
     INVERSE("~"),
     TRUE("True"),
     FALSE("False"),
-    SPACE(" ")
+    SPACE(" "),
+    LEFT_BRACKET("("),
+    RIGHT_BRACKET(")")
 }
