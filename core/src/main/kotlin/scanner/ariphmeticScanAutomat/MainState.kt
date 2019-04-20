@@ -17,34 +17,34 @@ class MainState(override val scanner: ArithmeticScanner,
                 tokensArray.add(Token(Tokens.MINUS, Tokens.MINUS.literal))
             }
             Alphabet.LEFT_SHIFT.ch -> {
-                //todo next sate
+                scanner.changeState(LeftShiftState(scanner, tokensArray, memory))
             }
             Alphabet.RIGHT_SHIFT.ch -> {
-                //todo next state
+                scanner.changeState(RightShiftState(scanner, tokensArray, memory))
             }
             Alphabet.EQUAL.ch -> {
-                //todo next state
+                scanner.changeState(EqualState(scanner, tokensArray, memory))
             }
             Alphabet.NOT_EQUAL.ch -> {
-                //todo next state
+                scanner.changeState(NotEqualState(scanner, tokensArray, memory))
             }
             Alphabet.REMAINDER.ch -> {
                 tokensArray.add(Token(Tokens.REMAINDER, Tokens.REMAINDER.literal))
             }
             Alphabet.DIVIDER.ch -> {
-                //todo next state
+                scanner.changeState(DividerState(scanner, tokensArray, memory))
             }
             Alphabet.MULTIPLE.ch -> {
                 tokensArray.add(Token(Tokens.MULTIPLE, Tokens.MULTIPLE.literal))
             }
             Alphabet.O.ch -> {
-                //todo next state
+                scanner.changeState(OState(scanner, tokensArray, memory))
             }
             Alphabet.A.ch -> {
-                //todo next state
+                scanner.changeState(AState(scanner, tokensArray, memory))
             }
             Alphabet.N.ch -> {
-                //todo next state
+                scanner.changeState(NState(scanner, tokensArray, memory))
             }
             Alphabet.LEFT_BRACKET.ch -> {
                 tokensArray.add(Token(Tokens.LEFT_BRACKET, Tokens.LEFT_BRACKET.literal))
