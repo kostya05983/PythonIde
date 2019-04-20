@@ -28,5 +28,6 @@ enum class Alphabet(val ch: Char) {
      * three time liters
      */
     D('d'),
-    SPACE(' ')
+    SPACE(' '),
+    R('r')
 }
