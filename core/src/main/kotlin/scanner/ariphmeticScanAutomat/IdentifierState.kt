@@ -16,7 +16,7 @@ class IdentifierState(override val scanner: ArithmeticScanner,
     override fun parse(char: Char) {
         when (char) {
             Alphabet.SPACE.ch -> {
-                tokensArray.add(Token(Tokens.IDENTIFIER, memory.joinToString(separator = "")))
+                tokensArray.add(scanner.joinToIdentifier(memory))
                 memory.clear()
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }

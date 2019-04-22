@@ -21,90 +21,90 @@ class ANState(override val scanner: ArithmeticScanner,
                 scanner.changeState(ANDState(scanner, tokensArray, memory))
             }
             Alphabet.SPACE.ch -> {
-                tokensArray.add(Token(Tokens.IDENTIFIER, memory.joinToString(separator = "")))
+                tokensArray.add(scanner.joinToIdentifier(memory))
                 memory.clear()
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             Alphabet.PLUS.ch -> {
-                tokensArray.add(Token(Tokens.IDENTIFIER, memory.joinToString(separator = "")))
+                tokensArray.add(scanner.joinToIdentifier(memory))
                 memory.clear()
                 tokensArray.add(Token(Tokens.PLUS, Tokens.PLUS.literal))
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             Alphabet.MINUS.ch -> {
-                tokensArray.add(Token(Tokens.IDENTIFIER, memory.joinToString(separator = "")))
+                tokensArray.add(scanner.joinToIdentifier(memory))
                 memory.clear()
                 tokensArray.add(Token(Tokens.MINUS, Tokens.MINUS.literal))
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             Alphabet.LEFT_SHIFT.ch -> {
-                tokensArray.add(Token(Tokens.IDENTIFIER, memory.joinToString(separator = "")))
+                tokensArray.add(scanner.joinToIdentifier(memory))
                 memory.clear()
                 memory.push(char)
                 scanner.changeState(LeftShiftState(scanner, tokensArray, memory))
             }
             Alphabet.RIGHT_SHIFT.ch -> {
-                tokensArray.add(Token(Tokens.IDENTIFIER, memory.joinToString(separator = "")))
+                tokensArray.add(scanner.joinToIdentifier(memory))
                 memory.clear()
                 memory.push(char)
                 scanner.changeState(RightShiftState(scanner, tokensArray, memory))
             }
             Alphabet.EQUAL.ch -> {
-                tokensArray.add(Token(Tokens.IDENTIFIER, memory.joinToString(separator = "")))
+                tokensArray.add(scanner.joinToIdentifier(memory))
                 memory.clear()
                 memory.push(char)
                 scanner.changeState(EqualState(scanner, tokensArray, memory))
             }
             Alphabet.NOT_EQUAL.ch -> {
-                tokensArray.add(Token(Tokens.IDENTIFIER, memory.joinToString(separator = "")))
+                tokensArray.add(scanner.joinToIdentifier(memory))
                 memory.clear()
                 memory.push(char)
                 scanner.changeState(NotEqualState(scanner, tokensArray, memory))
             }
             Alphabet.REMAINDER.ch -> {
-                tokensArray.add(Token(Tokens.IDENTIFIER, memory.joinToString(separator = "")))
+                tokensArray.add(scanner.joinToIdentifier(memory))
                 memory.clear()
                 tokensArray.add(Token(Tokens.REMAINDER, Tokens.REMAINDER.literal))
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             Alphabet.DIVIDER.ch -> {
-                tokensArray.add(Token(Tokens.IDENTIFIER, memory.joinToString(separator = "")))
+                tokensArray.add(scanner.joinToIdentifier(memory))
                 memory.clear()
                 memory.push(char)
                 scanner.changeState(DividerState(scanner, tokensArray, memory))
             }
             Alphabet.MULTIPLE.ch -> {
-                tokensArray.add(Token(Tokens.IDENTIFIER, memory.joinToString(separator = "")))
+                tokensArray.add(scanner.joinToIdentifier(memory))
                 memory.clear()
                 tokensArray.add(Token(Tokens.MULTIPLE, Tokens.MULTIPLE.literal))
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             Alphabet.INVERSE.ch -> {
-                tokensArray.add(Token(Tokens.IDENTIFIER, memory.joinToString(separator = "")))
+                tokensArray.add(scanner.joinToIdentifier(memory))
                 memory.clear()
                 tokensArray.add(Token(Tokens.INVERSE, Tokens.INVERSE.literal))
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             Alphabet.AND.ch -> {
-                tokensArray.add(Token(Tokens.IDENTIFIER, memory.joinToString(separator = "")))
+                tokensArray.add(scanner.joinToIdentifier(memory))
                 memory.clear()
                 memory.push(char)
                 scanner.changeState(DoubleSymbolAndState(scanner, tokensArray, memory))
             }
             Alphabet.OR.ch -> {
-                tokensArray.add(Token(Tokens.IDENTIFIER, memory.joinToString(separator = "")))
+                tokensArray.add(scanner.joinToIdentifier(memory))
                 memory.clear()
                 memory.push(char)
                 scanner.changeState(DoubleSymbolOrState(scanner, tokensArray, memory))
             }
             Alphabet.LEFT_BRACKET.ch -> {
-                tokensArray.add(Token(Tokens.IDENTIFIER, memory.joinToString(separator = "")))
+                tokensArray.add(scanner.joinToIdentifier(memory))
                 memory.clear()
                 tokensArray.add(Token(Tokens.LEFT_BRACKET, Tokens.LEFT_BRACKET.literal))
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             Alphabet.RIGHT_BRACKET.ch -> {
-                tokensArray.add(Token(Tokens.IDENTIFIER, memory.joinToString(separator = "")))
+                tokensArray.add(scanner.joinToIdentifier(memory))
                 memory.clear()
                 tokensArray.add(Token(Tokens.RIGHT_BRACKET, Tokens.RIGHT_BRACKET.literal))
                 scanner.changeState(MainState(scanner, tokensArray, memory))

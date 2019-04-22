@@ -5,4 +5,8 @@ class Token(val token: Tokens, val value: String) {
         val otherToken = other as Token
         return token == otherToken.token && value == otherToken.value
     }
+
+    override fun toString(): String {
+        return "token: $token, value: $value"
+    }
 }

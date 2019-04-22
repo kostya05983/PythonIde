@@ -21,6 +21,7 @@ class SymbolAndState(override val scanner: ArithmeticScanner,
             }
             else -> {
                 memory.clear()
+                memory.push(char)
                 tokensArray.add(Token(Tokens.BINARY_AND, Tokens.BINARY_AND.literal))
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }
