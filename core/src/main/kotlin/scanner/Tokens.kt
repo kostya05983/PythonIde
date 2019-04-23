@@ -72,5 +72,6 @@ enum class Tokens(var literal: String) {
     SPACE(" "),
     LEFT_BRACKET("("),
     RIGHT_BRACKET(")"),
-    IDENTIFIER("")
+    IDENTIFIER(""),
+    ASSIGNMENT("=")
 }

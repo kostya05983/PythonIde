@@ -1,6 +1,10 @@
 package scanner
 
 import java.security.AlgorithmParameterGenerator
+import java.util.*
+import scanner.Tokens
+import scanner.ariphmeticScanAutomat.ArithmeticScanner
+import scanner.statementAutomat.StatementScanner
 
 /**
  * @author kostya05983
@@ -56,176 +60,88 @@ class Scanner {
      *  k=10
      * else:
      *  k=18
-     *
+     * if line starts with if, we scan it as if
+     * if line starts with when we scan it as when
+     * and so on
      */
-    fun scan(s: String): Array<Tokens> {
-        val lines = s.split(Tokens.NEWLINE.literal)
+    fun scan(s: String): List<Token> {
+        val lines = s.split(Tokens.NEWLINE.literal, Tokens.SPACE.literal)
+
+        val tokens = ArrayList<Token>()
 
         for (line in lines) {
-            when (line) {
-                Tokens.IF.literal -> {
-
-                }
-                Tokens.COLON.literal -> {
-
-                }
-                Tokens.ELSE.literal -> {
-
-                }
-                Tokens.ELIF.literal -> {
-
-                }
-                Tokens.INDENT.literal -> {
-
-                }
-                Tokens.OR.literal -> {
-
-                }
-                Tokens.AND.literal -> {
-
-                }
-                Tokens.NOT.literal -> {
-
-                }
-                Tokens.LESS.literal -> {
-
-                }
-                Tokens.MORE.literal -> {
-
-                }
-                Tokens.EQUAL.literal -> {
-
-                }
-                Tokens.MORE_EQUAL.literal -> {
-
-                }
-                Tokens.LESS_EQUAL.literal -> {
-
-                }
-                Tokens.NOT_EQUAL.literal -> {
-
-                }
-                Tokens.NOT_EQUAL_C.literal -> {
-
-                }
-                Tokens.SLASH.literal -> {
-
-                }
-                Tokens.CAP.literal -> {
-
-                }
-                Tokens.BINARY_AND.literal -> {
-
-                }
-                Tokens.SHIFT_LEFT.literal -> {
-
-                }
-                Tokens.SHIFT_RIGHT.literal -> {
-
-                }
-                Tokens.PLUS.literal -> {
-
-                }
-                Tokens.MINUS.literal -> {
-
-                }
-                Tokens.MULTIPLE.literal -> {
-
-                }
-                Tokens.DIVIDE.literal -> {
-
-                }
-                Tokens.REMAINDER.literal -> {
-
-                }
-                Tokens.FLOOR_DIVISION.literal -> {
-
-                }
-                Tokens.INVERSE.literal -> {
-
-                }
-                Tokens.TRUE.literal -> {
-
-                }
-                Tokens.FALSE.literal -> {
-
-                }
-                Tokens.SPACE.literal -> {
-
-                }
-            }
-        }
-
-        return arrayOf()
-    }
-
-    /**
-     * Delete spaces in string
-     * @param s - string where we need to delete spaces
-     * @return - string without spaces
-     */
-    private fun deleteAllSpaces(s: String): String {
-        val sb = StringBuilder()
-        for (ch in s) {
-            if (ch != ' ')
-                sb.append(ch)
-        }
-        return sb.toString()
-    }
-
-    /**
-     * First we delete spaces
-     * next we parse arithmetic expression
-     * k==2:
-     */
-    private fun scanAriphemetic(s: String) {
-        val strWithoutSpaces = deleteAllSpaces(s)
-        //todo divide by space, and than we will determine
-        for (i in 0 until strWithoutSpaces.length) {
+            val trailLine = line.trim()
             when {
-                strWithoutSpaces[i] == Alphabet.DIVIDER.ch -> {
-                    if (i+1!=strWithoutSpaces.length&& strWithoutSpaces[i+1] == Alphabet.DIVIDER.ch) {
-
-                    } else {
-                        //TODO alerting
-                    }
+                trailLine.contains(Tokens.IF.literal) -> {
+                    tokens.addAll(scanIf(trailLine))
                 }
-                strWithoutSpaces[i] == Alphabet.REMAINDER.ch -> {
-
+                trailLine.contains(Tokens.ELIF.literal) -> {
+                    tokens.addAll(scanElseIf(trailLine))
                 }
-                strWithoutSpaces[i] == Alphabet.A.ch -> {
-
+                trailLine.contains(Tokens.ELSE.literal) -> {
+                    tokens.add(Token(Tokens.ELSE, Tokens.ELSE.literal))
                 }
-                strWithoutSpaces[i] == Alphabet.MINUS.ch -> {
-
-                }
-                strWithoutSpaces[i] == Alphabet.PLUS.ch -> {
-
-                }
-                strWithoutSpaces[i] == Alphabet.EQUAL.ch -> {
-
-                }
-                strWithoutSpaces[i] == Alphabet.NOT_EQUAL.ch -> {
-
-                }
-                strWithoutSpaces[i]== Alphabet.N.ch -> {
-
-                }
-                strWithoutSpaces[i] == Alphabet.INVERSE.ch -> {
-
-                }
-                strWithoutSpaces[i] == Alphabet.LEFT_SHIFT.ch -> {
-
-                }
-                strWithoutSpaces[i] == Alphabet.RIGHT_SHIFT.ch -> {
-
-                }
-                strWithoutSpaces[i] == Alphabet.O.ch -> {
-
+                else -> {
+                    scanStatementLine(trailLine)
                 }
             }
         }
+        return tokens
     }
 
+    /**
+     * Scan if in rules of if expression
+     */
+    private fun scanIf(line: String): List<Token> {
+        val list = LinkedList<Token>()
+        if (line[line.length - 1] == ':') {
+            list.add(Token(Tokens.IF, Tokens.IF.literal))
+            val expression = line.substring(2, line.length - 1)
+            val arithmeticScanner = ArithmeticScanner()
+            val expressionTokens = arithmeticScanner.scan(expression)
+            list.addAll(expressionTokens)
+        } else {
+            TODO("Error !!! ca we get here? only if we contain if, but we don't contain :")
+        }
+        return list
+    }
 
+    /**
+     * Scan elif expression
+     */
+    private fun scanElseIf(line: String): List<Token> {
+        val list = LinkedList<Token>()
+        if (line[line.length - 1] == ':') {
+            list.add(Token(Tokens.ELIF, Tokens.ELIF.literal))
+            val expression = line.substring(4, line.length - 1)
+            val arithmeticScanner = ArithmeticScanner()
+            val expressionToken = arithmeticScanner.scan(expression)
+            list.addAll(expressionToken)
+        } else {
+            TODO("Error !!! elif doesn't contain :")
+        }
+        return list
+    }
+
+    /**
+     * example
+     * k = 2
+     * Test(2)
+     * k = Test(2,4)
+     * println(2)
+     * identifierState -> if we meet assignment we add asignment and stay in identifierState if we meet ( we go next->
+     * and scan arguments as identifiers before we meet )
+     * for example line contains
+     * println(it)
+     * we have to scan it as simpleStatement,leftBracket,identifier,rightBracket, but how we understand
+     * when identifier is function, class or something else
+     * Just we go through lines in first time, and scan all as identifiers
+     * we got Identifier, leftBracket, identifier, rightBracket
+     * next we got throuth our tokens and if we seee identifier and then leftBracket to RightBracket
+     * it is function or constructor, we will call it just simpleStatement
+     */
+    private fun scanStatementLine(line: String): List<Token> {
+        val statementScanner = StatementScanner()
+        return statementScanner.scan(line)
+    }
 }
