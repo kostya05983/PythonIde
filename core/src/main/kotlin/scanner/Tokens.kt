@@ -3,7 +3,8 @@ package scanner
 /**
  * @author kostya05983
  *
- * (1) single_input -> NEWLINE | simple_stmt | if_stmt NEWLINE
+ * (1) single_input -> NEWLINE | simple_stmt | compound_stmt NEWLINE
+ * compound_stmt -> if_stmt
  * (2) if_stmt -> ‘if’ or_test : suite | ‘if’ test ‘:’ suite ‘else’ ‘:’ suite | ‘if’ test ‘:’ suite K
  * (3) K -> 'elif' or_test ':' suite K | 'elif' or_test ':' suite | 'elif' or_test ':' suite ‘else’ ‘:’ suite
  * (4) suite-> simple_stmt | NEWLINE INDENT | DEDENT
@@ -73,5 +74,6 @@ enum class Tokens(var literal: String) {
     LEFT_BRACKET("("),
     RIGHT_BRACKET(")"),
     IDENTIFIER(""),
-    ASSIGNMENT("=")
+    ASSIGNMENT("="),
+    SIMPLE_STMT("simple_stmt")
 }

@@ -16,6 +16,7 @@ class DoubleSymbolAndState(override val scanner: ArithmeticScanner,
             Alphabet.SPACE.ch -> {
                 memory.clear()
                 tokensArray.add(Token(Tokens.AND_DOUBLE, Tokens.AND_DOUBLE.literal))
+                scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             else -> {
                 TODO("error")

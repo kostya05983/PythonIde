@@ -91,6 +91,11 @@ class MainState(override val scanner: ArithmeticScanner,
                 tokensArray.add(Token(Tokens.INVERSE, Tokens.INVERSE.literal))
                 memory.clear()
             }
+            Alphabet.OR.ch -> {
+                addIfNeed()
+                memory.clear()
+                scanner.changeState(SymbolOrState(scanner, tokensArray, memory))
+            }
             else -> {
                 memory.push(char)
             }

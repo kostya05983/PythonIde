@@ -65,11 +65,12 @@ class Scanner {
      * and so on
      */
     fun scan(s: String): List<Token> {
-        val lines = s.split(Tokens.NEWLINE.literal, Tokens.SPACE.literal)
+        val lines = s.split(Tokens.NEWLINE.literal)
 
         val tokens = ArrayList<Token>()
 
         for (line in lines) {
+            tokens.addAll(findIndent(line))
             val trailLine = line.trim()
             when {
                 trailLine.contains(Tokens.IF.literal) -> {
@@ -81,12 +82,30 @@ class Scanner {
                 trailLine.contains(Tokens.ELSE.literal) -> {
                     tokens.add(Token(Tokens.ELSE, Tokens.ELSE.literal))
                 }
-                else -> {
-                    scanStatementLine(trailLine)
+                else -> { // all others we think that is just statements
+                    tokens.add(Token(Tokens.SIMPLE_STMT, trailLine))
                 }
             }
         }
         return tokens
+    }
+
+    /**
+     * Find all indents in line
+     */
+    private fun findIndent(str: String): List<Token> {
+        val list = mutableListOf<Token>()
+        var count = 0
+        for (char in str) {
+            if (char == ' ') {
+                count++
+            } else {
+                count = 0
+            }
+            if (count == 4)
+                list.add(Token(Tokens.INDENT, Tokens.INDENT.literal))
+        }
+        return list
     }
 
     /**

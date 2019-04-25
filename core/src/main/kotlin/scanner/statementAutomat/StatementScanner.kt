@@ -3,6 +3,9 @@ package scanner.statementAutomat
 import scanner.Token
 import java.util.*
 
+/**
+ * TODO is's for future
+ */
 class StatementScanner {
     var currentState: State = MainState(LinkedList(), Stack(), this)
 
@@ -13,7 +16,7 @@ class StatementScanner {
         for (char in line)
             currentState.scan(char)
 
-        if(currentState !is SimpleStatementState)
+        if (currentState !is SimpleStatementState)
             TODO("ERROR not close (")
         return currentState.tokenArray
     }

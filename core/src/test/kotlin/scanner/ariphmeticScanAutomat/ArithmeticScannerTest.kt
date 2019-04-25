@@ -80,4 +80,37 @@ internal class ArithmeticScannerTest {
         assertEquals(Token(Tokens.EQUAL, Tokens.EQUAL.literal), result[7])
         assertEquals(Token(Tokens.IDENTIFIER, "6"), result[8])
     }
+
+    @Test
+    fun testScanWithDoubleAnd() {
+        val test = " k == 2 && p == 7"
+        val arithmeticScanner = ArithmeticScanner()
+        val result = arithmeticScanner.scan(test)
+        assertEquals(Token(Tokens.IDENTIFIER, "k"), result[0])
+        assertEquals(Token(Tokens.EQUAL, Tokens.EQUAL.literal), result[1])
+        assertEquals(Token(Tokens.IDENTIFIER, "2"), result[2])
+        assertEquals(Token(Tokens.AND_DOUBLE, Tokens.AND_DOUBLE.literal), result[3])
+        assertEquals(Token(Tokens.IDENTIFIER, "p"), result[4])
+        assertEquals(Token(Tokens.EQUAL, Tokens.EQUAL.literal), result[5])
+        assertEquals(Token(Tokens.IDENTIFIER, "7"), result[6])
+    }
+
+    @Test
+    fun testScanWithOr() {
+        val test = "l ==7 || p !=4 && k == 3"
+        val arithmeticScanner = ArithmeticScanner()
+        val result = arithmeticScanner.scan(test)
+        assertEquals(Token(Tokens.IDENTIFIER, "l"), result[0])
+        assertEquals(Token(Tokens.EQUAL, Tokens.EQUAL.literal), result[1])
+        assertEquals(Token(Tokens.IDENTIFIER, "7"), result[2])
+        assertEquals(Token(Tokens.SLASH_DOUBLE, Tokens.SLASH_DOUBLE.literal), result[3])
+        assertEquals(Token(Tokens.IDENTIFIER, "p"), result[4])
+        assertEquals(Token(Tokens.NOT_EQUAL_C, Tokens.NOT_EQUAL_C.literal), result[5])
+        assertEquals(Token(Tokens.IDENTIFIER, "4"), result[6])
+        assertEquals(Token(Tokens.AND_DOUBLE, Tokens.AND_DOUBLE.literal), result[7])
+        assertEquals(Token(Tokens.IDENTIFIER, "k"), result[8])
+        assertEquals(Token(Tokens.EQUAL, Tokens.EQUAL.literal), result[9])
+        assertEquals(Token(Tokens.IDENTIFIER, "3"), result[10])
+
+    }
 }
