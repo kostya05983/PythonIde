@@ -73,11 +73,11 @@ class Scanner {
             tokens.addAll(findIndent(line))
             val trailLine = line.trim()
             when {
-                trailLine.contains(Tokens.IF.literal) -> {
-                    tokens.addAll(scanIf(trailLine))
-                }
                 trailLine.contains(Tokens.ELIF.literal) -> {
                     tokens.addAll(scanElseIf(trailLine))
+                }
+                trailLine.contains(Tokens.IF.literal) -> {
+                    tokens.addAll(scanIf(trailLine))
                 }
                 trailLine.contains(Tokens.ELSE.literal) -> {
                     tokens.add(Token(Tokens.ELSE, Tokens.ELSE.literal))
