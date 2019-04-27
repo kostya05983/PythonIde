@@ -111,6 +111,15 @@ internal class ArithmeticScannerTest {
         assertEquals(Token(Tokens.IDENTIFIER, "k"), result[8])
         assertEquals(Token(Tokens.EQUAL, Tokens.EQUAL.literal), result[9])
         assertEquals(Token(Tokens.IDENTIFIER, "3"), result[10])
+    }
 
+    @Test
+    fun testScanDivider() {
+        val test = "l // p"
+        val arithmeticScanner = ArithmeticScanner()
+        val tokens = arithmeticScanner.scan(test)
+        assertEquals(Token(Tokens.IDENTIFIER, "l"), tokens[0])
+        assertEquals(Token(Tokens.FLOOR_DIVISION, Tokens.FLOOR_DIVISION.literal), tokens[1])
+        assertEquals(Token(Tokens.IDENTIFIER, "p"), tokens[2])
     }
 }
