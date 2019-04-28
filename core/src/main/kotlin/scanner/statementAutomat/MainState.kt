@@ -6,7 +6,7 @@ import scanner.Alphabet
 import scanner.Tokens
 
 /**
- * State for scan statements
+ * State for analyze statements
  * @author kostya05983
  */
 class MainState(override val tokenArray: LinkedList<Token>,

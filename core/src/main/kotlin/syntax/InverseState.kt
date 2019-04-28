@@ -4,7 +4,7 @@ import scanner.Token
 import scanner.Tokens
 import java.util.*
 
-class InverseState(override val analyzer: SyntaxAnalizer,
+class InverseState(override val analyzer: SyntaxAnalyzer,
                    override val memory: Stack<Tokens>) : State {
 
     override fun analyze(token: Token) {

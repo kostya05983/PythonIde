@@ -4,7 +4,7 @@ import scanner.Token
 import scanner.Tokens
 import java.util.*
 
-class PlusState(override val analyzer: SyntaxAnalizer,
+class PlusState(override val analyzer: SyntaxAnalyzer,
                 override val memory: Stack<Tokens>) : State {
     override fun analyze(token: Token) {
         when (token.token) {

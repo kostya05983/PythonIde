@@ -5,7 +5,7 @@ import scanner.Tokens
 import java.util.*
 
 interface State {
-    val analyzer: SyntaxAnalizer
+    val analyzer: SyntaxAnalyzer
 
     val memory: Stack<Tokens>
 

@@ -60,8 +60,8 @@ class Scanner {
      *  k=10
      * else:
      *  k=18
-     * if line starts with if, we scan it as if
-     * if line starts with when we scan it as when
+     * if line starts with if, we analyze it as if
+     * if line starts with when we analyze it as when
      * and so on
      */
     fun scan(s: String): List<Token> {
@@ -81,6 +81,7 @@ class Scanner {
                 }
                 trailLine.contains(Tokens.ELSE.literal) -> {
                     tokens.add(Token(Tokens.ELSE, Tokens.ELSE.literal))
+                    tokens.add(Token(Tokens.COLON, Tokens.COLON.literal))
                 }
                 else -> { // all others we think that is just statements
                     tokens.add(Token(Tokens.SIMPLE_STMT, trailLine))
@@ -139,6 +140,7 @@ class Scanner {
             val arithmeticScanner = ArithmeticScanner()
             val expressionToken = arithmeticScanner.scan(expression)
             list.addAll(expressionToken)
+            list.add(Token(Tokens.COLON, Tokens.COLON.literal))
         } else {
             TODO("Error !!! elif doesn't contain :")
         }
@@ -152,12 +154,12 @@ class Scanner {
      * k = Test(2,4)
      * println(2)
      * identifierState -> if we meet assignment we add asignment and stay in identifierState if we meet ( we go next->
-     * and scan arguments as identifiers before we meet )
+     * and analyze arguments as identifiers before we meet )
      * for example line contains
      * println(it)
-     * we have to scan it as simpleStatement,leftBracket,identifier,rightBracket, but how we understand
+     * we have to analyze it as simpleStatement,leftBracket,identifier,rightBracket, but how we understand
      * when identifier is function, class or something else
-     * Just we go through lines in first time, and scan all as identifiers
+     * Just we go through lines in first time, and analyze all as identifiers
      * we got Identifier, leftBracket, identifier, rightBracket
      * next we got throuth our tokens and if we seee identifier and then leftBracket to RightBracket
      * it is function or constructor, we will call it just simpleStatement

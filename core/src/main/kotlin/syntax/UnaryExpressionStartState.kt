@@ -4,7 +4,7 @@ import scanner.Token
 import scanner.Tokens
 import java.util.*
 
-class UnaryExpressionStartState(override val analyzer: SyntaxAnalizer,
+class UnaryExpressionStartState(override val analyzer: SyntaxAnalyzer,
                                 override val memory: Stack<Tokens>) : State {
     override fun analyze(token: Token) {
         when (token.token) {
@@ -14,9 +14,6 @@ class UnaryExpressionStartState(override val analyzer: SyntaxAnalizer,
             Tokens.IDENTIFIER -> {
                 analyzer.changeState(BinaryExpressionState(analyzer, memory))
             }
-//            Tokens.LEFT_BRACKET -> {
-//
-//            }
             Tokens.PLUS -> {
                 analyzer.changeState(PlusState(analyzer, memory))
             }

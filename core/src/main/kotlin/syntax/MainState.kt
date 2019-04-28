@@ -8,7 +8,7 @@ import java.util.*
  *
  * @author kostya05983
  */
-class MainState(override val analyzer: SyntaxAnalizer,
+class MainState(override val analyzer: SyntaxAnalyzer,
                 override val memory: Stack<Tokens>) : State {
 
 

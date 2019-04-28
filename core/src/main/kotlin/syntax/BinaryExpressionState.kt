@@ -8,13 +8,13 @@ import java.util.*
  * We can go from here to end state
  * @author kostya05983
  */
-class BinaryExpressionState(override val analyzer: SyntaxAnalizer,
+class BinaryExpressionState(override val analyzer: SyntaxAnalyzer,
                             override val memory: Stack<Tokens>) : State {
 
     override fun analyze(token: Token) {
         when (token.token) {
             Tokens.COLON -> {
-                analyzer.changeState(IndendState(analyzer, memory))
+                analyzer.changeState(IndentState(analyzer, memory))
                 //With if all
             }
             Tokens.OR -> {

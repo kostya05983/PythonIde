@@ -153,7 +153,6 @@ internal class ScannerTest {
         assertEquals(Token(Tokens.COLON, Tokens.COLON.literal), tokens[17])
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[18])
 
-
         assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[19])
         assertEquals(Token(Tokens.SIMPLE_STMT, "t=7"), tokens[20])
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[21])

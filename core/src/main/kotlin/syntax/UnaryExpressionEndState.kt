@@ -4,7 +4,7 @@ import scanner.Token
 import scanner.Tokens
 import java.util.*
 
-class UnaryExpressionEndState(override val analyzer: SyntaxAnalizer,
+class UnaryExpressionEndState(override val analyzer: SyntaxAnalyzer,
                               override val memory: Stack<Tokens>) : State {
 
     private val lastMatchTokens = arrayOf(
