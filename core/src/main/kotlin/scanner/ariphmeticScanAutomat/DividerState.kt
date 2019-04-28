@@ -13,11 +13,12 @@ class DividerState(override val scanner: ArithmeticScanner,
                    override val tokensArray: LinkedList<Token>,
                    override val memory: Stack<Char>) : State {
 
-    override fun parse(char: Char) {
+    override fun parse(char: Char, currentLine: Int, offset: Int) {
+        memory.push(char)
         when (char) {
             Alphabet.DIVIDER.ch -> {
+                tokensArray.add(Token(Tokens.FLOOR_DIVISION, memory, offset, currentLine))
                 memory.clear()
-                tokensArray.add(Token(Tokens.FLOOR_DIVISION, Tokens.FLOOR_DIVISION.literal))
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             else -> {

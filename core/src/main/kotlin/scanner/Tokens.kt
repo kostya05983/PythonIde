@@ -76,4 +76,5 @@ enum class Tokens(var literal: String) {
     IDENTIFIER(""),
     ASSIGNMENT("="),
     SIMPLE_STMT("simple_stmt"),
+    EMPTY_TOKEN("")
 }

@@ -14,5 +14,5 @@ interface State {
     /**
      * Parse character and select next state arithmetic's automat
      */
-    fun parse(char: Char)
+    fun parse(char: Char, currentLine: Int, offset: Int)
 }

@@ -13,10 +13,11 @@ class IdentifierState(override val scanner: ArithmeticScanner,
                       override val tokensArray: LinkedList<Token>,
                       override val memory: Stack<Char>) : State {
 
-    override fun parse(char: Char) {
+    override fun parse(char: Char, currentLine: Int, offset: Int) {
+        memory.push(char)
         when (char) {
             Alphabet.SPACE.ch -> {
-                tokensArray.add(scanner.joinToIdentifier(memory))
+                tokensArray.add(scanner.joinToIdentifier(memory, offset, currentLine))
                 memory.clear()
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }

@@ -8,23 +8,22 @@ import scanner.Tokens
 class RightShiftState(override val scanner: ArithmeticScanner,
                       override val tokensArray: LinkedList<Token>,
                       override val memory: Stack<Char>) : State {
-    override fun parse(char: Char) {
+    override fun parse(char: Char, currentLine: Int, offset: Int) {
+        memory.push(char)
         when (char) {
             Alphabet.RIGHT_SHIFT.ch -> {
+                tokensArray.add(Token(Tokens.SHIFT_RIGHT, memory, offset, currentLine))
                 memory.clear()
-                tokensArray.add(Token(Tokens.SHIFT_RIGHT, Tokens.SHIFT_RIGHT.literal))
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             Alphabet.EQUAL.ch -> {
+                tokensArray.add(Token(Tokens.EQUAL, memory, offset, currentLine))
                 memory.clear()
-                tokensArray.add(Token(Tokens.EQUAL, Tokens.EQUAL.literal))
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             else -> {
+                tokensArray.add(Token(Tokens.MORE, memory, offset, currentLine))
                 memory.clear()
-                tokensArray.add(Token(Tokens.MORE, Tokens.MORE.literal))
-
-                memory.push(char)
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }
         }

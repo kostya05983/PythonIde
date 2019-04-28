@@ -5,7 +5,8 @@ import scanner.Tokens
 import java.util.*
 
 class UnaryExpressionEndState(override val analyzer: SyntaxAnalyzer,
-                              override val memory: Stack<Tokens>) : State {
+                              override val memory: Stack<Tokens>,
+                              override val errorTokens: List<Token>) : State {
 
     private val lastMatchTokens = arrayOf(
             Tokens.AND,
@@ -31,25 +32,25 @@ class UnaryExpressionEndState(override val analyzer: SyntaxAnalyzer,
     override fun analyze(token: Token) {
         when {
             token.token == Tokens.PLUS -> {
-                analyzer.changeState(PlusState(analyzer, memory))
+                analyzer.changeState(PlusState(analyzer, memory, errorTokens))
             }
             token.token == Tokens.MINUS -> {
-                analyzer.changeState(MinusState(analyzer, memory))
+                analyzer.changeState(MinusState(analyzer, memory, errorTokens))
             }
             token.token == Tokens.INVERSE -> {
-                analyzer.changeState(InverseState(analyzer, memory))
+                analyzer.changeState(InverseState(analyzer, memory, errorTokens))
             }
             token.token == Tokens.NOT -> {
-                analyzer.changeState(NotState(analyzer, memory))
+                analyzer.changeState(NotState(analyzer, memory, errorTokens))
             }
             token.token == Tokens.IDENTIFIER -> {
-                analyzer.changeState(BinaryExpressionState(analyzer, memory))
+                analyzer.changeState(BinaryExpressionState(analyzer, memory, errorTokens))
             }
             token.token == Tokens.TRUE -> {
-                analyzer.changeState(BinaryExpressionState(analyzer, memory))
+                analyzer.changeState(BinaryExpressionState(analyzer, memory, errorTokens))
             }
             token.token == Tokens.FALSE -> {
-                analyzer.changeState(BinaryExpressionState(analyzer, memory))
+                analyzer.changeState(BinaryExpressionState(analyzer, memory, errorTokens))
             }
             !lastMatchTokens.contains(memory.peek()) -> {
             }

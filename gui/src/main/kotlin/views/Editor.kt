@@ -46,6 +46,7 @@ class Editor : Fragment() {
                 codeArea.setStyle(1,0, 10, styleClasses)
             }
         }
+
         codeArea.stylesheet {
             Stylesheet.content {
                 backgroundColor += ColorHolder.primaryColor

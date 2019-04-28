@@ -5,9 +5,9 @@ import scanner.Tokens
 import java.util.*
 
 class SyntaxAnalyzer() {
-    private var currentState: State = MainState(this, Stack())
+    private var currentState: State = MainState(this, Stack(), listOf())
 
-    fun analyze(tokens: List<Token>) {
+    fun analyze(tokens: List<Token>): List<Token> {
         for (token in tokens) {
             currentState.analyze(token)
         }
@@ -16,7 +16,7 @@ class SyntaxAnalyzer() {
         if (lastToken == Tokens.COLON && lastToken == Tokens.NEWLINE) {
             TODO("Error if without statement")
         }
-
+        return currentState.errorTokens
     }
 
     fun changeState(newState: State) {

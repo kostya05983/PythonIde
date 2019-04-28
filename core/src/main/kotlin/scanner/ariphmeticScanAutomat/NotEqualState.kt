@@ -13,16 +13,17 @@ import scanner.Tokens
 class NotEqualState(override val scanner: ArithmeticScanner,
                     override val tokensArray: LinkedList<Token>,
                     override val memory: Stack<Char>) : State {
-    override fun parse(char: Char) {
+
+    override fun parse(char: Char, currentLine: Int, offset: Int) {
+        memory.push(char)
         when (char) {
             Alphabet.EQUAL.ch -> {
+                tokensArray.add(Token(Tokens.NOT_EQUAL_C, memory, offset, currentLine))
                 memory.clear()
-                tokensArray.add(Token(Tokens.NOT_EQUAL_C, Tokens.NOT_EQUAL_C.literal))
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             else -> {
-                memory.push(char)
-                TODO("error")
+                TODO("error in notEqualState")
             }
         }
     }

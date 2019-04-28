@@ -74,10 +74,10 @@ class Scanner {
             val trailLine = lines[i].trim()
             when {
                 trailLine.contains(Tokens.ELIF.literal) -> {
-                    tokens.addAll(scanElseIf(trailLine))
+                    tokens.addAll(scanElseIf(trailLine, i, 0))
                 }
                 trailLine.contains(Tokens.IF.literal) -> {
-                    tokens.addAll(scanIf(trailLine))
+                    tokens.addAll(scanIf(trailLine, i, 0))
                 }
                 trailLine.contains(Tokens.ELSE.literal) -> {
                     tokens.add(Token(Tokens.ELSE, Tokens.ELSE.literal))
@@ -114,13 +114,13 @@ class Scanner {
     /**
      * Scan if in rules of if expression
      */
-    private fun scanIf(line: String): List<Token> {
+    private fun scanIf(line: String, offset: Int, currentLine: Int): List<Token> {
         val list = LinkedList<Token>()
         if (line[line.length - 1] == ':') {
             list.add(Token(Tokens.IF, Tokens.IF.literal))
             val expression = line.substring(2, line.length - 1)
             val arithmeticScanner = ArithmeticScanner()
-            val expressionTokens = arithmeticScanner.scan(expression)
+            val expressionTokens = arithmeticScanner.scan(expression, currentLine, offset)
             list.addAll(expressionTokens)
             list.add(Token(Tokens.COLON, Tokens.COLON.literal))
         } else {
@@ -132,13 +132,13 @@ class Scanner {
     /**
      * Scan elif expression
      */
-    private fun scanElseIf(line: String): List<Token> {
+    private fun scanElseIf(line: String, currentLine: Int, offset: Int): List<Token> {
         val list = LinkedList<Token>()
         if (line[line.length - 1] == ':') {
             list.add(Token(Tokens.ELIF, Tokens.ELIF.literal))
             val expression = line.substring(4, line.length - 1)
             val arithmeticScanner = ArithmeticScanner()
-            val expressionToken = arithmeticScanner.scan(expression)
+            val expressionToken = arithmeticScanner.scan(expression, currentLine, offset)
             list.addAll(expressionToken)
             list.add(Token(Tokens.COLON, Tokens.COLON.literal))
         } else {

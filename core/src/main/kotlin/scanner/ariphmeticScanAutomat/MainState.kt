@@ -8,53 +8,59 @@ import java.util.*
 class MainState(override val scanner: ArithmeticScanner,
                 override val tokensArray: LinkedList<Token>,
                 override val memory: Stack<Char>) : State {
+
     //тип пользовтаеля, идентификатор пользователя
-    override fun parse(char: Char) {
+    override fun parse(char: Char, currentLine: Int, offset: Int) {
         when (char) {
             Alphabet.PLUS.ch -> {
-                addIfNeed()
+                addIfNeed(offset, currentLine)
+                memory.push(char)
+                tokensArray.add(Token(Tokens.PLUS, memory, offset, currentLine))
                 memory.clear()
-                tokensArray.add(Token(Tokens.PLUS, Tokens.PLUS.literal))
             }
             Alphabet.MINUS.ch -> {
-                addIfNeed()
+                addIfNeed(offset, currentLine)
+                memory.push(char)
+                tokensArray.add(Token(Tokens.MINUS, memory, offset, currentLine))
                 memory.clear()
-                tokensArray.add(Token(Tokens.MINUS, Tokens.MINUS.literal))
             }
             Alphabet.LEFT_SHIFT.ch -> {
-                addIfNeed()
-                memory.clear()
+                addIfNeed(offset, currentLine)
+                memory.push(char)
+
                 scanner.changeState(LeftShiftState(scanner, tokensArray, memory))
             }
             Alphabet.RIGHT_SHIFT.ch -> {
-                addIfNeed()
-                memory.clear()
+                addIfNeed(offset, currentLine)
+                memory.push(char)
                 scanner.changeState(RightShiftState(scanner, tokensArray, memory))
             }
             Alphabet.EQUAL.ch -> {
-                addIfNeed()
-                memory.clear()
+                addIfNeed(offset, currentLine)
+                memory.push(char)
                 scanner.changeState(EqualState(scanner, tokensArray, memory))
             }
             Alphabet.NOT_EQUAL.ch -> {
-                addIfNeed()
-                memory.clear()
+                addIfNeed(offset, currentLine)
+                memory.push(char)
                 scanner.changeState(NotEqualState(scanner, tokensArray, memory))
             }
             Alphabet.REMAINDER.ch -> {
-                addIfNeed()
+                addIfNeed(offset, currentLine)
+                memory.push(char)
+                tokensArray.add(Token(Tokens.REMAINDER, memory, offset, currentLine))
                 memory.clear()
-                tokensArray.add(Token(Tokens.REMAINDER, Tokens.REMAINDER.literal))
             }
             Alphabet.DIVIDER.ch -> {
-                addIfNeed()
-                memory.clear()
+                addIfNeed(offset, currentLine)
+                memory.push(char)
                 scanner.changeState(DividerState(scanner, tokensArray, memory))
             }
             Alphabet.MULTIPLE.ch -> {
-                addIfNeed()
+                addIfNeed(offset, currentLine)
+                memory.push(char)
+                tokensArray.add(Token(Tokens.MULTIPLE, memory, offset, currentLine))
                 memory.clear()
-                tokensArray.add(Token(Tokens.MULTIPLE, Tokens.MULTIPLE.literal))
             }
             Alphabet.O.ch -> {
                 memory.push(char)
@@ -69,31 +75,34 @@ class MainState(override val scanner: ArithmeticScanner,
                 scanner.changeState(NState(scanner, tokensArray, memory))
             }
             Alphabet.LEFT_BRACKET.ch -> {
-                addIfNeed()
+                addIfNeed(offset, currentLine)
+                memory.push(char)
+                tokensArray.add(Token(Tokens.LEFT_BRACKET, memory, offset, currentLine))
                 memory.clear()
-                tokensArray.add(Token(Tokens.LEFT_BRACKET, Tokens.LEFT_BRACKET.literal))
             }
             Alphabet.RIGHT_BRACKET.ch -> {
-                addIfNeed()
+                addIfNeed(offset, currentLine)
+                memory.push(char)
+                tokensArray.add(Token(Tokens.RIGHT_BRACKET, memory, offset, currentLine))
                 memory.clear()
-                tokensArray.add(Token(Tokens.RIGHT_BRACKET, Tokens.RIGHT_BRACKET.literal))
             }
             Alphabet.AND.ch -> {
-                addIfNeed()
-                memory.clear()
+                addIfNeed(offset, currentLine)
+                memory.push(char)
                 scanner.changeState(SymbolAndState(scanner, tokensArray, memory))
             }
             Alphabet.SPACE.ch -> {
-                tokensArray.add(scanner.joinToIdentifier(memory))
-                memory.clear()
+                memory.push(char)
+                tokensArray.add(scanner.joinToIdentifier(memory, offset, currentLine))
             }
             Alphabet.INVERSE.ch -> {
-                tokensArray.add(Token(Tokens.INVERSE, Tokens.INVERSE.literal))
+                memory.push(char)
+                tokensArray.add(Token(Tokens.INVERSE, memory, offset, currentLine))
                 memory.clear()
             }
             Alphabet.OR.ch -> {
-                addIfNeed()
-                memory.clear()
+                addIfNeed(offset, currentLine)
+                memory.push(char)
                 scanner.changeState(SymbolOrState(scanner, tokensArray, memory))
             }
             else -> {
@@ -102,11 +111,37 @@ class MainState(override val scanner: ArithmeticScanner,
         }
     }
 
-    private fun addIfNeed() {
+    val notIndentifierLiterals = arrayOf(
+            Alphabet.PLUS.ch,
+            Alphabet.MINUS.ch,
+            Alphabet.LEFT_SHIFT.ch,
+            Alphabet.RIGHT_SHIFT.ch,
+            Alphabet.EQUAL.ch,
+            Alphabet.NOT_EQUAL.ch,
+            Alphabet.REMAINDER.ch,
+            Alphabet.DIVIDER.ch,
+            Alphabet.MULTIPLE.ch,
+            Alphabet.INVERSE.ch,
+            Alphabet.LEFT_BRACKET.ch,
+            Alphabet.RIGHT_BRACKET.ch,
+            Alphabet.AND.ch,
+            Alphabet.OR.ch
+    )
+
+    private fun addIfNeed(offset: Int, currentLine: Int) {
         if (memory.isNotEmpty()) {
-            tokensArray.add(scanner.joinToIdentifier(memory))
+            tokensArray.add(scanner.joinToIdentifier(memory, offset, currentLine))
             memory.clear()
         }
+    }
 
+    private fun containsArray(): Boolean {
+        var result = false
+
+        for (el in notIndentifierLiterals) {
+            if (memory.contains(el))
+                result = true
+        }
+        return result
     }
 }
