@@ -1,0 +1,64 @@
+(1) single_input -> NEWLINE | simple_stmt | if_stmt NEWLINE
+(2) compoun_stmt -> if_stmt
+
+(3) if_stmt -> ‘if’ test ‘:’ suite [‘else’ ‘:’ suite] | ‘if’ test ‘:’ suite T [‘else’ ‘:’ suite]
+(4) T -> (‘elif’ test ‘:’ suite) | (‘elif’ test ‘:’ suite) T
+
+
+(все * затем заменим рекурсиями, так уйдем от грамматики на регулярках)
+(5) test-> or_test [‘if’ or_test ‘else’ test] - а вы знали что в условии ифа можно запихнуть еще один иф))
+
+5-7 рассматривается внутреннее содержание ифа, так и другие ифы внутр ифа
+(6) suite-> simple_stmt | NEWLINE INDENT L DEDENT
+(7) L-> stmt | stmt L
+(8) stmt -> simple_stmt | compound_stmt
+
+Отсюда погнали условие
+в регулярках or_test: and_test (‘or’ and_test)*
+(9) or_test -> and_test | and_test P
+(10) P -> ‘or’ and_test | ‘or’ and_test P
+
+в регулярках and_test: not_test (‘and’ not_test)*
+(11) and_test -> not_test | not_test J
+(12) J -> ‘and’ not_test | ‘and’ not_test J
+
+(13) not_test -> ‘not’ not_test | comparison
+
+Оригинал в регулярках comparison: expr (comp_op expr)*
+(14) comparison -> expr T | expr
+(15) T -> comp_op expr | comp_op expr T
+
+(16) comp_op -> '<' | '>' | '==' | '>=' | '<=' | '<>' | '!='
+
+
+Оригинал expr: xor_expr (‘|’ xor_expr)*
+(17) expr -> xor_expr | xor_expr G
+(18) G -> ‘|’ xor_expr G | ‘|’ xor_expr
+
+Оригинал xor_expr: and_expr (‘^’ and_expr)*
+(19) xor_expr -> and_expr | and_expr I
+(20) I -> ‘^’ and_expr | ‘^’ and_expr I
+
+Оригинал and_expr: shift_expr (‘&’ shift_expr)*
+(21) and_expr -> shift_expr | shift_expr H
+(22) H -> ‘&’ shift_expr | ‘&’ shift_expr H
+
+Оригинал shift_expr: arith_expr ((‘<<’|’<<’) arith_expr)*
+(23) shift_expr -> arith_expr | arith_expr F
+(24) F -> Y arith_expr | Y arith_expr F
+(25) Y -> ‘<<’ | ‘>>’
+
+Оригинал arith_expr: term ((‘+’|’-’) term)*
+(26) arith_expr -> term | term A
+(27) A-> J term | J term A
+(28) J -> ‘+’ | ’-’
+
+Оригинал term: factor ((‘*’ | ‘/’| ‘%’|’//’) factor)*
+(29) term -> factor | factor U
+(30) U ->  F factor |  F factor U
+(31) F -> '*' | '/' | '%' | '//'
+
+Оригинал factor: (‘+’| ‘-’| ‘~’) factor| atom_expr
+(32) factor -> R factor | atom_expr
+(33) R -> '+' | '-' | '~'
+(34) atom_expr -> NUMBER | STRING | 'True' | 'False'
