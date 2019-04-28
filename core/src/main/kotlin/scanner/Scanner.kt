@@ -121,6 +121,7 @@ class Scanner {
             val arithmeticScanner = ArithmeticScanner()
             val expressionTokens = arithmeticScanner.scan(expression)
             list.addAll(expressionTokens)
+            list.add(Token(Tokens.COLON, Tokens.COLON.literal))
         } else {
             TODO("Error !!! ca we get here? only if we contain if, but we don't contain :")
         }

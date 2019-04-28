@@ -37,6 +37,7 @@ internal class ScannerTest {
         assertEquals(Token(Tokens.IDENTIFIER, "p"), tokens[5])
         assertEquals(Token(Tokens.EQUAL, Tokens.EQUAL.literal), tokens[6])
         assertEquals(Token(Tokens.IDENTIFIER, "7"), tokens[7])
+        assertEquals(Token(Tokens.COLON, Tokens.COLON.literal), tokens[8])
     }
 
     @Test
@@ -69,10 +70,11 @@ internal class ScannerTest {
         assertEquals(Token(Tokens.IDENTIFIER, "k"), tokens[15])
         assertEquals(Token(Tokens.EQUAL, Tokens.EQUAL.literal), tokens[16])
         assertEquals(Token(Tokens.IDENTIFIER, "3"), tokens[17])
+        assertEquals(Token(Tokens.COLON, Tokens.COLON.literal), tokens[18])
 
-        assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[18])
-        assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[19])
-        assertEquals(Token(Tokens.SIMPLE_STMT, "k=2"), tokens[20])
+        assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[19])
+        assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[20])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "k=2"), tokens[21])
     }
 
     @Test
@@ -96,20 +98,22 @@ internal class ScannerTest {
         assertEquals(Token(Tokens.IDENTIFIER, "4"), tokens[5])
         assertEquals(Token(Tokens.SHIFT_LEFT, Tokens.SHIFT_LEFT.literal), tokens[6])
         assertEquals(Token(Tokens.IDENTIFIER, "2"), tokens[7])
-        assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[8])
+        assertEquals(Token(Tokens.COLON, Tokens.COLON.literal), tokens[8])
+        assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[9])
 
-        assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[9])
-        assertEquals(Token(Tokens.SIMPLE_STMT, "p=2"), tokens[10])
-        assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[11])
+        assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[10])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "p=2"), tokens[11])
+        assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[12])
 
-        assertEquals(Token(Tokens.ELIF, Tokens.ELIF.literal), tokens[12])
-        assertEquals(Token(Tokens.IDENTIFIER, "k"), tokens[13])
-        assertEquals(Token(Tokens.EQUAL, Tokens.EQUAL.literal), tokens[14])
-        assertEquals(Token(Tokens.IDENTIFIER, "2"), tokens[15])
-        assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[16])
+        assertEquals(Token(Tokens.ELIF, Tokens.ELIF.literal), tokens[13])
+        assertEquals(Token(Tokens.IDENTIFIER, "k"), tokens[14])
+        assertEquals(Token(Tokens.EQUAL, Tokens.EQUAL.literal), tokens[15])
+        assertEquals(Token(Tokens.IDENTIFIER, "2"), tokens[16])
+        assertEquals(Token(Tokens.COLON, Tokens.COLON.literal), tokens[17])
+        assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[18])
 
-        assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[17])
-        assertEquals(Token(Tokens.SIMPLE_STMT, "t = 4"), tokens[18])
+        assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[19])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "t = 4"), tokens[20])
     }
 
     @Test
@@ -135,25 +139,29 @@ internal class ScannerTest {
         assertEquals(Token(Tokens.IDENTIFIER, "4"), tokens[5])
         assertEquals(Token(Tokens.SHIFT_LEFT, Tokens.SHIFT_LEFT.literal), tokens[6])
         assertEquals(Token(Tokens.IDENTIFIER, "4"), tokens[7])
-        assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[8])
+        assertEquals(Token(Tokens.COLON, Tokens.COLON.literal), tokens[8])
+        assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[9])
 
-        assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[9])
-        assertEquals(Token(Tokens.SIMPLE_STMT, "p=2"), tokens[10])
-        assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[11])
+        assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[10])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "p=2"), tokens[11])
+        assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[12])
 
-        assertEquals(Token(Tokens.ELIF, Tokens.ELIF.literal), tokens[12])
-        assertEquals(Token(Tokens.IDENTIFIER, "k"), tokens[13])
-        assertEquals(Token(Tokens.EQUAL, Tokens.EQUAL.literal), tokens[14])
-        assertEquals(Token(Tokens.IDENTIFIER, "6"), tokens[15])
-        assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[16])
+        assertEquals(Token(Tokens.ELIF, Tokens.ELIF.literal), tokens[13])
+        assertEquals(Token(Tokens.IDENTIFIER, "k"), tokens[14])
+        assertEquals(Token(Tokens.EQUAL, Tokens.EQUAL.literal), tokens[15])
+        assertEquals(Token(Tokens.IDENTIFIER, "6"), tokens[16])
+        assertEquals(Token(Tokens.COLON, Tokens.COLON.literal), tokens[17])
+        assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[18])
 
-        assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[17])
-        assertEquals(Token(Tokens.SIMPLE_STMT, "t=7"), tokens[18])
-        assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[19])
 
-        assertEquals(Token(Tokens.ELSE, Tokens.ELSE.literal), tokens[20])
+        assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[19])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "t=7"), tokens[20])
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[21])
-        assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[22])
-        assertEquals(Token(Tokens.SIMPLE_STMT, "p=8"), tokens[23])
+
+        assertEquals(Token(Tokens.ELSE, Tokens.ELSE.literal), tokens[22])
+        assertEquals(Token(Tokens.COLON, Tokens.COLON.literal), tokens[23])
+        assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[24])
+        assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[25])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "p=8"), tokens[26])
     }
 }
