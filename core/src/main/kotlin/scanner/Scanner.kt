@@ -1,10 +1,8 @@
 package scanner
 
-import java.security.AlgorithmParameterGenerator
-import java.util.*
-import scanner.Tokens
 import scanner.ariphmeticScanAutomat.ArithmeticScanner
 import scanner.statementAutomat.StatementScanner
+import java.util.*
 
 /**
  * @author kostya05983
@@ -46,6 +44,20 @@ import scanner.statementAutomat.StatementScanner
 class Scanner {
 
     /**
+     * Count amount of spaces before line to make offset
+     */
+    private fun countSpaces(line: String): Int {
+        var amount = 0
+        for (char in line) {
+            if (char != ' ') {
+                return amount
+            }
+            amount++
+        }
+        return amount
+    }
+
+    /**
      * Examples of language:
      * if k==2:
      *  k=4
@@ -70,33 +82,48 @@ class Scanner {
         val tokens = ArrayList<Token>()
 
         for (i in 0 until lines.size) {
-            tokens.addAll(findIndent(lines[i]))
+            val offset = countSpaces(lines[i])
+
+            tokens.addAll(findIndent(lines[i], offset, i))
             val trailLine = lines[i].trim()
             when {
                 trailLine.contains(Tokens.ELIF.literal) -> {
-                    tokens.addAll(scanElseIf(trailLine, i, 0))
+                    tokens.addAll(scanElseIf(trailLine, i, offset))
                 }
                 trailLine.contains(Tokens.IF.literal) -> {
-                    tokens.addAll(scanIf(trailLine, i, 0))
+                    tokens.addAll(scanIf(trailLine, offset, i))
                 }
                 trailLine.contains(Tokens.ELSE.literal) -> {
                     tokens.add(Token(Tokens.ELSE, Tokens.ELSE.literal))
                     tokens.add(Token(Tokens.COLON, Tokens.COLON.literal))
                 }
                 else -> { // all others we think that is just statements
-                    tokens.add(Token(Tokens.SIMPLE_STMT, trailLine))
+                    val token = Token(Tokens.SIMPLE_STMT, trailLine)
+                    token.paragraph = i
+                    token.startPosition = offset
+                    token.endPosition = offset + lines[i].length
+                    tokens.add(token)
                 }
             }
-            if (i != lines.size - 1)
-                tokens.add(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal))
+            if (i != lines.size - 1) {
+                val token = Token(Tokens.NEWLINE, Tokens.NEWLINE.literal)
+                token.paragraph = lines.size - 1
+                token.startPosition = offset
+                token.endPosition = offset
+                tokens.add(token)
+            }
+
         }
-        return tokens
+
+        return tokens.filter {
+            it.value.isNotEmpty()
+        }
     }
 
     /**
      * Find all indents in line
      */
-    private fun findIndent(str: String): List<Token> {
+    private fun findIndent(str: String, offset: Int, paragraph: Int): List<Token> {
         val list = mutableListOf<Token>()
         var count = 0
         for (char in str) {
@@ -105,8 +132,13 @@ class Scanner {
             } else {
                 count = 0
             }
-            if (count == 4)
-                list.add(Token(Tokens.INDENT, Tokens.INDENT.literal))
+            if (count == 4) {
+                val token = Token(Tokens.INDENT, Tokens.INDENT.literal)
+                token.startPosition = offset
+                token.paragraph = paragraph
+                token.endPosition = offset + 4
+                list.add(token)
+            }
         }
         return list
     }
@@ -116,15 +148,25 @@ class Scanner {
      */
     private fun scanIf(line: String, offset: Int, currentLine: Int): List<Token> {
         val list = LinkedList<Token>()
+
+        val token = Token(Tokens.IF, Tokens.IF.literal)
+        token.startPosition = offset
+        token.endPosition = offset + 1
+        token.paragraph = currentLine
+        list.add(token)
+
+
+        val expression = line.substring(2, line.length - 1)
+        val arithmeticScanner = ArithmeticScanner()
+        val expressionTokens = arithmeticScanner.scan(expression, currentLine, offset + 1)
+
+        list.addAll(expressionTokens)
         if (line[line.length - 1] == ':') {
-            list.add(Token(Tokens.IF, Tokens.IF.literal))
-            val expression = line.substring(2, line.length - 1)
-            val arithmeticScanner = ArithmeticScanner()
-            val expressionTokens = arithmeticScanner.scan(expression, currentLine, offset)
-            list.addAll(expressionTokens)
-            list.add(Token(Tokens.COLON, Tokens.COLON.literal))
-        } else {
-            TODO("Error !!! ca we get here? only if we contain if, but we don't contain :")
+            val token = Token(Tokens.COLON, Tokens.COLON.literal)
+            token.startPosition = list.last().endPosition
+            token.paragraph = currentLine
+            token.endPosition = list.last.endPosition!! + 1
+            list.add(token)
         }
         return list
     }
@@ -134,15 +176,18 @@ class Scanner {
      */
     private fun scanElseIf(line: String, currentLine: Int, offset: Int): List<Token> {
         val list = LinkedList<Token>()
+
+        list.add(Token(Tokens.ELIF, Tokens.ELIF.literal))
+        val expression = line.substring(4, line.length - 1)
+        val arithmeticScanner = ArithmeticScanner()
+        val expressionToken = arithmeticScanner.scan(expression, currentLine, offset)
+        list.addAll(expressionToken)
         if (line[line.length - 1] == ':') {
-            list.add(Token(Tokens.ELIF, Tokens.ELIF.literal))
-            val expression = line.substring(4, line.length - 1)
-            val arithmeticScanner = ArithmeticScanner()
-            val expressionToken = arithmeticScanner.scan(expression, currentLine, offset)
-            list.addAll(expressionToken)
-            list.add(Token(Tokens.COLON, Tokens.COLON.literal))
-        } else {
-            TODO("Error !!! elif doesn't contain :")
+            val token = Token(Tokens.COLON, Tokens.COLON.literal)
+            token.startPosition = list.last().endPosition
+            token.paragraph = currentLine
+            token.endPosition = list.last.endPosition!! + 1
+            list.add(token)
         }
         return list
     }

@@ -6,7 +6,7 @@ import java.util.*
 
 class MinusState(override val analyzer: SyntaxAnalyzer,
                  override val memory: Stack<Tokens>,
-                 override val errorTokens: List<Token>) : State {
+                 override val errorTokens: MutableList<Token>) : State {
     override fun analyze(token: Token) {
         when (token.token) {
             Tokens.MINUS -> {
@@ -21,7 +21,7 @@ class MinusState(override val analyzer: SyntaxAnalyzer,
                 analyzer.changeState(BinaryExpressionState(analyzer, memory, errorTokens))
             }
             else -> {
-                TODO("Error ! in minus state")
+                errorTokens.add(token)
             }
         }
         memory.push(token.token)

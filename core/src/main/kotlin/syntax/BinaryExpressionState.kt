@@ -10,7 +10,7 @@ import java.util.*
  */
 class BinaryExpressionState(override val analyzer: SyntaxAnalyzer,
                             override val memory: Stack<Tokens>,
-                            override val errorTokens: List<Token>) : State {
+                            override val errorTokens: MutableList<Token>) : State {
 
     override fun analyze(token: Token) {
         when (token.token) {
@@ -76,7 +76,7 @@ class BinaryExpressionState(override val analyzer: SyntaxAnalyzer,
                 analyzer.changeState(UnaryExpressionEndState(analyzer, memory, errorTokens))
             }
             else -> {
-                TODO("ERROR Binary expression state")
+                errorTokens.add(token)
             }
         }
         memory.push(token.token)

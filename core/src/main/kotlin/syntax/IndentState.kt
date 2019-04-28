@@ -6,7 +6,7 @@ import java.util.*
 
 class IndentState(override val analyzer: SyntaxAnalyzer,
                   override val memory: Stack<Tokens>,
-                  override val errorTokens: List<Token>) : State {
+                  override val errorTokens: MutableList<Token>) : State {
 
     override fun analyze(token: Token) {
         when {
@@ -17,7 +17,8 @@ class IndentState(override val analyzer: SyntaxAnalyzer,
 
             }
             else -> {
-                TODO("Error in INTENT state")
+                errorTokens.add(token)
+
             }
         }
         memory.push(token.token)

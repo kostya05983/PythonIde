@@ -39,11 +39,15 @@ class Editor : Fragment() {
         codeArea.addEventHandler(KeyEvent.KEY_PRESSED) {
             if (it.code == KeyCode.ENTER) {
                 println("Enter")
-                syntaxAnalyzer.analyze(codeArea.text)
+                val errors = syntaxAnalyzer.analyze(codeArea.text)
 
-                val styleClasses = Arrays.asList("test")
-
-                codeArea.setStyle(1,0, 10, styleClasses)
+                errors.forEach { token ->
+                    val styleClasses = Arrays.asList("test")
+                    println("Line=${token.paragraph} start=${token.startPosition} end=${token.endPosition}")
+                    codeArea.setStyle(token.paragraph!!,
+                            token.startPosition!!,
+                            token.endPosition!!, styleClasses)
+                }
             }
         }
 

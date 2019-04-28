@@ -4,18 +4,20 @@ import scanner.Token
 import scanner.Tokens
 import java.util.*
 
-class SyntaxAnalyzer() {
-    private var currentState: State = MainState(this, Stack(), listOf())
+class SyntaxAnalyzer {
+    private lateinit var currentState: State
 
     fun analyze(tokens: List<Token>): List<Token> {
+        currentState = MainState(this, Stack(), mutableListOf())
         for (token in tokens) {
             currentState.analyze(token)
         }
 
-        val lastToken = currentState.memory.peek()
+        val lastToken: Tokens = currentState.memory.peek()
         if (lastToken == Tokens.COLON && lastToken == Tokens.NEWLINE) {
-            TODO("Error if without statement")
+            currentState.errorTokens.add(tokens.last())
         }
+
         return currentState.errorTokens
     }
 

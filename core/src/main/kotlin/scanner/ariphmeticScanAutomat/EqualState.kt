@@ -18,7 +18,8 @@ class EqualState(override val scanner: ArithmeticScanner,
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             else -> {
-                TODO("This is error")
+                tokensArray.add(Token(Tokens.ASSIGNMENT, memory, offset, currentLine))
+                memory.clear()
                 memory.push(char)
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }

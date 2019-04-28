@@ -9,7 +9,7 @@ interface State {
 
     val memory: Stack<Tokens>
 
-    val errorTokens: List<Token>
+    val errorTokens: MutableList<Token>
 
     fun analyze(token: Token)
 }

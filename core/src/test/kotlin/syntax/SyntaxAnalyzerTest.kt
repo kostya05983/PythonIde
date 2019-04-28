@@ -21,7 +21,8 @@ internal class SyntaxAnalyzerTest {
             val tokens = scanner.scan(line)
 
             val analyzer = SyntaxAnalyzer()
-            analyzer.analyze(tokens)
+            val errors = analyzer.analyze(tokens)
+            assertEquals(0, errors.size)
         }
 
         @Test
@@ -34,7 +35,8 @@ internal class SyntaxAnalyzerTest {
             val tokens = scanner.scan(line)
 
             val analyzer = SyntaxAnalyzer()
-            analyzer.analyze(tokens)
+            val errors = analyzer.analyze(tokens)
+            assertEquals(0, errors.size)
         }
 
         @Test
@@ -50,7 +52,8 @@ internal class SyntaxAnalyzerTest {
             val tokens = scanner.scan(line)
 
             val analyzer = SyntaxAnalyzer()
-            analyzer.analyze(tokens)
+            val errors = analyzer.analyze(tokens)
+            assertEquals(0, errors.size)
         }
 
         @Test
@@ -68,9 +71,54 @@ internal class SyntaxAnalyzerTest {
             val tokens = scanner.scan(line)
 
             val analyzer = SyntaxAnalyzer()
-            analyzer.analyze(tokens)
+            val errors = analyzer.analyze(tokens)
+            assertEquals(0, errors.size)
+
+        }
+
+        @Test
+        fun testAnalyzeIf() {
+            val line = """
+                if k ==2:
+                    t ==5
+            """.trimIndent()
+            val scanner = Scanner()
+            val tokens = scanner.scan(line)
+
+            val analyzer = SyntaxAnalyzer()
+            val errors = analyzer.analyze(tokens)
+            assertEquals(0, errors.size)
+        }
+
+        @Test
+        fun testAnalyzeIfWithEnter() {
+            val line = """
+                if k==4:
+                    t==5
+
+            """.trimIndent()
+            val scanner = Scanner()
+            val tokens = scanner.scan(line)
+
+            val analyzer = SyntaxAnalyzer()
+            val errors = analyzer.analyze(tokens)
+            assertEquals(0, errors.size)
         }
     }
 
+    @Test
+    fun testAnalyzeError() {
+        val line = """
+            if k==2:
+                p=6
+            else t==:
+               t=8
+        """.trimIndent()
+        val scanner = Scanner()
+        val tokens = scanner.scan(line)
 
+        val analyzer = SyntaxAnalyzer()
+        val errors = analyzer.analyze(tokens)
+        assertEquals(1, errors.size)
+    }
 }

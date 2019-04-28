@@ -10,7 +10,7 @@ import java.util.*
  */
 class MainState(override val analyzer: SyntaxAnalyzer,
                 override val memory: Stack<Tokens>,
-                override val errorTokens: List<Token>) : State {
+                override val errorTokens: MutableList<Token>) : State {
 
 
     override fun analyze(token: Token) {
@@ -29,7 +29,7 @@ class MainState(override val analyzer: SyntaxAnalyzer,
                 analyzer.changeState(ElseState(analyzer, memory, errorTokens))
             }
             else -> {
-                TODO("We can't start with this")
+                errorTokens.add(token)
             }
         }
         memory.push(token.token)

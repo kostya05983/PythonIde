@@ -12,13 +12,15 @@ class ArithmeticScanner {
 
     var currentState: State = MainState(this, LinkedList(), Stack())
 
+
     fun scan(s: String, currentLine: Int, offset: Int): List<Token> {
+        var currentOffset = offset
         for (char in s) {
-            currentState.parse(char, currentLine, offset)
+            currentState.parse(char, currentLine, currentOffset)
+            currentOffset++
         }
         if (currentState.memory.isNotEmpty())
-            currentState.tokensArray.add(Token(Tokens.IDENTIFIER,
-                    currentState.memory.joinToString("")))
+            currentState.tokensArray.add(Token(Tokens.IDENTIFIER, currentState.memory, currentOffset, currentLine))
 
         return currentState.tokensArray.filter {
             it.value != ""

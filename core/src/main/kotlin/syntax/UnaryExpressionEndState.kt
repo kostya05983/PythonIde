@@ -6,7 +6,7 @@ import java.util.*
 
 class UnaryExpressionEndState(override val analyzer: SyntaxAnalyzer,
                               override val memory: Stack<Tokens>,
-                              override val errorTokens: List<Token>) : State {
+                              override val errorTokens: MutableList<Token>) : State {
 
     private val lastMatchTokens = arrayOf(
             Tokens.AND,
@@ -55,7 +55,7 @@ class UnaryExpressionEndState(override val analyzer: SyntaxAnalyzer,
             !lastMatchTokens.contains(memory.peek()) -> {
             }
             else -> {
-                TODO("Error in UnaryExpressionEndState")
+                errorTokens.add(token)
             }
         }
         memory.push(token.token)
