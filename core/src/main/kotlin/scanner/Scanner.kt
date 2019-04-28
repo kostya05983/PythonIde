@@ -69,9 +69,9 @@ class Scanner {
 
         val tokens = ArrayList<Token>()
 
-        for (line in lines) {
-            tokens.addAll(findIndent(line))
-            val trailLine = line.trim()
+        for (i in 0 until lines.size) {
+            tokens.addAll(findIndent(lines[i]))
+            val trailLine = lines[i].trim()
             when {
                 trailLine.contains(Tokens.ELIF.literal) -> {
                     tokens.addAll(scanElseIf(trailLine))
@@ -86,6 +86,8 @@ class Scanner {
                     tokens.add(Token(Tokens.SIMPLE_STMT, trailLine))
                 }
             }
+            if (i != lines.size - 1)
+                tokens.add(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal))
         }
         return tokens
     }
