@@ -20,8 +20,8 @@ internal class SyntaxAnalyzerTest {
             val scanner = Scanner()
             val tokens = scanner.scan(line)
 
-            val analyzer = SyntaxAnalyzer(tokens)
-            analyzer.analyze()
+            val analyzer = SyntaxAnalyzer()
+            analyzer.analyze(tokens)
         }
 
         @Test
@@ -33,8 +33,8 @@ internal class SyntaxAnalyzerTest {
             val scanner = Scanner()
             val tokens = scanner.scan(line)
 
-            val analyzer = SyntaxAnalyzer(tokens)
-            analyzer.analyze()
+            val analyzer = SyntaxAnalyzer()
+            analyzer.analyze(tokens)
         }
 
         @Test
@@ -49,8 +49,8 @@ internal class SyntaxAnalyzerTest {
             val scanner = Scanner()
             val tokens = scanner.scan(line)
 
-            val analyzer = SyntaxAnalyzer(tokens)
-            analyzer.analyze()
+            val analyzer = SyntaxAnalyzer()
+            analyzer.analyze(tokens)
         }
 
         @Test
@@ -67,8 +67,8 @@ internal class SyntaxAnalyzerTest {
             val scanner = Scanner()
             val tokens = scanner.scan(line)
 
-            val analyzer = SyntaxAnalyzer(tokens)
-            analyzer.analyze()
+            val analyzer = SyntaxAnalyzer()
+            analyzer.analyze(tokens)
         }
     }
 
