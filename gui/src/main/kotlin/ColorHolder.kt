@@ -6,6 +6,7 @@ object ColorHolder {
     lateinit var secondColor: Color
     lateinit var fontColor: Color
     lateinit var selectionColor: Color
+    lateinit var errorColor: Color
 
     init {
         //DEFAULT
@@ -13,6 +14,7 @@ object ColorHolder {
         secondColor = c("#45474a")
         fontColor = Color.WHITE
         selectionColor = c("#3B71AA")
+        errorColor = Color.RED
 
     }
 }

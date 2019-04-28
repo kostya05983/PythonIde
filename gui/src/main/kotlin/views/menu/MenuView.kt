@@ -47,37 +47,38 @@ class MenuView : View() {
             item("Undo", "Shortcut+Z") {
 
                 action {
-                    editorTabPane.currentEditor?.root?.undo()
+                    editorTabPane.currentEditor?.codeArea?.undo()
                 }
             }
             item("Redo", "Shortcut+Shift+Z") {
                 action {
-                    editorTabPane.currentEditor?.root?.redo()
+                    editorTabPane.currentEditor?.codeArea?.redo()
                 }
             }
             item("Cut", "Shortcut+X") {
                 action {
-                    editorTabPane.currentEditor?.root?.undo()
+                    editorTabPane.currentEditor?.codeArea?.undo()
                 }
             }
             item("Copy", "Shortcut+C") {
                 action {
-                    editorTabPane.currentEditor?.root?.copy()
+                    editorTabPane.currentEditor?.codeArea?.copy()
                 }
             }
             item("Paste", "Shortcut+V") {
                 action {
-                    editorTabPane.currentEditor?.root?.paste()
+                    editorTabPane.currentEditor?.codeArea?.paste()
                 }
             }
             item("Delete", "Shortcut+Y") {
                 action {
-                    editorTabPane.currentEditor?.root?.deleteSelectedText()
+                    TODO("delete selected text")
+//                    editorTabPane.currentEditor?.codeArea?.deleteSelectedText()
                 }
             }
             item("Select all", "Shortcut+A") {
                 action {
-                    editorTabPane.currentEditor?.root?.selectAll()
+                    editorTabPane.currentEditor?.codeArea?.selectAll()
                 }
             }
         }

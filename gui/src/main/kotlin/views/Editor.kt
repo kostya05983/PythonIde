@@ -1,57 +1,79 @@
 package views
 
-import controllers.Lab2AutomatAnalyzer
-import controllers.Lab3RegexAnalyzer
+import controllers.SyntaxAnalyzerImpl
 import javafx.scene.control.TextArea
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCombination
 import javafx.scene.input.KeyEvent
 import javafx.scene.layout.Priority
+import javafx.scene.layout.VBox
+import org.fxmisc.richtext.CodeArea
 import styles.EditorStyles
 import tornadofx.*
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.FileReader
 import java.io.FileWriter
+import java.util.*
 import java.util.stream.Collectors
 
 class Editor : Fragment() {
     val path: String by param()
 
-    val syntaxAnylyzer: Lab2AutomatAnalyzer by inject()
+    private val syntaxAnalyzer: SyntaxAnalyzerImpl by inject()
 
-    val regexAnalyzer: Lab3RegexAnalyzer by inject()
+    public val codeArea = CodeArea()
 
     init {
         importStylesheet(EditorStyles::class)
     }
 
-    override val root: TextArea = textarea {
+    //    override val root: CodeArea = CodeArea()
+    override val root: VBox = vbox {
         hgrow = Priority.ALWAYS
         vgrow = Priority.ALWAYS
-
-        text = loadText()
+        codeArea.replaceText(0, 0, loadText())
 
         loadSubscriptions()
         loadShortCut()
-
-        addEventHandler(KeyEvent.KEY_PRESSED) {
+        codeArea.addEventHandler(KeyEvent.KEY_PRESSED) {
             if (it.code == KeyCode.ENTER) {
-//                syntaxAnylyzer.analyze(text)
-                regexAnalyzer.analyze(text)
+                println("Enter")
+                syntaxAnalyzer.analyze(codeArea.text)
+
+                val styleClasses = Arrays.asList("test")
+
+                codeArea.setStyle(1,0, 10, styleClasses)
             }
         }
+        codeArea.stylesheet {
+            Stylesheet.content {
+                backgroundColor += ColorHolder.primaryColor
+                borderWidth += box(Dimension(0.0, Dimension.LinearUnits.px))
+            }
+            Stylesheet.focused {
+                backgroundColor += ColorHolder.primaryColor
+            }
+            Stylesheet.text {
+                fill = ColorHolder.fontColor
+            }
+
+            this.addSelection(CssSelection(CssSelector(CssRuleSet(CssRule.c("test")))) {
+                fill = ColorHolder.errorColor
+            })
+        }
+        add(codeArea) //TODO this wrong example of adding
     }
 
     private fun loadSubscriptions() {
         subscribe<WriteEvent> {
-            writeTextToFile(root.text)
+            writeTextToFile(codeArea.text)
         }
     }
 
     private fun loadShortCut() {
         shortcut(KeyCombination.valueOf("Ctrl+S")) {
-            writeTextToFile(root.text)
+            writeTextToFile(codeArea.text)
         }
     }
 
