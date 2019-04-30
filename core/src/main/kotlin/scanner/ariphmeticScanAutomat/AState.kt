@@ -88,12 +88,12 @@ class AState(override val scanner: ArithmeticScanner,
             Alphabet.AND.ch -> {
                 tokensArray.add(scanner.joinToIdentifier(memory, offset, currentLine))
                 memory.push(char)
-                scanner.changeState(DoubleSymbolAndState(scanner, tokensArray, memory))
+                scanner.changeState(SymbolAndState(scanner, tokensArray, memory))
             }
             Alphabet.OR.ch -> {
                 tokensArray.add(scanner.joinToIdentifier(memory, offset, currentLine))
                 memory.push(char)
-                scanner.changeState(DoubleSymbolOrState(scanner, tokensArray, memory))
+                scanner.changeState(SymbolOrState(scanner, tokensArray, memory))
             }
             Alphabet.LEFT_BRACKET.ch -> {
                 tokensArray.add(scanner.joinToIdentifier(memory, offset, currentLine))

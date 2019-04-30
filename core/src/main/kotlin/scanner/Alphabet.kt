@@ -32,5 +32,10 @@ enum class Alphabet(val ch: Char) {
     D('d'),
     SPACE(' '),
     R('r'),
-    T('t')
+    T('t'),
+    I('i'),
+    F('f'),
+    E('e'),
+    L('l'),
+    S('s'),
 }

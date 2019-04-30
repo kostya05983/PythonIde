@@ -49,4 +49,23 @@ class ArithmeticScanner {
             Token(Tokens.EMPTY_TOKEN, "")
         }
     }
+
+    fun joinToSimpleStatement(memory: Stack<Char>, offset: Int, paragraph: Int): Token {
+        val sb = StringBuilder()
+
+        var c = false
+        for (ch in memory) {
+            sb.append(ch)
+            if (ch != ' ')
+                c = true
+        }
+
+        return if (c) {
+            val token = Token(Tokens.SIMPLE_STMT, memory, offset, paragraph)
+            memory.clear()
+            token
+        } else {
+            Token(Tokens.EMPTY_TOKEN, "")
+        }
+    }
 }

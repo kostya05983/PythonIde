@@ -94,6 +94,7 @@ class Scanner {
                     tokens.addAll(scanIf(trailLine, offset, i))
                 }
                 trailLine.contains(Tokens.ELSE.literal) -> {
+                    //Authomat for lese
                     tokens.add(Token(Tokens.ELSE, Tokens.ELSE.literal))
                     tokens.add(Token(Tokens.COLON, Tokens.COLON.literal))
                 }

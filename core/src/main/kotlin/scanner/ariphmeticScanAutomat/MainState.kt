@@ -111,37 +111,10 @@ class MainState(override val scanner: ArithmeticScanner,
         }
     }
 
-    val notIndentifierLiterals = arrayOf(
-            Alphabet.PLUS.ch,
-            Alphabet.MINUS.ch,
-            Alphabet.LEFT_SHIFT.ch,
-            Alphabet.RIGHT_SHIFT.ch,
-            Alphabet.EQUAL.ch,
-            Alphabet.NOT_EQUAL.ch,
-            Alphabet.REMAINDER.ch,
-            Alphabet.DIVIDER.ch,
-            Alphabet.MULTIPLE.ch,
-            Alphabet.INVERSE.ch,
-            Alphabet.LEFT_BRACKET.ch,
-            Alphabet.RIGHT_BRACKET.ch,
-            Alphabet.AND.ch,
-            Alphabet.OR.ch
-    )
-
     private fun addIfNeed(offset: Int, currentLine: Int) {
         if (memory.isNotEmpty()) {
             tokensArray.add(scanner.joinToIdentifier(memory, offset, currentLine))
             memory.clear()
         }
-    }
-
-    private fun containsArray(): Boolean {
-        var result = false
-
-        for (el in notIndentifierLiterals) {
-            if (memory.contains(el))
-                result = true
-        }
-        return result
     }
 }

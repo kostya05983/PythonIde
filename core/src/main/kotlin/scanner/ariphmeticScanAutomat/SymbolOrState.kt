@@ -12,11 +12,13 @@ class SymbolOrState(override val scanner: ArithmeticScanner,
     override fun parse(char: Char, currentLine: Int, offset: Int) {
         memory.push(char)
         when (char) {
-            Alphabet.OR.ch -> {
-                scanner.changeState(DoubleSymbolOrState(scanner, tokensArray, memory))
+            Alphabet.SPACE.ch -> {
+                tokensArray.add(Token(Tokens.SLASH, memory, offset, currentLine))
+                memory.clear()
+                scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             else -> {
-                tokensArray.add(Token(Tokens.SLASH, Tokens.SLASH.literal))
+                tokensArray.add(Token(Tokens.UNRECOGNIZED, memory, offset, currentLine))
                 memory.clear()
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }

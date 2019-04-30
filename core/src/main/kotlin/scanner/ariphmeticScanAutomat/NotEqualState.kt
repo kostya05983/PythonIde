@@ -23,7 +23,9 @@ class NotEqualState(override val scanner: ArithmeticScanner,
                 scanner.changeState(MainState(scanner, tokensArray, memory))
             }
             else -> {
-                TODO("error in notEqualState")
+                tokensArray.add(Token(Tokens.ASSIGNMENT, memory, offset, currentLine))
+                memory.clear()
+                scanner.changeState(MainState(scanner, tokensArray, memory))
             }
         }
     }
