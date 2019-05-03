@@ -23,6 +23,8 @@ enum class Alphabet(val ch: Char) {
     RIGHT_BRACKET(')'),
     AND('&'),
     OR('|'),
+    COLON(':'),
+    NEWLINE('\n'),
 
     /**
      * Next there are delimiters or end symbols,

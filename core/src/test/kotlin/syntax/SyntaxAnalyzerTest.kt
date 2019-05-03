@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Nested
-import scanner.Scanner
+import scanner.ScannerAutomate
 
 internal class SyntaxAnalyzerTest {
 
@@ -17,7 +17,7 @@ internal class SyntaxAnalyzerTest {
             t = Test(2)
             Test(4,6)
         """.trimIndent()
-            val scanner = Scanner()
+            val scanner = ScannerAutomate()
             val tokens = scanner.scan(line)
 
             val analyzer = SyntaxAnalyzer()
@@ -31,7 +31,7 @@ internal class SyntaxAnalyzerTest {
             if k == 2 && p == 7:
                 k = 6
         """.trimIndent()
-            val scanner = Scanner()
+            val scanner = ScannerAutomate()
             val tokens = scanner.scan(line)
 
             val analyzer = SyntaxAnalyzer()
@@ -48,7 +48,7 @@ internal class SyntaxAnalyzerTest {
            elif k==2:
                t = 4
         """.trimIndent()
-            val scanner = Scanner()
+            val scanner = ScannerAutomate()
             val tokens = scanner.scan(line)
 
             val analyzer = SyntaxAnalyzer()
@@ -67,7 +67,7 @@ internal class SyntaxAnalyzerTest {
             else:
                 p =8
         """.trimIndent()
-            val scanner = Scanner()
+            val scanner = ScannerAutomate()
             val tokens = scanner.scan(line)
 
             val analyzer = SyntaxAnalyzer()
@@ -82,7 +82,7 @@ internal class SyntaxAnalyzerTest {
                 if k ==2:
                     t ==5
             """.trimIndent()
-            val scanner = Scanner()
+            val scanner = ScannerAutomate()
             val tokens = scanner.scan(line)
 
             val analyzer = SyntaxAnalyzer()
@@ -97,7 +97,7 @@ internal class SyntaxAnalyzerTest {
                     t==5
 
             """.trimIndent()
-            val scanner = Scanner()
+            val scanner = ScannerAutomate()
             val tokens = scanner.scan(line)
 
             val analyzer = SyntaxAnalyzer()
@@ -114,7 +114,7 @@ internal class SyntaxAnalyzerTest {
             else t==:
                t=8
         """.trimIndent()
-        val scanner = Scanner()
+        val scanner = ScannerAutomate()
         val tokens = scanner.scan(line)
 
         val analyzer = SyntaxAnalyzer()
