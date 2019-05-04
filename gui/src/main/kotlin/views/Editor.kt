@@ -28,7 +28,11 @@ class Editor : Fragment() {
         importStylesheet(EditorStyles::class)
     }
 
+
     //    override val root: CodeArea = CodeArea()
+    /**
+     *
+     */
     override val root: VBox = vbox {
         hgrow = Priority.ALWAYS
         vgrow = Priority.ALWAYS
@@ -39,14 +43,19 @@ class Editor : Fragment() {
         codeArea.addEventHandler(KeyEvent.KEY_PRESSED) {
             if (it.code == KeyCode.ENTER) {
                 println("Enter")
+                toDefaultColor()
                 val errors = syntaxAnalyzer.analyze(codeArea.text)
 
                 errors.forEach { token ->
                     val styleClasses = Arrays.asList("test")
                     println("Line=${token.paragraph} start=${token.startPosition} end=${token.endPosition}")
-                    codeArea.setStyle(token.paragraph!!,
-                            token.startPosition!!,
-                            token.endPosition!!, styleClasses)
+
+                    //safe errors
+                    if (token.endPosition!! < codeArea.paragraphs[token.paragraph!!].length()) {
+                        codeArea.setStyle(token.paragraph!!,
+                                token.startPosition!!,
+                                token.endPosition!!+1, styleClasses)
+                    }
                 }
             }
         }
@@ -66,8 +75,20 @@ class Editor : Fragment() {
             this.addSelection(CssSelection(CssSelector(CssRuleSet(CssRule.c("test")))) {
                 fill = ColorHolder.errorColor
             })
+            this.addSelection(CssSelection(CssSelector(CssRuleSet(CssRule.c("default")))) {
+                fill = ColorHolder.fontColor
+            })
         }
         add(codeArea) //TODO this wrong example of adding
+    }
+
+    /**
+     * Reset all colors to default
+     */
+    private fun toDefaultColor() {
+        for (i in 0 until codeArea.paragraphs.size) {
+            codeArea.setStyle(i, 0, codeArea.paragraphs[i].length(), Arrays.asList("default"))
+        }
     }
 
     private fun loadSubscriptions() {

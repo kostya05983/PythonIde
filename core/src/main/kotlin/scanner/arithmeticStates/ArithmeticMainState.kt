@@ -110,8 +110,7 @@ class ArithmeticMainState(override val scanner: ScannerAutomate,
                 addIfNeed(offset, page)
                 memory.push(char)
                 tokensArray.add(Token(Tokens.COLON, memory, offset, page))
-                page++
-                offset = 0
+
                 scanner.changeState(ConditionState(scanner, tokensArray, memory, offset, page))
             }
             else -> {
@@ -122,7 +121,7 @@ class ArithmeticMainState(override val scanner: ScannerAutomate,
 
     private fun addIfNeed(offset: Int, page: Int) {
         if (memory.isNotEmpty()) {
-            tokensArray.add(scanner.joinToIdentifier(memory, offset, page))
+            tokensArray.add(scanner.joinToIdentifier(memory, offset-1, page))
             memory.clear()
         }
     }

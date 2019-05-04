@@ -16,9 +16,9 @@ class IFState(override val scanner: ScannerAutomate,
     override fun parse(char: Char) {
         when (char) {
             Alphabet.SPACE.ch -> {
+                memory.push(char)
                 tokensArray.add(Token(Tokens.IF, memory, offset, page))
                 memory.clear()
-                memory.push(char)
                 scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
             }
             else -> {

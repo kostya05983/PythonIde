@@ -47,6 +47,7 @@ class ScannerAutomate {
         val result = mutableListOf<Token>()
         for (char in s) {
             currentState.parse(char)
+            currentState.offset++
         }
         result.addAll(currentState.tokensArray)
 
@@ -63,30 +64,11 @@ class ScannerAutomate {
         currentState = newState
     }
 
-    /**
-     * Find all indents in line
-     */
-    private fun findIndent(str: String, offset: Int, paragraph: Int): List<Token> {
-        val list = mutableListOf<Token>()
-        var count = 0
-        for (char in str) {
-            if (char == ' ') {
-                count++
-            } else {
-                count = 0
-            }
-            if (count == 4) {
-                val token = Token(Tokens.INDENT, Tokens.INDENT.literal)
-                token.startPosition = offset
-                token.paragraph = paragraph
-                token.endPosition = offset + 4
-                list.add(token)
-            }
-        }
-        return list
+    fun reset() {
+        currentState = ConditionState(this, LinkedList(), Stack(), 0, 0)
     }
 
-    fun joinToIdentifierWithIndent(memory: Stack<Char>, offset: Int, paragraph: Int): List<Token> {
+    private fun joinToIdentifierWithIndent(memory: Stack<Char>, offset: Int, paragraph: Int): List<Token> {
         val sb = StringBuilder()
         val list = mutableListOf<Token>()
 
@@ -110,7 +92,7 @@ class ScannerAutomate {
             val token = Token(Tokens.IDENTIFIER, sb.toString())
             token.paragraph = paragraph
             token.startPosition = offset
-            token.endPosition = offset + sb.toString().length
+            token.endPosition = offset + sb.toString().length - 1
             memory.clear()
             list.add(token)
         } else {
@@ -145,6 +127,7 @@ class ScannerAutomate {
 
         var c = false
         var amountSpace = 0
+        var indentOffset = 0
         for (ch in memory) {
             sb.append(ch)
             if (ch != ' ') {
@@ -154,16 +137,22 @@ class ScannerAutomate {
                 amountSpace++
             }
             if (amountSpace == 4 && !c) {
-                list.add(Token(Tokens.INDENT, Tokens.INDENT.literal))
+                val token = Token(Tokens.INDENT, Tokens.INDENT.literal)
+                token.paragraph = paragraph
+                token.startPosition = indentOffset - sb.toString().length+1
+                token.endPosition = indentOffset
+                list.add(token)
+
                 amountSpace = 0
                 sb.clear()
             }
+            indentOffset++
         }
 
         if (c) {
             val token = Token(Tokens.SIMPLE_STMT, sb.toString())
-            token.startPosition = offset
-            token.endPosition = offset + sb.toString().length
+            token.startPosition = offset- sb.toString().length
+            token.endPosition = offset-1
             token.paragraph = paragraph
             memory.clear()
             list.add(token)

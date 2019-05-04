@@ -29,18 +29,22 @@ class ConditionState(override val scanner: ScannerAutomate,
                 tokensArray.add(Token(Tokens.COLON, memory, offset, page))
                 memory.clear()
             }
-            !memory.empty()&&memory.peek() == Alphabet.COLON.ch && Alphabet.NEWLINE.ch == char -> {
+            !memory.empty() && memory.peek() == Alphabet.COLON.ch && Alphabet.NEWLINE.ch == char -> {
                 memory.clear()
                 memory.push(char)
                 tokensArray.add(Token(Tokens.NEWLINE, memory, offset, page))
                 memory.clear()
+                offset = -1
+                page++
             }
             Alphabet.NEWLINE.ch == char -> {
-                tokensArray.addAll(scanner.joinToSimpleStatementWithIndent(memory, offset,page))
+                tokensArray.addAll(scanner.joinToSimpleStatementWithIndent(memory, offset, page))
                 memory.clear()
                 memory.push(char)
                 tokensArray.add(Token(Tokens.NEWLINE, memory, offset, page))
                 memory.clear()
+                page++
+                offset = -1
             }
             else -> {
                 memory.push(char)

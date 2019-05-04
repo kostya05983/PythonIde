@@ -10,9 +10,10 @@ class EqualState(override val scanner: ScannerAutomate,
                  override var page: Int) : State {
 
     override fun parse(char: Char) {
-        memory.push(char)
+
         when (char) {
             Alphabet.EQUAL.ch -> {
+                memory.push(char)
                 tokensArray.add(Token(Tokens.EQUAL, memory, offset, page))
                 memory.clear()
                 scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))

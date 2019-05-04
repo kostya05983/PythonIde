@@ -10,8 +10,8 @@ class Token(val token: Tokens, val value: String) {
     constructor(token: Tokens, memory: Stack<Char>, offset: Int, paragraph: Int) :
             this(token, memory.joinToString("")) {
         this.paragraph = paragraph
-        this.startPosition = offset
-        this.endPosition = offset + value.length
+        this.startPosition = offset+1 - memory.size
+        this.endPosition = offset
     }
 
     override fun equals(other: Any?): Boolean {

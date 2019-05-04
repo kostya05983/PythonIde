@@ -28,9 +28,23 @@ internal class SyntaxAnalyzerTest {
         @Test
         fun testAnalyzerOnlyIfStatement() {
             val line = """
-            if k == 2 && p == 7:
+            if k == 2 and p == 7:
                 k = 6
         """.trimIndent()
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            val analyzer = SyntaxAnalyzer()
+            val errors = analyzer.analyze(tokens)
+            assertEquals(0, errors.size)
+        }
+
+        @Test
+        fun testAnalyzeOnluifStatement() {
+            val line = """
+                if k == 2:
+                    l=4
+            """.trimIndent()
             val scanner = ScannerAutomate()
             val tokens = scanner.scan(line)
 
@@ -107,6 +121,18 @@ internal class SyntaxAnalyzerTest {
     }
 
     @Test
+    fun test() {
+        val line = "if k==2:\n" +
+                "    t=4\n"
+        val scanner = ScannerAutomate()
+        val tokens = scanner.scan(line)
+
+        val analyzer = SyntaxAnalyzer()
+        val errors = analyzer.analyze(tokens)
+        assertEquals(0, errors.size)
+    }
+
+    @Test
     fun testAnalyzeError() {
         val line = """
             if k==2:
@@ -119,6 +145,6 @@ internal class SyntaxAnalyzerTest {
 
         val analyzer = SyntaxAnalyzer()
         val errors = analyzer.analyze(tokens)
-        assertEquals(1, errors.size)
+        assertEquals(2, errors.size)
     }
 }
