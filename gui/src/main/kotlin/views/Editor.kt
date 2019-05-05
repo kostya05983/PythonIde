@@ -24,16 +24,12 @@ class Editor : Fragment() {
     private val syntaxAnalyzer: SyntaxAnalyzerImpl by inject()
     private val outputerConsoleToView: OutputConsoleToView by inject()
 
+    val codeArea = CodeArea()
 
-    public val codeArea = CodeArea()
 
     init {
         importStylesheet(EditorStyles::class)
     }
-
-
-    //    override val root: CodeArea = CodeArea()
-
 
     /**
      *
@@ -46,8 +42,6 @@ class Editor : Fragment() {
         loadSubscriptions()
         loadShortCut()
         codeArea.addEventHandler(KeyEvent.KEY_PRESSED) {
-            //            if (it.code == KeyCode.ENTER) {
-            println("Enter")
             toDefaultColor()
             val errors = syntaxAnalyzer.analyze(codeArea.text)
             outputerConsoleToView.clear()
@@ -64,17 +58,23 @@ class Editor : Fragment() {
                             token.endPosition!! + 1, styleClasses)
                 }
             }
-//            }
+        }
+
+        //TODO styles in other place
+        codeArea.hgrow = Priority.ALWAYS
+        codeArea.vgrow = Priority.ALWAYS
+
+        codeArea.style {
+            backgroundColor += ColorHolder.primaryColor
         }
 
         codeArea.stylesheet {
             Stylesheet.content {
                 backgroundColor += ColorHolder.primaryColor
                 borderWidth += box(Dimension(0.0, Dimension.LinearUnits.px))
+                baseColor = ColorHolder.primaryColor
             }
-            Stylesheet.focused {
-                backgroundColor += ColorHolder.primaryColor
-            }
+
             Stylesheet.text {
                 fill = ColorHolder.fontColor
             }
