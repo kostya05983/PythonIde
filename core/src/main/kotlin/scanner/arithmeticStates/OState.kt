@@ -23,21 +23,21 @@ class OState(override val scanner: ScannerAutomate,
             Alphabet.SPACE.ch -> {
                 memory.push(char)
                 tokensArray.add(scanner.joinToIdentifier(memory, offset, page))
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             Alphabet.PLUS.ch -> {
                 tokensArray.add(scanner.joinToIdentifier(memory, offset, page))
                 memory.push(char)
                 tokensArray.add(Token(Tokens.PLUS, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             Alphabet.MINUS.ch -> {
                 tokensArray.add(scanner.joinToIdentifier(memory, offset, page))
                 memory.push(char)
                 tokensArray.add(Token(Tokens.MINUS, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             Alphabet.LEFT_SHIFT.ch -> {
                 tokensArray.add(scanner.joinToIdentifier(memory, offset, page))
@@ -64,7 +64,7 @@ class OState(override val scanner: ScannerAutomate,
                 memory.push(char)
                 tokensArray.add(Token(Tokens.REMAINDER, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             Alphabet.DIVIDER.ch -> {
                 tokensArray.add(scanner.joinToIdentifier(memory, offset, page))
@@ -76,14 +76,14 @@ class OState(override val scanner: ScannerAutomate,
                 memory.push(char)
                 tokensArray.add(Token(Tokens.MULTIPLE, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             Alphabet.INVERSE.ch -> {
                 tokensArray.add(scanner.joinToIdentifier(memory, offset, page))
                 memory.push(char)
                 tokensArray.add(Token(Tokens.INVERSE, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             Alphabet.AND.ch -> {
                 tokensArray.add(scanner.joinToIdentifier(memory, offset, page))
@@ -100,7 +100,7 @@ class OState(override val scanner: ScannerAutomate,
                 memory.push(char)
                 tokensArray.add(Token(Tokens.LEFT_BRACKET, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             Alphabet.RIGHT_BRACKET.ch -> {
                 tokensArray.add(scanner.joinToIdentifier(memory, offset, page))
@@ -108,11 +108,11 @@ class OState(override val scanner: ScannerAutomate,
                 tokensArray.add(Token(Tokens.RIGHT_BRACKET, memory, offset, page))
                 memory.clear()
 
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             else -> {
                 memory.push(char)
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
         }
     }

@@ -1,6 +1,5 @@
 package scanner
 
-import scanner.ifStates.ConditionState
 import java.util.*
 
 /**
@@ -41,7 +40,7 @@ import java.util.*
  * (33) atom_expr -> NUMBER | STRING | 'True' | 'False'
  */
 class ScannerAutomate {
-    private var currentState: State = ConditionState(this, LinkedList(), Stack(), 0, 0)
+    private var currentState: State = MainState(this, LinkedList(), Stack(), 0, 0)
 
     fun scan(s: String): List<Token> {
         val result = mutableListOf<Token>()
@@ -52,7 +51,7 @@ class ScannerAutomate {
         result.addAll(currentState.tokensArray)
 
         if (currentState.memory.isNotEmpty()) {
-            if (currentState !is ConditionState)
+            if (currentState !is MainState)
                 result.addAll(joinToIdentifierWithIndent(currentState.memory, currentState.offset, currentState.page))
             else result.addAll(joinToSimpleStatementWithIndent(currentState.memory, currentState.offset, currentState.page))
         }
@@ -65,7 +64,7 @@ class ScannerAutomate {
     }
 
     fun reset() {
-        currentState = ConditionState(this, LinkedList(), Stack(), 0, 0)
+        currentState = MainState(this, LinkedList(), Stack(), 0, 0)
     }
 
     private fun joinToIdentifierWithIndent(memory: Stack<Char>, offset: Int, paragraph: Int): List<Token> {

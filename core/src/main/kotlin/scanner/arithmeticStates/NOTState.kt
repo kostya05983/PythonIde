@@ -20,10 +20,10 @@ class NOTState(override val scanner: ScannerAutomate,
             Alphabet.SPACE.ch -> {
                 tokensArray.add(Token(Tokens.NOT, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             else -> {
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
         }
     }

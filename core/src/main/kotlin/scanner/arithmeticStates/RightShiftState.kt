@@ -14,17 +14,17 @@ class RightShiftState(override val scanner: ScannerAutomate,
             Alphabet.RIGHT_SHIFT.ch -> {
                 tokensArray.add(Token(Tokens.SHIFT_RIGHT, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             Alphabet.EQUAL.ch -> {
                 tokensArray.add(Token(Tokens.EQUAL, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             else -> {
                 tokensArray.add(Token(Tokens.MORE, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
         }
     }

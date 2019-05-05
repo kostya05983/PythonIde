@@ -16,13 +16,13 @@ class EqualState(override val scanner: ScannerAutomate,
                 memory.push(char)
                 tokensArray.add(Token(Tokens.EQUAL, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             else -> {
                 tokensArray.add(Token(Tokens.ASSIGNMENT, memory, offset, page))
                 memory.clear()
                 memory.push(char)
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
         }
     }

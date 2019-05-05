@@ -23,17 +23,17 @@ class LeftShiftState(override val scanner: ScannerAutomate,
             Alphabet.LEFT_SHIFT.ch -> {
                 tokensArray.add(Token(Tokens.SHIFT_LEFT, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             Alphabet.EQUAL.ch -> {
                 tokensArray.add(Token(Tokens.LESS_EQUAL, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             else -> {
                 tokensArray.add(Token(Tokens.LESS, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
         }
     }

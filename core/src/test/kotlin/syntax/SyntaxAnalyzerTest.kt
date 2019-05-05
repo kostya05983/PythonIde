@@ -40,10 +40,10 @@ internal class SyntaxAnalyzerTest {
         }
 
         @Test
-        fun testAnalyzeOnluifStatement() {
+        fun testAnalyzeOnlyifStatement() {
             val line = """
                 if k == 2:
-                    l=4
+                    suite
             """.trimIndent()
             val scanner = ScannerAutomate()
             val tokens = scanner.scan(line)
@@ -56,11 +56,11 @@ internal class SyntaxAnalyzerTest {
         @Test
         fun testAnalyzeIfElIfStatement() {
             val line = """
-           k = 2
+           suite
            if k == 4 <<2:
-               p=2
+               suite
            elif k==2:
-               t = 4
+               suite
         """.trimIndent()
             val scanner = ScannerAutomate()
             val tokens = scanner.scan(line)
@@ -73,13 +73,13 @@ internal class SyntaxAnalyzerTest {
         @Test
         fun testAnalyzeFullExpression() {
             val line = """
-            k = 2
+            suite
             if k == 4 <<4:
-                p = 2
+                suite
             elif k==7:
-                t = 7
+                suite
             else:
-                p =8
+                suite
         """.trimIndent()
             val scanner = ScannerAutomate()
             val tokens = scanner.scan(line)
@@ -87,14 +87,13 @@ internal class SyntaxAnalyzerTest {
             val analyzer = SyntaxAnalyzer()
             val errors = analyzer.analyze(tokens)
             assertEquals(0, errors.size)
-
         }
 
         @Test
         fun testAnalyzeIf() {
             val line = """
                 if k ==2:
-                    t ==5
+                    suite
             """.trimIndent()
             val scanner = ScannerAutomate()
             val tokens = scanner.scan(line)
@@ -108,7 +107,7 @@ internal class SyntaxAnalyzerTest {
         fun testAnalyzeIfWithEnter() {
             val line = """
                 if k==4:
-                    t==5
+                    suite
 
             """.trimIndent()
             val scanner = ScannerAutomate()
@@ -123,7 +122,7 @@ internal class SyntaxAnalyzerTest {
     @Test
     fun test() {
         val line = "if k==2:\n" +
-                "    t=4\n"
+                "    suite\n"
         val scanner = ScannerAutomate()
         val tokens = scanner.scan(line)
 
@@ -136,16 +135,16 @@ internal class SyntaxAnalyzerTest {
     fun testAnalyzeError() {
         val line = """
             if k==2:
-                p=6
+                suite
             else t==:
-               t=8
+               suite
         """.trimIndent()
         val scanner = ScannerAutomate()
         val tokens = scanner.scan(line)
 
         val analyzer = SyntaxAnalyzer()
         val errors = analyzer.analyze(tokens)
-        assertEquals(2, errors.size)
+        assertNotEquals(0, errors.size)
     }
 
     @Nested
@@ -230,7 +229,7 @@ internal class SyntaxAnalyzerTest {
         fun testWithoutElifColon() {
             val line = """
                 if k==2:
-                    t=5
+                    suite
                 elif t==8
             """.trimIndent()
             val scanner = ScannerAutomate()
@@ -245,9 +244,9 @@ internal class SyntaxAnalyzerTest {
         fun testWithoutElseColon() {
             val line = """
                 if k==2:
-                    t=5
+                    suite
                 elif t==8:
-                    t=8
+                    suite
                 else
             """.trimIndent()
             val scanner = ScannerAutomate()
@@ -265,9 +264,9 @@ internal class SyntaxAnalyzerTest {
         fun testWithoutEndingElse() {
             val line = """
             if k==2:
-                t=5
+                suite
             elif t==5:
-                p=6
+                suite
             else:
         """.trimIndent()
             val scanner = ScannerAutomate()
@@ -282,9 +281,9 @@ internal class SyntaxAnalyzerTest {
         fun testWithoutEndingElseWithEnter() {
             val line = """
             if k==2:
-                t=5
+                suite
             elif t==5:
-                p=6
+                suite
             else:
 
         """.trimIndent()
@@ -327,7 +326,7 @@ internal class SyntaxAnalyzerTest {
         fun testWithoutEndingElif() {
             val line = """
                 if k==2:
-                    t=5
+                    suite
                 elif p=5:
             """.trimIndent()
             val scanner = ScannerAutomate()
@@ -342,7 +341,7 @@ internal class SyntaxAnalyzerTest {
         fun testWithoutEndingElifWithEnter() {
             val line = """
                 if k==2:
-                    t=5
+                    suite
                 elif p=5:
 
             """.trimIndent()
@@ -364,14 +363,14 @@ internal class SyntaxAnalyzerTest {
                 if t=:
 
                 if k==2:
-                    t=6
+                    suite
             """.trimIndent()
             val scanner = ScannerAutomate()
             val tokens = scanner.scan(line)
 
             val analyzer = SyntaxAnalyzer()
             val errors = analyzer.analyze(tokens)
-            println()
+            assertEquals(1, errors.size)
         }
     }
 }

@@ -2,6 +2,7 @@ package scanner.ifStates
 
 import scanner.*
 import java.util.*
+import scanner.MainState
 
 class ElseState(override val scanner: ScannerAutomate,
                 override val tokensArray: LinkedList<Token>,
@@ -15,10 +16,10 @@ class ElseState(override val scanner: ScannerAutomate,
             Alphabet.E.ch -> {
                 tokensArray.add(Token(Tokens.ELSE, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ConditionState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             else -> {
-                scanner.changeState(ConditionState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
         }
     }
