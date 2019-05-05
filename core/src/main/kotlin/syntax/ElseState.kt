@@ -13,6 +13,7 @@ class ElseState(override val analyzer: SyntaxAnalyzer, override val memory: Stac
             }
             else -> {
                 errorTokens.add(token)
+                analyzer.changeState(MainState(analyzer, memory, errorTokens))
             }
         }
         memory.push(token.token)

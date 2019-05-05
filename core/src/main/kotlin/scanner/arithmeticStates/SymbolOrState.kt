@@ -15,12 +15,12 @@ class SymbolOrState(override val scanner: ScannerAutomate,
             Alphabet.SPACE.ch -> {
                 tokensArray.add(Token(Tokens.SLASH, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             else -> {
                 tokensArray.add(Token(Tokens.UNRECOGNIZED, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
         }
     }

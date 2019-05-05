@@ -18,7 +18,7 @@ class IndentState(override val analyzer: SyntaxAnalyzer,
             }
             else -> {
                 errorTokens.add(token)
-
+                analyzer.changeState(MainState(analyzer, memory, errorTokens))
             }
         }
         memory.push(token.token)

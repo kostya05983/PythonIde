@@ -56,6 +56,8 @@ class UnaryExpressionEndState(override val analyzer: SyntaxAnalyzer,
             }
             else -> {
                 errorTokens.add(token)
+                //neutralization
+                analyzer.changeState(MainState(analyzer, memory, errorTokens))
             }
         }
         memory.push(token.token)

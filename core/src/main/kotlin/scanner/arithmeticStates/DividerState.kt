@@ -19,12 +19,12 @@ class DividerState(override val scanner: ScannerAutomate,
             Alphabet.DIVIDER.ch -> {
                 tokensArray.add(Token(Tokens.FLOOR_DIVISION, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             else -> {
                 tokensArray.add(Token(Tokens.DIVIDE, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
         }
     }

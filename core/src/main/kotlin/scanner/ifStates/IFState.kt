@@ -2,7 +2,6 @@ package scanner.ifStates
 
 import scanner.*
 import java.util.*
-import scanner.arithmeticStates.ArithmeticMainState
 
 /**
  *  in else case maybe we have to go in endless statement state?
@@ -19,10 +18,10 @@ class IFState(override val scanner: ScannerAutomate,
                 memory.push(char)
                 tokensArray.add(Token(Tokens.IF, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             else -> {
-                scanner.changeState(ConditionState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
         }
     }

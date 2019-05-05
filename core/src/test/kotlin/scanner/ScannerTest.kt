@@ -4,23 +4,21 @@ import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Nested
+import syntax.SyntaxAnalyzer
 
 internal class ScannerTest {
 
     @Test
-    fun testScanOnlyStatements() {
+    fun testScanOnlyIfStatementS() {
         val line = """
-            k = 2
-            t = Test(2)
-            Test(4,6)
+            suite
+            suite
         """.trimIndent()
         val scanner = ScannerAutomate()
         val tokens = scanner.scan(line)
-        assertEquals(Token(Tokens.SIMPLE_STMT, "k = 2"), tokens[0])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "suite"), tokens[0])
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[1])
-        assertEquals(Token(Tokens.SIMPLE_STMT, "t = Test(2)"), tokens[2])
-        assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[3])
-        assertEquals(Token(Tokens.SIMPLE_STMT, "Test(4,6)"), tokens[4])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "suite"), tokens[2])
     }
 
     @Test
@@ -44,19 +42,19 @@ internal class ScannerTest {
     @Test
     fun testScanStatementsWithIf() {
         val line = """
-            k = 2
-            p = 4
-            l = 7
+            simple_stmt
+            simple_stmt
+            simple_stmt
             if l ==7 or p !=4 and k == 3:
-                k=2
+                simple_stmt
         """.trimIndent()
         val scanner = ScannerAutomate()
         val tokens = scanner.scan(line)
-        assertEquals(Token(Tokens.SIMPLE_STMT, "k = 2"), tokens[0])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "simple_stmt"), tokens[0])
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[1])
-        assertEquals(Token(Tokens.SIMPLE_STMT, "p = 4"), tokens[2])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "simple_stmt"), tokens[2])
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[3])
-        assertEquals(Token(Tokens.SIMPLE_STMT, "l = 7"), tokens[4])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "simple_stmt"), tokens[4])
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[5])
 
         assertEquals(Token(Tokens.IF, "if "), tokens[6])
@@ -75,22 +73,22 @@ internal class ScannerTest {
 
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[19])
         assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[20])
-        assertEquals(Token(Tokens.SIMPLE_STMT, "k=2"), tokens[21])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "simple_stmt"), tokens[21])
     }
 
     @Test
     fun testScanStatementsWithElseIf() {
         val line = """
-           k = 2
+           simple_stmt
            if k == 4 <<2:
-               p=2
+               simple_stmt
            elif k==2:
-               t = 4
+               simple_stmt
         """.trimIndent()
         val scanner = ScannerAutomate()
         val tokens = scanner.scan(line)
 
-        assertEquals(Token(Tokens.SIMPLE_STMT, "k = 2"), tokens[0])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "simple_stmt"), tokens[0])
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[1])
 
         assertEquals(Token(Tokens.IF, "if "), tokens[2])
@@ -103,7 +101,7 @@ internal class ScannerTest {
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[9])
 
         assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[10])
-        assertEquals(Token(Tokens.SIMPLE_STMT, "p=2"), tokens[11])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "simple_stmt"), tokens[11])
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[12])
 
         assertEquals(Token(Tokens.ELIF, Tokens.ELIF.literal), tokens[13])
@@ -114,24 +112,24 @@ internal class ScannerTest {
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[18])
 
         assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[19])
-        assertEquals(Token(Tokens.SIMPLE_STMT, "t = 4"), tokens[20])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "simple_stmt"), tokens[20])
     }
 
     @Test
     fun testScanStatementWithElseIfElse() {
         val line = """
-            k = 2
+            simple_stmt
             if k == 4<<4:
-                p=2
+                simple_stmt
             elif k==6:
-                t=7
+                simple_stmt
             else:
-                p=8
+                simple_stmt
         """.trimIndent()
         val scanner = ScannerAutomate()
         val tokens = scanner.scan(line)
 
-        assertEquals(Token(Tokens.SIMPLE_STMT, "k = 2"), tokens[0])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "simple_stmt"), tokens[0])
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[1])
 
         assertEquals(Token(Tokens.IF, "if "), tokens[2])
@@ -144,7 +142,7 @@ internal class ScannerTest {
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[9])
 
         assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[10])
-        assertEquals(Token(Tokens.SIMPLE_STMT, "p=2"), tokens[11])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "simple_stmt"), tokens[11])
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[12])
 
         assertEquals(Token(Tokens.ELIF, Tokens.ELIF.literal), tokens[13])
@@ -155,14 +153,14 @@ internal class ScannerTest {
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[18])
 
         assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[19])
-        assertEquals(Token(Tokens.SIMPLE_STMT, "t=7"), tokens[20])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "simple_stmt"), tokens[20])
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[21])
 
         assertEquals(Token(Tokens.ELSE, Tokens.ELSE.literal), tokens[22])
         assertEquals(Token(Tokens.COLON, Tokens.COLON.literal), tokens[23])
         assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[24])
         assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[25])
-        assertEquals(Token(Tokens.SIMPLE_STMT, "p=8"), tokens[26])
+        assertEquals(Token(Tokens.SIMPLE_STMT, "simple_stmt"), tokens[26])
     }
 
     @Nested
@@ -172,7 +170,7 @@ internal class ScannerTest {
         fun testWithErrorsInElse() {
             val line = """
             if t ==4:
-                p=9
+                simple_stmt
             elif t=:
         """.trimIndent()
 
@@ -214,10 +212,10 @@ internal class ScannerTest {
             assertEquals(0, tokens[6].startPosition)
             assertEquals(3, tokens[6].endPosition)
 
-            assertEquals(Token(Tokens.SIMPLE_STMT, "p=9"), tokens[7])
+            assertEquals(Token(Tokens.SIMPLE_STMT, "simple_stmt"), tokens[7])
             assertEquals(1, tokens[7].paragraph)
             assertEquals(4, tokens[7].startPosition)
-            assertEquals(6, tokens[7].endPosition)
+            assertEquals(14, tokens[7].endPosition)
 
             assertEquals(Token(Tokens.NEWLINE, "\n"), tokens[8])
 
@@ -229,6 +227,23 @@ internal class ScannerTest {
             assertEquals(2, tokens[10].paragraph)
         }
 
+    }
+
+    @Nested
+    inner class NeutralizationScanTest {
+
+        @Test
+        fun testFirstIfErrorNextComplete() {
+            val line = """
+                if t=:
+
+                if k==2:
+                    suite
+            """.trimIndent()
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+            assertEquals(Token(Tokens.SIMPLE_STMT, "suite"), tokens[12])
+        }
     }
 
 

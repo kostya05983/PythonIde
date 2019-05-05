@@ -5,6 +5,7 @@ import scanner.State
 import java.util.*
 import scanner.Alphabet
 import scanner.ScannerAutomate
+import scanner.MainState
 
 class ElseElifState(override val scanner: ScannerAutomate,
                     override val tokensArray: LinkedList<Token>,
@@ -21,7 +22,7 @@ class ElseElifState(override val scanner: ScannerAutomate,
                 scanner.changeState(ElifState(scanner, tokensArray, memory, offset, page))
             }
             else -> {
-                scanner.changeState(ConditionState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
         }
     }

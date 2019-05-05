@@ -122,6 +122,9 @@ class MenuView : View() {
             item("Find Action")
             item("Help")
             item("About")
+            item("Grammar").action {
+
+            }
         }
     }
 

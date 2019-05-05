@@ -2,7 +2,7 @@ package scanner.ifStates
 
 import scanner.*
 import java.util.*
-import scanner.arithmeticStates.ArithmeticMainState
+import scanner.MainState
 
 class ElifState(override val scanner: ScannerAutomate,
                 override val tokensArray: LinkedList<Token>,
@@ -16,11 +16,11 @@ class ElifState(override val scanner: ScannerAutomate,
                 memory.push(char)
                 tokensArray.add(Token(Tokens.ELIF, memory, offset, page))
                 memory.clear()
-                scanner.changeState(ArithmeticMainState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             else -> {
                 memory.push(char)
-                scanner.changeState(ConditionState(scanner, tokensArray, memory, offset, page))
+                scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
         }
     }
