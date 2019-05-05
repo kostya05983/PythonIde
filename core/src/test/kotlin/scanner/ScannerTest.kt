@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Nested
+import syntax.SyntaxAnalyzer
 
 internal class ScannerTest {
 
@@ -229,6 +230,25 @@ internal class ScannerTest {
             assertEquals(2, tokens[10].paragraph)
         }
 
+    }
+
+    @Nested
+    inner class NeutralizationScanTest {
+
+        @Test
+        fun testFirstIfErrorNextComplete() {
+            val line = """
+                if t=:
+
+                if k==2:
+                    t=6
+            """.trimIndent()
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+
+
+        }
     }
 
 

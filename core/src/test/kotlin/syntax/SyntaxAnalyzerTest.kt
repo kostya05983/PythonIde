@@ -354,4 +354,24 @@ internal class SyntaxAnalyzerTest {
             assertNotEquals(0, errors.size)
         }
     }
+
+    @Nested
+    inner class NeutralizationTest {
+
+        @Test
+        fun testFirstIfErrorNextComplete() {
+            val line = """
+                if t=:
+
+                if k==2:
+                    t=6
+            """.trimIndent()
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            val analyzer = SyntaxAnalyzer()
+            val errors = analyzer.analyze(tokens)
+            println()
+        }
+    }
 }
