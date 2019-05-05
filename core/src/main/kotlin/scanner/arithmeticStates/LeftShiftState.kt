@@ -18,14 +18,16 @@ class LeftShiftState(override val scanner: ScannerAutomate,
                      override var page: Int) : State {
 
     override fun parse(char: Char) {
-        memory.push(char)
+
         when (char) {
             Alphabet.LEFT_SHIFT.ch -> {
+                memory.push(char)
                 tokensArray.add(Token(Tokens.SHIFT_LEFT, memory, offset, page))
                 memory.clear()
                 scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             Alphabet.EQUAL.ch -> {
+                memory.push(char)
                 tokensArray.add(Token(Tokens.LESS_EQUAL, memory, offset, page))
                 memory.clear()
                 scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
@@ -33,6 +35,7 @@ class LeftShiftState(override val scanner: ScannerAutomate,
             else -> {
                 tokensArray.add(Token(Tokens.LESS, memory, offset, page))
                 memory.clear()
+                memory.push(char)
                 scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
         }

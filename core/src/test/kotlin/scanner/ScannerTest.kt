@@ -246,5 +246,86 @@ internal class ScannerTest {
         }
     }
 
+    @Nested
+    inner class ComparsionScanTest {
+        @Test
+        fun testScanLess() {
+            val line = """
+                if t<p:
+                    suite
+            """.trimIndent()
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            assertEquals(Token(Tokens.IF, "if "), tokens[0])
+            assertEquals(Token(Tokens.IDENTIFIER, "t"), tokens[1])
+            assertEquals(Token(Tokens.LESS, "<"), tokens[2])
+            assertEquals(Token(Tokens.IDENTIFIER, "p"), tokens[3])
+            assertEquals(Token(Tokens.COLON, ":"), tokens[4])
+            assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[5])
+            assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[6])
+            assertEquals(Token(Tokens.SIMPLE_STMT, "suite"), tokens[7])
+        }
+
+        @Test
+        fun testScanLessEqual() {
+            val line = """
+                if t<=p:
+                    suite
+            """.trimIndent()
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            assertEquals(Token(Tokens.IF, "if "), tokens[0])
+            assertEquals(Token(Tokens.IDENTIFIER, "t"), tokens[1])
+            assertEquals(Token(Tokens.LESS_EQUAL, "<="), tokens[2])
+            assertEquals(Token(Tokens.IDENTIFIER, "p"), tokens[3])
+            assertEquals(Token(Tokens.COLON, ":"), tokens[4])
+            assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[5])
+            assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[6])
+            assertEquals(Token(Tokens.SIMPLE_STMT, "suite"), tokens[7])
+        }
+
+        @Test
+        fun testScanMore() {
+            val line = """
+                if t>p:
+                    suite
+            """.trimIndent()
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            assertEquals(Token(Tokens.IF, "if "), tokens[0])
+            assertEquals(Token(Tokens.IDENTIFIER, "t"), tokens[1])
+            assertEquals(Token(Tokens.MORE, ">"), tokens[2])
+            assertEquals(Token(Tokens.IDENTIFIER, "p"), tokens[3])
+            assertEquals(Token(Tokens.COLON, ":"), tokens[4])
+            assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[5])
+            assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[6])
+            assertEquals(Token(Tokens.SIMPLE_STMT, "suite"), tokens[7])
+        }
+
+        @Test
+        fun testScanMoreEqual() {
+            val line = """
+                if t>=p:
+                    suite
+            """.trimIndent()
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            assertEquals(Token(Tokens.IF, "if "), tokens[0])
+            assertEquals(Token(Tokens.IDENTIFIER, "t"), tokens[1])
+            assertEquals(Token(Tokens.MORE_EQUAL, ">="), tokens[2])
+            assertEquals(Token(Tokens.IDENTIFIER, "p"), tokens[3])
+            assertEquals(Token(Tokens.COLON, ":"), tokens[4])
+            assertEquals(Token(Tokens.NEWLINE, Tokens.NEWLINE.literal), tokens[5])
+            assertEquals(Token(Tokens.INDENT, Tokens.INDENT.literal), tokens[6])
+            assertEquals(Token(Tokens.SIMPLE_STMT, "suite"), tokens[7])
+        }
+
+
+    }
+
 
 }

@@ -31,9 +31,25 @@ class Editor : Fragment() {
         importStylesheet(EditorStyles::class)
     }
 
-    /**
-     *
-     */
+    private fun analyze() {
+        toDefaultColor()
+        val errors = syntaxAnalyzer.analyze(codeArea.text)
+        outputerConsoleToView.clear()
+
+        errors.forEach { token ->
+            val styleClasses = Arrays.asList("test")
+            outputerConsoleToView.println("Line=${token.paragraph} start=${token.startPosition} end=${token.endPosition}")
+            println("Line=${token.paragraph} start=${token.startPosition} end=${token.endPosition}")
+
+            //safe errors
+            if (token.endPosition!! < codeArea.paragraphs[token.paragraph!!].length()) {
+                codeArea.setStyle(token.paragraph!!,
+                        token.startPosition!!,
+                        token.endPosition!! + 1, styleClasses)
+            }
+        }
+    }
+
     override val root: VBox = vbox {
         hgrow = Priority.ALWAYS
         vgrow = Priority.ALWAYS
@@ -41,23 +57,9 @@ class Editor : Fragment() {
 
         loadSubscriptions()
         loadShortCut()
+        analyze()
         codeArea.addEventHandler(KeyEvent.KEY_PRESSED) {
-            toDefaultColor()
-            val errors = syntaxAnalyzer.analyze(codeArea.text)
-            outputerConsoleToView.clear()
-
-            errors.forEach { token ->
-                val styleClasses = Arrays.asList("test")
-                outputerConsoleToView.println("Line=${token.paragraph} start=${token.startPosition} end=${token.endPosition}")
-                println("Line=${token.paragraph} start=${token.startPosition} end=${token.endPosition}")
-
-                //safe errors
-                if (token.endPosition!! < codeArea.paragraphs[token.paragraph!!].length()) {
-                    codeArea.setStyle(token.paragraph!!,
-                            token.startPosition!!,
-                            token.endPosition!! + 1, styleClasses)
-                }
-            }
+            analyze()
         }
 
         //TODO styles in other place

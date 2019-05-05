@@ -355,6 +355,23 @@ internal class SyntaxAnalyzerTest {
     }
 
     @Nested
+    inner class ComparisonWithoutErrors {
+        @Test
+        fun testMore() {
+            val line = """
+                if t<p:
+                    suite
+            """.trimIndent()
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            val analyzer = SyntaxAnalyzer()
+            val errors = analyzer.analyze(tokens)
+            assertEquals(0, errors.size)
+        }
+    }
+
+    @Nested
     inner class NeutralizationTest {
 
         @Test

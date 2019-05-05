@@ -9,21 +9,23 @@ class RightShiftState(override val scanner: ScannerAutomate,
                       override var offset: Int,
                       override var page: Int) : State {
     override fun parse(char: Char) {
-        memory.push(char)
         when (char) {
             Alphabet.RIGHT_SHIFT.ch -> {
+                memory.push(char)
                 tokensArray.add(Token(Tokens.SHIFT_RIGHT, memory, offset, page))
                 memory.clear()
                 scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             Alphabet.EQUAL.ch -> {
-                tokensArray.add(Token(Tokens.EQUAL, memory, offset, page))
+                memory.push(char)
+                tokensArray.add(Token(Tokens.MORE_EQUAL, memory, offset, page))
                 memory.clear()
                 scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
             else -> {
                 tokensArray.add(Token(Tokens.MORE, memory, offset, page))
                 memory.clear()
+                memory.push(char)
                 scanner.changeState(MainState(scanner, tokensArray, memory, offset, page))
             }
         }
