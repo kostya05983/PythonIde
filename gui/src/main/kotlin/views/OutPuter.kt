@@ -20,7 +20,7 @@ class OutPuter : View() {
         isEditable = false
 
         subscribe<OutputEvent> {
-            text = text + it.line;
+            text += it.line;
         }
 
         subscribe<ClearOutputEvent> {

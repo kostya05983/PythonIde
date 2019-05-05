@@ -13,10 +13,12 @@ class SyntaxAnalyzer {
             currentState.analyze(token)
         }
 
-        val lastToken: Tokens = currentState.memory.peek()
+        if (currentState.memory.isNotEmpty()) {
+            val lastToken: Tokens = peekIgnoringNewLine()
 
-        if (lastToken == Tokens.COLON) {
-            currentState.errorTokens.add(tokens.last())
+            if (lastToken == Tokens.COLON) {
+                currentState.errorTokens.add(tokens.last())
+            }
         }
 
         //Second if it's start State of some production
@@ -31,4 +33,19 @@ class SyntaxAnalyzer {
     fun changeState(newState: State) {
         currentState = newState
     }
+
+    fun peekIgnoringNewLine(): Tokens {
+        val l = currentState.memory.toList()
+        val result: Tokens = currentState.memory.peek()
+
+        for (i in l.size - 1 downTo 0) {
+            if (l[i] != Tokens.NEWLINE) {
+                return l[i]
+            }
+        }
+
+        return result
+    }
+
+
 }

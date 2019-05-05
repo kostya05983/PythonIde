@@ -11,7 +11,7 @@ class OutputConsoleToView : Controller(), OutputStrategy {
         fire(OutputEventLn(s))
     }
 
-    override fun clear(s: String) {
+    override fun clear() {
         fire(ClearOutputEvent())
     }
 

@@ -5,7 +5,7 @@ class OutputConsole: OutputStrategy {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun clear(s: String) {
+    override fun clear() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

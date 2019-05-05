@@ -259,8 +259,6 @@ internal class SyntaxAnalyzerTest {
         }
     }
 
-
-
     @Nested
     inner class TestWithoutEndingStatement {
         @Test
@@ -271,6 +269,24 @@ internal class SyntaxAnalyzerTest {
             elif t==5:
                 p=6
             else:
+        """.trimIndent()
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            val analyzer = SyntaxAnalyzer()
+            val errors = analyzer.analyze(tokens)
+            assertNotEquals(0, errors.size)
+        }
+
+        @Test
+        fun testWithoutEndingElseWithEnter() {
+            val line = """
+            if k==2:
+                t=5
+            elif t==5:
+                p=6
+            else:
+
         """.trimIndent()
             val scanner = ScannerAutomate()
             val tokens = scanner.scan(line)
@@ -294,11 +310,41 @@ internal class SyntaxAnalyzerTest {
         }
 
         @Test
+        fun testWithoutEndingIfWithEnter() {
+            val line = """
+                if k==2:
+
+            """.trimIndent()
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            val analyzer = SyntaxAnalyzer()
+            val errors = analyzer.analyze(tokens)
+            assertNotEquals(0, errors.size)
+        }
+
+        @Test
         fun testWithoutEndingElif() {
             val line = """
                 if k==2:
                     t=5
                 elif p=5:
+            """.trimIndent()
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            val analyzer = SyntaxAnalyzer()
+            val errors = analyzer.analyze(tokens)
+            assertNotEquals(0, errors.size)
+        }
+
+        @Test
+        fun testWithoutEndingElifWithEnter() {
+            val line = """
+                if k==2:
+                    t=5
+                elif p=5:
+
             """.trimIndent()
             val scanner = ScannerAutomate()
             val tokens = scanner.scan(line)

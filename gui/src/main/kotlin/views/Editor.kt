@@ -7,6 +7,7 @@ import javafx.scene.input.KeyCombination
 import javafx.scene.input.KeyEvent
 import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
+import models.OutputConsoleToView
 import org.fxmisc.richtext.CodeArea
 import styles.EditorStyles
 import tornadofx.*
@@ -21,6 +22,8 @@ class Editor : Fragment() {
     val path: String by param()
 
     private val syntaxAnalyzer: SyntaxAnalyzerImpl by inject()
+    private val outputerConsoleToView: OutputConsoleToView by inject()
+
 
     public val codeArea = CodeArea()
 
@@ -30,6 +33,8 @@ class Editor : Fragment() {
 
 
     //    override val root: CodeArea = CodeArea()
+
+
     /**
      *
      */
@@ -41,23 +46,25 @@ class Editor : Fragment() {
         loadSubscriptions()
         loadShortCut()
         codeArea.addEventHandler(KeyEvent.KEY_PRESSED) {
-            if (it.code == KeyCode.ENTER) {
-                println("Enter")
-                toDefaultColor()
-                val errors = syntaxAnalyzer.analyze(codeArea.text)
+            //            if (it.code == KeyCode.ENTER) {
+            println("Enter")
+            toDefaultColor()
+            val errors = syntaxAnalyzer.analyze(codeArea.text)
+            outputerConsoleToView.clear()
 
-                errors.forEach { token ->
-                    val styleClasses = Arrays.asList("test")
-                    println("Line=${token.paragraph} start=${token.startPosition} end=${token.endPosition}")
+            errors.forEach { token ->
+                val styleClasses = Arrays.asList("test")
+                outputerConsoleToView.println("Line=${token.paragraph} start=${token.startPosition} end=${token.endPosition}")
+                println("Line=${token.paragraph} start=${token.startPosition} end=${token.endPosition}")
 
-                    //safe errors
-                    if (token.endPosition!! < codeArea.paragraphs[token.paragraph!!].length()) {
-                        codeArea.setStyle(token.paragraph!!,
-                                token.startPosition!!,
-                                token.endPosition!!+1, styleClasses)
-                    }
+                //safe errors
+                if (token.endPosition!! < codeArea.paragraphs[token.paragraph!!].length()) {
+                    codeArea.setStyle(token.paragraph!!,
+                            token.startPosition!!,
+                            token.endPosition!! + 1, styleClasses)
                 }
             }
+//            }
         }
 
         codeArea.stylesheet {

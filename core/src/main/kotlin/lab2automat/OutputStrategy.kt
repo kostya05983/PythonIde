@@ -5,5 +5,5 @@ interface OutputStrategy {
 
     fun println(s: String="")
 
-    fun clear(s: String)
+    fun clear()
 }
