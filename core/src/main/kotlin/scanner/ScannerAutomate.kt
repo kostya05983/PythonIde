@@ -91,8 +91,8 @@ class ScannerAutomate {
         if (c) {
             val token = Token(Tokens.IDENTIFIER, sb.toString())
             token.paragraph = paragraph
-            token.startPosition = offset
-            token.endPosition = offset + sb.toString().length - 1
+            token.startPosition = offset - sb.toString().length
+            token.endPosition = offset-1
             memory.clear()
             list.add(token)
         } else {
@@ -139,7 +139,7 @@ class ScannerAutomate {
             if (amountSpace == 4 && !c) {
                 val token = Token(Tokens.INDENT, Tokens.INDENT.literal)
                 token.paragraph = paragraph
-                token.startPosition = indentOffset - sb.toString().length+1
+                token.startPosition = indentOffset - sb.toString().length + 1
                 token.endPosition = indentOffset
                 list.add(token)
 
@@ -151,8 +151,8 @@ class ScannerAutomate {
 
         if (c) {
             val token = Token(Tokens.SIMPLE_STMT, sb.toString())
-            token.startPosition = offset- sb.toString().length
-            token.endPosition = offset-1
+            token.startPosition = offset - sb.toString().length
+            token.endPosition = offset - 1
             token.paragraph = paragraph
             memory.clear()
             list.add(token)

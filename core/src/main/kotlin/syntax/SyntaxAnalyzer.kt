@@ -14,7 +14,14 @@ class SyntaxAnalyzer {
         }
 
         val lastToken: Tokens = currentState.memory.peek()
-        if (lastToken == Tokens.COLON && lastToken == Tokens.NEWLINE) {
+
+        if (lastToken == Tokens.COLON) {
+            currentState.errorTokens.add(tokens.last())
+        }
+
+        //Second if it's start State of some production
+        if (currentState is UnaryExpressionStartState ||
+                currentState is BinaryExpressionState || currentState is ElseState) {
             currentState.errorTokens.add(tokens.last())
         }
 

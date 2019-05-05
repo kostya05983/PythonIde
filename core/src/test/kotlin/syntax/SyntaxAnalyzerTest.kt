@@ -147,4 +147,165 @@ internal class SyntaxAnalyzerTest {
         val errors = analyzer.analyze(tokens)
         assertEquals(2, errors.size)
     }
+
+    @Nested
+    inner class AnalyzeErrorsWhenNothingAfter {
+        /**
+         * Test when after if nothing
+         */
+        @Test
+        fun testAnalyzeErrorsWhenOnlyIf() {
+            val line = "if "
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            val analyzer = SyntaxAnalyzer()
+            val errors = analyzer.analyze(tokens)
+            assertNotEquals(0, errors.size)
+        }
+
+        /**
+         * Test when after and nothing
+         */
+        @Test
+        fun testAnalyzeErrorsNothingAfterAnd() {
+            val line = "if k==2 and "
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            val analyzer = SyntaxAnalyzer()
+            val errors = analyzer.analyze(tokens)
+            assertNotEquals(0, errors.size)
+        }
+
+        @Test
+        fun testAnalyzeErrorsNothingAfterOr() {
+            val line = "if k==2 or "
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            val analyzer = SyntaxAnalyzer()
+            val errors = analyzer.analyze(tokens)
+            assertNotEquals(0, errors.size)
+        }
+    }
+
+    @Test
+    fun testIfWithNotEndingIdentifier() {
+        val line = "if k:"
+        val scanner = ScannerAutomate()
+        val tokens = scanner.scan(line)
+
+        val analyzer = SyntaxAnalyzer()
+        val errors = analyzer.analyze(tokens)
+        assertNotEquals(0, errors.size)
+    }
+
+    @Test
+    fun testWithDoubleAnd() {
+        val line = "if k==2 and and or"
+        val scanner = ScannerAutomate()
+        val tokens = scanner.scan(line)
+
+        val analyzer = SyntaxAnalyzer()
+        val errors = analyzer.analyze(tokens)
+        assertNotEquals(0, errors.size)
+    }
+
+    @Nested
+    inner class TestWithoutColon {
+
+        @Test
+        fun testWithoutColon() {
+            val line = "if k==2"
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            val analyzer = SyntaxAnalyzer()
+            val errors = analyzer.analyze(tokens)
+            assertNotEquals(0, errors.size)
+        }
+
+        @Test
+        fun testWithoutElifColon() {
+            val line = """
+                if k==2:
+                    t=5
+                elif t==8
+            """.trimIndent()
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            val analyzer = SyntaxAnalyzer()
+            val errors = analyzer.analyze(tokens)
+            assertNotEquals(0, errors.size)
+        }
+
+        @Test
+        fun testWithoutElseColon() {
+            val line = """
+                if k==2:
+                    t=5
+                elif t==8:
+                    t=8
+                else
+            """.trimIndent()
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            val analyzer = SyntaxAnalyzer()
+            val errors = analyzer.analyze(tokens)
+            assertNotEquals(0, errors.size)
+        }
+    }
+
+
+
+    @Nested
+    inner class TestWithoutEndingStatement {
+        @Test
+        fun testWithoutEndingElse() {
+            val line = """
+            if k==2:
+                t=5
+            elif t==5:
+                p=6
+            else:
+        """.trimIndent()
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            val analyzer = SyntaxAnalyzer()
+            val errors = analyzer.analyze(tokens)
+            assertNotEquals(0, errors.size)
+        }
+
+        @Test
+        fun testWithoutEndingIf() {
+            val line = """
+                if k==2:
+            """.trimIndent()
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            val analyzer = SyntaxAnalyzer()
+            val errors = analyzer.analyze(tokens)
+            assertNotEquals(0, errors.size)
+        }
+
+        @Test
+        fun testWithoutEndingElif() {
+            val line = """
+                if k==2:
+                    t=5
+                elif p=5:
+            """.trimIndent()
+            val scanner = ScannerAutomate()
+            val tokens = scanner.scan(line)
+
+            val analyzer = SyntaxAnalyzer()
+            val errors = analyzer.analyze(tokens)
+            assertNotEquals(0, errors.size)
+        }
+    }
 }
