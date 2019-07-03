@@ -1,2 +1,4 @@
 rootProject.name = 'PythonIde'
-include 'core', 'gui'
+include ':core'
+include ':gui'
+include ":gui:projectTree"
