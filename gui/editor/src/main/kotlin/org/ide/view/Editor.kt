@@ -1,15 +1,17 @@
-package views
+package org.ide.view
 
-import controllers.SyntaxAnalyzerImpl
+
 import javafx.scene.control.TextArea
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCombination
 import javafx.scene.input.KeyEvent
 import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
-import models.OutputConsoleToView
 import org.fxmisc.richtext.CodeArea
-import styles.EditorStyles
+import org.ide.common.ColorHolder
+import org.ide.controllers.SyntaxAnalyzerImpl
+import org.ide.models.OutputConsoleToView
+import org.ide.styles.EditorStyles
 import tornadofx.*
 import java.io.BufferedReader
 import java.io.BufferedWriter

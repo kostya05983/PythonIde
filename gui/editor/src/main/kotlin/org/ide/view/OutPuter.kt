@@ -1,12 +1,9 @@
-package views
+package org.ide.view
 
-import ColorHolder
 import javafx.scene.Parent
-import javafx.scene.layout.Priority
-import models.OutputConsoleToView
-import styles.OutputerStyles
+import org.ide.models.OutputConsoleToView
+import org.ide.styles.OutputerStyles
 import tornadofx.*
-import tornadofx.Stylesheet.Companion.content
 
 //MOVE to MVVM
 class OutPuter : View() {

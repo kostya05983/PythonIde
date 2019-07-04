@@ -1,12 +1,14 @@
 package views
 
-import ColorHolder
 import javafx.scene.Parent
 import javafx.scene.layout.Priority
+import org.ide.common.ColorHolder
+import org.ide.projectStructure.view.ProjectStructure
+import org.ide.view.EditorTabPane
+import org.ide.view.OutPuter
 import tornadofx.*
 import views.menu.MenuView
 import views.projectChoser.ProjectChooser
-import views.projectStructure.ProjectStructure
 import java.io.File
 
 

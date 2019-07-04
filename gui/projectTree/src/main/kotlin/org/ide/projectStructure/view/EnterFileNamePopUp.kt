@@ -1,9 +1,10 @@
-package views.projectStructure
+package org.ide.projectStructure.view
+
 
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.Parent
-import javafx.scene.paint.Color
-import styles.projectStructure.EnterFileNamePopUpStyles
+import org.ide.common.ColorHolder
+import org.ide.projectStructure.styles.EnterFileNamePopUpStyles
 import tornadofx.*
 
 class EnterFileNamePopUp : View() {

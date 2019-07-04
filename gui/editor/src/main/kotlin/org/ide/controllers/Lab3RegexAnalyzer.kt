@@ -1,9 +1,9 @@
-package controllers
+package org.ide.controllers
 
 import lab3regex.RegexParser
-import models.OutputConsoleToView
+import org.ide.models.OutputConsoleToView
+import org.ide.view.ClearOutputEvent
 import tornadofx.Controller
-import views.ClearOutputEvent
 
 /**
  * @author kostya05983

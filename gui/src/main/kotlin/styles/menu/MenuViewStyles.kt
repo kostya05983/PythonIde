@@ -1,5 +1,6 @@
 package styles.menu
 
+import org.ide.common.ColorHolder
 import tornadofx.Stylesheet
 
 class MenuViewStyles : Stylesheet() {

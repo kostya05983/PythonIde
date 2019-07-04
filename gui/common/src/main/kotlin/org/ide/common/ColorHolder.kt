@@ -1,3 +1,5 @@
+package org.ide.common
+
 import javafx.scene.paint.Color
 import tornadofx.c
 

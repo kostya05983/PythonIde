@@ -1,9 +1,9 @@
 package styles.projectChoser
 
-import ColorHolder
 import javafx.geometry.Pos
 import javafx.scene.control.ScrollPane
 import javafx.scene.paint.Color
+import org.ide.common.ColorHolder
 import tornadofx.Stylesheet
 
 class ListOfProjectsStyle : Stylesheet() {

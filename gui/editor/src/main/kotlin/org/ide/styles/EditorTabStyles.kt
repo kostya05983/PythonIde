@@ -1,5 +1,6 @@
-package styles
+package org.ide.styles
 
+import org.ide.common.ColorHolder
 import tornadofx.Stylesheet
 
 class EditorTabStyles : Stylesheet() {

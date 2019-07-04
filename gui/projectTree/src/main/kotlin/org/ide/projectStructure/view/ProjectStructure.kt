@@ -1,14 +1,14 @@
-package views.projectStructure
+package org.ide.projectStructure.view
 
 import javafx.scene.Parent
 import javafx.scene.input.MouseButton
 import javafx.stage.StageStyle
-import models.ItemData
-import models.ProjectStructureModel
-import styles.projectStructure.ProjectStructureStyles
+import org.ide.projectStructure.models.ItemData
+import org.ide.projectStructure.models.ProjectStructureModel
+import org.ide.projectStructure.styles.ProjectStructureStyles
+import org.ide.view.CreateEditorEvent
+import org.ide.view.EditorTabPane
 import tornadofx.*
-import views.CreateEditorEvent
-import views.EditorTabPane
 import java.io.File
 
 class ProjectStructure() : Fragment() {
@@ -67,9 +67,6 @@ class ProjectStructure() : Fragment() {
 }
 
 class NewFileEvent(val name: String) : FXEvent()
-
-//TODO это очень примитивный релод
-class ReloadEvent() : FXEvent()
 
 class OpenEvent(val file: File) : FXEvent()
 

@@ -1,6 +1,7 @@
 package styles.projectChoser
 
 import javafx.scene.paint.Color
+import org.ide.common.ColorHolder
 import tornadofx.Stylesheet
 
 class SelectionMenuStyles: Stylesheet() {

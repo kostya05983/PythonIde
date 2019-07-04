@@ -1,4 +1,4 @@
-package models
+package org.ide.projectStructure.models
 
 import javafx.scene.control.TreeItem
 import systemdeterminer.InfoSystem

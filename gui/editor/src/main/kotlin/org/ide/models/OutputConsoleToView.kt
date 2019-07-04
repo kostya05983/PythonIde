@@ -1,10 +1,10 @@
-package models
+package org.ide.models
 
 import lab2automat.OutputStrategy
+import org.ide.view.ClearOutputEvent
+import org.ide.view.OutputEvent
+import org.ide.view.OutputEventLn
 import tornadofx.Controller
-import views.ClearOutputEvent
-import views.OutputEvent
-import views.OutputEventLn
 
 class OutputConsoleToView : Controller(), OutputStrategy {
     override fun println(s: String) {

@@ -1,16 +1,18 @@
-package styles
+package org.ide.styles
 
+import org.ide.common.ColorHolder
 import tornadofx.Dimension
 import tornadofx.Stylesheet
 import tornadofx.box
+import tornadofx.stylesheet
 
-class EditorStyles: Stylesheet() {
+class OutputerStyles: Stylesheet() {
 
     init {
+
         Stylesheet.textArea {
-            Stylesheet.content {
+            content {
                 backgroundColor += ColorHolder.primaryColor
-                borderWidth += box(Dimension(0.0, Dimension.LinearUnits.px))
             }
             Stylesheet.focused {
                 backgroundColor += ColorHolder.primaryColor
@@ -19,7 +21,6 @@ class EditorStyles: Stylesheet() {
             backgroundInsets += box(Dimension(0.0, Dimension.LinearUnits.px))
             baseColor = ColorHolder.primaryColor
             focusColor = ColorHolder.primaryColor
-            textFill = ColorHolder.fontColor
         }
     }
 }

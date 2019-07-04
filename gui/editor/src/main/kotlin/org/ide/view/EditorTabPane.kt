@@ -1,8 +1,8 @@
-package views
+package org.ide.view
 
 import javafx.scene.control.TabPane
 import javafx.scene.layout.Priority
-import styles.EditorTabStyles
+import org.ide.styles.EditorTabStyles
 import systemdeterminer.InfoSystem
 import systemdeterminer.Systems
 import tornadofx.*

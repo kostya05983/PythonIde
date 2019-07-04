@@ -1,6 +1,5 @@
 package views.projectChoser
 
-import ColorHolder
 import javafx.geometry.Pos
 import javafx.scene.Parent
 import javafx.scene.control.ScrollPane
@@ -10,6 +9,7 @@ import javafx.scene.layout.VBox
 import javafx.scene.paint.Color
 import models.ListOfProjectModel
 import models.Project
+import org.ide.common.ColorHolder
 import styles.projectChoser.ListOfProjectsStyle
 import tornadofx.*
 import tornadofx.Stylesheet.Companion.hover

@@ -1,7 +1,7 @@
-import models.ProjectStructureModel
+import org.ide.projectStructure.models.ProjectStructureModel
+import org.ide.projectStructure.view.SubDirectory
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertEquals
-import views.projectStructure.SubDirectory
 import java.io.File
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

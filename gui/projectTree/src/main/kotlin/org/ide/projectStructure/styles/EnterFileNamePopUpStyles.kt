@@ -1,4 +1,4 @@
-package styles.projectStructure
+package org.ide.projectStructure.styles
 
 import org.ide.common.ColorHolder
 import tornadofx.Stylesheet

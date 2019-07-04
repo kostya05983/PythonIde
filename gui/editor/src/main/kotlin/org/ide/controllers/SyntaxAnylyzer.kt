@@ -1,4 +1,4 @@
-package controllers
+package org.ide.controllers
 
 
 interface SyntaxAnylyzer  {

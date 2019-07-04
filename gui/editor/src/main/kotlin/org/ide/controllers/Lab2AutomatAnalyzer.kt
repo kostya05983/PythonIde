@@ -1,10 +1,9 @@
-package controllers
+package org.ide.controllers
 
 import lab2automat.Parser
-import models.OutputConsoleToView
+import org.ide.models.OutputConsoleToView
+import org.ide.view.ClearOutputEvent
 import tornadofx.Controller
-import views.ClearOutputEvent
-import views.OutputEventLn
 
 class Lab2AutomatAnalyzer : SyntaxAnylyzer, Controller() {
     override fun analyze(s: String) {

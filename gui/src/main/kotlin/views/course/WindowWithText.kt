@@ -1,6 +1,7 @@
 package views.course
 
 import javafx.scene.Parent
+import org.ide.common.ColorHolder
 import tornadofx.*
 
 class WindowWithText(val text: String) : Fragment() {

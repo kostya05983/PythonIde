@@ -2,13 +2,13 @@ package views.menu
 
 import javafx.scene.Parent
 import javafx.stage.StageStyle
+import org.ide.projectStructure.view.OpenEvent
+import org.ide.view.EditorTabPane
+import org.ide.view.WriteEvent
 import styles.menu.MenuViewStyles
 import tornadofx.*
 import views.*
 import views.course.WindowWithText
-import views.projectChoser.ProjectChooser
-import views.projectStructure.EnterFileNamePopUp
-import views.projectStructure.OpenEvent
 
 class MenuView : View() {
     private val editorTabPane: EditorTabPane by inject()

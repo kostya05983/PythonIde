@@ -1,4 +1,4 @@
-package controllers
+package org.ide.controllers
 
 import tornadofx.Controller
 import scanner.ScannerAutomate

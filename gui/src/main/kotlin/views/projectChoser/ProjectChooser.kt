@@ -1,9 +1,9 @@
 package views.projectChoser
 
-import ColorHolder
 import javafx.geometry.Pos
 import javafx.scene.Parent
 import javafx.scene.layout.Priority
+import org.ide.common.ColorHolder
 import tornadofx.*
 
 /**

@@ -1,9 +1,10 @@
-package views.projectStructure
+package org.ide.projectStructure.view
 
 import javafx.geometry.Orientation
 import javafx.scene.Parent
 import javafx.scene.input.MouseButton
 import javafx.stage.StageStyle
+import org.ide.common.ColorHolder
 import tornadofx.*
 
 class CreatePopup : View() {
