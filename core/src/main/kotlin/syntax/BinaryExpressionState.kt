@@ -82,4 +82,6 @@ class BinaryExpressionState(override val analyzer: SyntaxAnalyzer,
         }
         memory.push(token.token)
     }
+
+
 }
